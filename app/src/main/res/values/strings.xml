@@ -8,7 +8,9 @@
     <string name="action_settings">Settings</string>
     <string name="wave_background">Wave background</string>
     <string name="app_icon">App icon</string>
-
+    <string name="header_background">Header Background</string>
+    <string name="app_logo">App Logo</string>
+    <string name="back_button">Back Button</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>

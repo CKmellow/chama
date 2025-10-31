@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_blue">#2196F3</color>
     <color name="text_secondary">#757575</color>
+    <color name="gradient_start_blue">#007BFF</color>
+    <color name="gradient_end_blue">#1E90FF</color>
+    <color name="light_blue_text">#64B5F6</color>
 </resources>

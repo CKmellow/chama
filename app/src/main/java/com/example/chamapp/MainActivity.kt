@@ -31,17 +31,28 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
         // Listen for navigation changes to hide/show the drawer and toolbar
+        // Listen for navigation changes to hide/show the drawer and toolbar
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.welcomeFragment) {
-                // We are in the auth flow, hide the main UI
+            // Create a list of all top-level destinations in the auth flow
+            val authDestinations = setOf(
+                R.id.splashFragment,
+                R.id.welcomeFragment,
+                R.id.loginFragment,
+                R.id.signUpFragment
+                // Add OTPFragment here later
+            )
+
+            if (destination.id in authDestinations) {
+                // If the current screen is in our auth list, hide the UI chrome
                 binding.appBarMain.toolbar.visibility = View.GONE
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             } else {
-                // We are in the main app, show the main UI
+                // Otherwise, we are in the main app, so show the UI chrome
                 binding.appBarMain.toolbar.visibility = View.VISIBLE
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
         }
+
 
         // Setup AppBarConfiguration
         appBarConfiguration = AppBarConfiguration(

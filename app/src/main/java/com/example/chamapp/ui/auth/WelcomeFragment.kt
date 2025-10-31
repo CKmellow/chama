@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.graphics.alpha
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
@@ -34,7 +32,7 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun animateElements() {
-        // Animation logic is the same as before
+        // Animation for Icon Container
         binding.cvIconContainer.alpha = 0f
         binding.cvIconContainer.animate()
             .alpha(1f)
@@ -42,6 +40,7 @@ class WelcomeFragment : Fragment() {
             .setStartDelay(200)
             .start()
 
+        // Animation for Welcome Title
         binding.tvWelcome.translationY = 50f
         binding.tvWelcome.alpha = 0f
         binding.tvWelcome.animate()
@@ -51,6 +50,7 @@ class WelcomeFragment : Fragment() {
             .setStartDelay(400)
             .start()
 
+        // Animation for Subtitle
         binding.tvSubtitle.translationY = 50f
         binding.tvSubtitle.alpha = 0f
         binding.tvSubtitle.animate()
@@ -60,35 +60,39 @@ class WelcomeFragment : Fragment() {
             .setStartDelay(500)
             .start()
 
-        binding.btnLogin.translationY = 50f
-        binding.btnLogin.alpha = 0f
-        binding.btnLogin.animate()
+        // Animate the "Create Account" button
+        binding.btnGoToSignUp.translationY = 50f
+        binding.btnGoToSignUp.alpha = 0f
+        binding.btnGoToSignUp.animate()
             .translationY(0f)
             .alpha(1f)
             .setDuration(600)
             .setStartDelay(600)
             .start()
 
-        binding.tvDeleteAccount.alpha = 0f
-        binding.tvDeleteAccount.animate()
+        // Animate the "Login" button
+        binding.btnGoToLogin.translationY = 50f
+        binding.btnGoToLogin.alpha = 0f
+        binding.btnGoToLogin.animate()
+            .translationY(0f)
             .alpha(1f)
             .setDuration(600)
-            .setStartDelay(800)
+            .setStartDelay(700) // Staggered start for a nice effect
             .start()
     }
 
     private fun setupClickListeners() {
-        binding.btnLogin.setOnClickListener {
-            // When login is clicked, navigate to the main app graph
-            // This assumes the user is now "logged in"
-            // We'll replace this with a real login screen later
-            findNavController().navigate(R.id.action_global_mobile_navigation)
+        // "Login" button navigates to LoginFragment
+        binding.btnGoToLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
         }
 
-        binding.tvDeleteAccount.setOnClickListener {
-            Toast.makeText(requireContext(), "Account deletion feature coming soon", Toast.LENGTH_SHORT).show()
+        // "Create Account" button navigates to SignUpFragment
+        binding.btnGoToSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_welcomeFragment_to_signUpFragment)
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

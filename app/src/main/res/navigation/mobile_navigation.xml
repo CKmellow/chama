@@ -3,16 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/auth_nav">
+    app:startDestination="@id/splashFragment"> <!-- NEW START DESTINATION -->
 
-    <!-- This includes the entire auth flow as the initial destination -->
+    <!-- 1. Splash Fragment (The New Entry Point) -->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.chamapp.ui.auth.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash" >
+        <!-- Action to go to the Authentication flow -->
+        <action
+            android:id="@+id/action_splashFragment_to_auth_nav"
+            app:destination="@id/auth_nav"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <!-- Action to go directly to the Main App (if logged in) -->
+        <action
+            android:id="@+id/action_splashFragment_to_main_app_nav"
+            app:destination="@id/main_app_nav"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- 2. Auth Flow (Welcome, Login, Sign Up) - No changes here -->
     <include app:graph="@navigation/auth_nav" />
 
-    <!-- This is the main content of your app, which is a nested graph -->
+    <!-- 3. Main App Content (Home, Gallery, etc.) - No changes here -->
     <navigation
         android:id="@+id/main_app_nav"
         app:startDestination="@id/nav_home">
-
+        <!-- ... your nav_home, nav_gallery, nav_slideshow fragments ... -->
         <fragment
             android:id="@+id/nav_home"
             android:name="com.example.chamapp.ui.home.HomeFragment"
@@ -30,7 +50,7 @@
             tools:layout="@layout/fragment_slideshow" />
     </navigation>
 
-    <!-- Global action to go from the auth flow to the main app flow -->
+    <!-- Global action to go from Auth to Main App - No changes here -->
     <action
         android:id="@+id/action_global_mobile_navigation"
         app:destination="@id/main_app_nav"

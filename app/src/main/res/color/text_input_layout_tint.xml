@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- This is the color when the field is focused (blue) -->
+    <item android:color="@color/primary_blue" android:state_focused="true"/>
+
+    <!-- This is the color for the hint text when floating above -->
+    <item android:color="@color/primary_blue" android:state_enabled="true" android:state_hovered="true"/>
+
+    <!-- This is the default color for the border and hint when unfocused (grey) -->
+    <item android:color="@color/text_secondary" android:state_enabled="true"/>
+
+    <!-- Fallback color -->
+    <item android:color="@color/text_secondary"/>
+</selector>

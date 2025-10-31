@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Chamapp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Chamapp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryVariant">@color/primary_blue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -11,15 +11,34 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
     </style>
 
+    <!-- Style for the NoActionBar theme used by the manifest -->
     <style name="Theme.Chamapp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!--
+    ================================================================
+    == ADDING THE TWO MISSING STYLES FOR THE APP BAR
+    ================================================================
+    -->
     <style name="Theme.Chamapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Chamapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Style for the text input fields -->
+    <!-- Style for the text input fields -->
+    <!-- Style for the text input fields -->
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- 1. This keeps the border blue at all times -->
+        <item name="boxStrokeColor">@color/primary_blue</item>
+
+        <!-- 2. This sets the color of the floating label text to your grey color -->
+        <item name="android:textColorHint">@color/text_secondary</item>
+    </style>
+
+
+
 </resources>
