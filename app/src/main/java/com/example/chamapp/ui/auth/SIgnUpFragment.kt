@@ -30,14 +30,13 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Make the "Sign In" text underlined
+        // Underline "Sign In"
         val signInText = SpannableString("Sign in")
         signInText.setSpan(UnderlineSpan(), 0, signInText.length, 0)
         binding.tvSignInLink.text = signInText
 
-        // Set up click listeners for navigation
+        // Navigate to login
         binding.tvSignInLink.setOnClickListener {
-            // Navigate back to the Login screen
             findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }
 
@@ -45,16 +44,15 @@ class SignUpFragment : Fragment() {
             if (validateInput()) {
                 val firstName = binding.etFirstName.text.toString().trim()
                 val lastName = binding.etLastName.text.toString().trim()
-                val fullName = "$firstName $lastName"
                 val email = binding.etEmail.text.toString().trim()
-                val phoneNumber = "+254${binding.etPhoneNumber.text.toString().trim()}"
+                val phoneNumber = binding.etPhoneNumber.text.toString().trim()
                 val password = binding.etPassword.text.toString()
-                viewModel.registerUser(fullName, email, phoneNumber, password)
+
+                viewModel.registerUser(firstName, lastName, email, phoneNumber, password)
             }
         }
 
         binding.ivBackButton.setOnClickListener {
-            // Go back to the previous screen (Welcome)
             findNavController().popBackStack()
         }
     }
@@ -70,46 +68,34 @@ class SignUpFragment : Fragment() {
         if (firstName.isEmpty()) {
             binding.tilFirstName.error = "First name is required"
             return false
-        } else {
-            binding.tilFirstName.error = null
-        }
+        } else binding.tilFirstName.error = null
 
         if (lastName.isEmpty()) {
             binding.tilLastName.error = "Last name is required"
             return false
-        } else {
-            binding.tilLastName.error = null
-        }
+        } else binding.tilLastName.error = null
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.tilEmail.error = "Invalid email format"
             return false
-        } else {
-            binding.tilEmail.error = null
-        }
+        } else binding.tilEmail.error = null
 
-        val kenyanPhoneRegex = "^7[0-9]{8}$".toRegex()
-        if (!kenyanPhoneRegex.matches(phoneNumber)) {
-            binding.tilPhoneNumber.error = "Invalid Kenyan phone number"
+        // Phone number: only check not empty
+        if (phoneNumber.isEmpty()) {
+            binding.tilPhoneNumber.error = "Phone number is required"
             return false
-        } else {
-            binding.tilPhoneNumber.error = null
-        }
+        } else binding.tilPhoneNumber.error = null
 
-        val passwordRegex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,}$".toRegex()
-        if (!passwordRegex.matches(password)) {
-            binding.tilPassword.error = "Password must be 8+ characters with letters, numbers, and special characters"
+        // Password: accept anything
+        if (password.isEmpty()) {
+            binding.tilPassword.error = "Password is required"
             return false
-        } else {
-            binding.tilPassword.error = null
-        }
+        } else binding.tilPassword.error = null
 
         if (password != verifyPassword) {
             binding.tilVerifyPassword.error = "Passwords do not match"
             return false
-        } else {
-            binding.tilVerifyPassword.error = null
-        }
+        } else binding.tilVerifyPassword.error = null
 
         return true
     }
