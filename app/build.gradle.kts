@@ -50,7 +50,14 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.mpandroidchart)
+    implementation(libs.play.services.base)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("com.github.kittinunf.fuel:fuel:2.3.1") // For simple HTTP calls
+    implementation("androidx.browser:browser:1.8.0") // For Chrome Custom Tabs
 }

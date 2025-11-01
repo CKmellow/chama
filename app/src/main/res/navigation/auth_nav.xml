@@ -5,70 +5,47 @@
     android:id="@+id/auth_nav"
     app:startDestination="@id/welcomeFragment">
 
-    <!-- 1. Welcome Fragment (Existing) -->
+    <!-- Welcome Fragment -->
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.example.chamapp.ui.auth.WelcomeFragment"
         android:label="WelcomeFragment"
         tools:layout="@layout/fragment_welcome">
-        <!-- Action: Go from Welcome screen to Login screen -->
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
-
-    <!-- 2. Login Fragment (New) -->
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.chamapp.ui.auth.LoginFragment"
-        android:label="Member Login"
-        tools:layout="@layout/fragment_login">
-        <!-- Action: Go from Login screen to Sign Up screen -->
-        <action
-            android:id="@+id/action_loginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <!-- TODO: Add action to go to Forgot Password screen later -->
-    </fragment>
-
-    <!-- 3. Sign-Up Fragment (New) -->
-    <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.example.chamapp.ui.auth.SignUpFragment"
-        android:label="Member sign up"
-        tools:layout="@layout/fragment_sign_up">
-        <!-- Action to go back to Login is handled by popBackStack() in the fragment code -->
-        <!-- TODO: Add action to go to OTP screen later -->
-    </fragment>
-    <!-- 1. Welcome Fragment -->
-    <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.example.chamapp.ui.auth.WelcomeFragment"
-        android:label="WelcomeFragment"
-        tools:layout="@layout/fragment_welcome">
-        <!-- Action: Go from Welcome screen to Login screen -->
-        <action
-            android:id="@+id/action_welcomeFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <!-- NEW ACTION: Go from Welcome screen to Sign Up screen -->
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_welcomeFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
+    <!-- Login Fragment -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.chamapp.ui.auth.LoginFragment"
+        android:label="Member Login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Sign-Up Fragment -->
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.chamapp.ui.auth.SignUpFragment"
+        android:label="Member Sign Up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>
