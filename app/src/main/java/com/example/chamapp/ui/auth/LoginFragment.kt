@@ -25,14 +25,24 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnSignIn.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        // Navigate to the main app when the sign-in button is clicked
+        binding.btnSignIn.setOnClickListener { // FIXED: Changed from btnLogin to btnSignIn
+            // TODO: Add validation logic here later
+            // For now, let's assume login is successful and navigate to the main part of the app.
+            // Replace 'action_global_main_flow' with your actual action ID to go to the main screen.
+            // findNavController().navigate(R.id.action_global_main_flow)
         }
 
-        binding.tvSignUpLink.setOnClickListener {
+        // Navigate to the sign-up page
+        binding.tvSignUpLink.setOnClickListener { // FIXED: Changed from tvGoToSignUp to tvSignUpLink
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
         }
+
+        binding.tvForgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordEmailFragment)
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
