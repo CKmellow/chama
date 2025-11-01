@@ -1,28 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="375dp"
-    android:height="350dp"
-    android:viewportWidth="375"
-    android:viewportHeight="350">
-
-    <!-- Large wave - darker blue -->
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="412dp"
+    android:height="250dp"
+    android:viewportWidth="412"
+    android:viewportHeight="250">
     <path
-        android:fillColor="#0D47A1"
-        android:pathData="M0,0 L375,0 L375,200 Q300,150 187.5,180 T0,220 Z" />
-
-    <!-- Medium wave - medium blue -->
+        android:pathData="M0,0H412V250H0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="206"
+                android:startY="0"
+                android:endX="206"
+                android:endY="250"
+                android:type="linear">
+                <item android:color="#2667FF" android:offset="0"/>
+                <item android:color="#0037AA" android:offset="1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
     <path
-        android:fillColor="#1976D2"
-        android:pathData="M0,0 L375,0 L375,180 Q280,140 187.5,160 T0,200 Z" />
-
-    <!-- Small wave - light blue -->
-    <path
-        android:fillColor="#2196F3"
-        android:pathData="M0,0 L375,0 L375,140 Q260,120 187.5,140 T0,160 Z" />
-
-    <!-- Top wave - lightest blue -->
-    <path
-        android:fillColor="#42A5F5"
-        android:pathData="M0,0 L375,0 L375,100 Q240,80 187.5,100 T0,120 Z" />
-
+        android:pathData="M-21.43,235.15C21.49,219.29 74.49,211.38 123.51,215.15C227.38,223.11 259.31,235.15 412,235.15V250H0C-7.14,244.72 -14.29,239.92 -21.43,235.15Z"
+        android:fillColor="#FFFFFF"/>
 </vector>
