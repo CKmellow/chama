@@ -12,4 +12,6 @@
     <color name="gradient_start_blue">#007BFF</color>
     <color name="gradient_end_blue">#1E90FF</color>
     <color name="light_blue_text">#64B5F6</color>
+    <color name="cornsilk">#FFF8DC</color>
+    <color name="blue_header">#1E90FF</color>
 </resources>
