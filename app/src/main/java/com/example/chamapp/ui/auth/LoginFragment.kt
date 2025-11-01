@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.chamapp.R
 import com.example.chamapp.api.LoginRequest
 import com.example.chamapp.api.RetrofitClient
 import com.example.chamapp.databinding.FragmentLoginBinding
@@ -31,9 +32,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Handle login
         binding.btnSignIn.setOnClickListener {
-            val email = binding.etEmail?.text.toString()?.trim() ?: ""
-            val password = binding.etPassword.text?.toString()?.trim() ?: ""
+            val email = binding.etEmail?.text.toString().trim()
+            val password = binding.etPassword?.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
@@ -42,7 +44,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        // Keep the SignUp navigation from their version
+        // Navigate to Sign Up
         binding.tvSignUpLink.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
         }
@@ -57,7 +59,9 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful && response.body() != null) {
                         val user = response.body()!!.user
                         Toast.makeText(requireContext(), "Welcome ${user?.first_name}", Toast.LENGTH_SHORT).show()
-                        // TODO: Navigate to main screen or store token
+
+                        // ✅ Navigate to Home on successful login
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     } else {
                         Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
                     }
