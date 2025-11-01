@@ -43,7 +43,9 @@ class SignUpFragment : Fragment() {
 
         binding.btnSignUp.setOnClickListener {
             if (validateInput()) {
-                val fullName = binding.etFullName.text.toString().trim()
+                val firstName = binding.etFirstName.text.toString().trim()
+                val lastName = binding.etLastName.text.toString().trim()
+                val fullName = "$firstName $lastName"
                 val email = binding.etEmail.text.toString().trim()
                 val phoneNumber = "+254${binding.etPhoneNumber.text.toString().trim()}"
                 val password = binding.etPassword.text.toString()
@@ -58,17 +60,25 @@ class SignUpFragment : Fragment() {
     }
 
     private fun validateInput(): Boolean {
-        val fullName = binding.etFullName.text.toString().trim()
+        val firstName = binding.etFirstName.text.toString().trim()
+        val lastName = binding.etLastName.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
         val phoneNumber = binding.etPhoneNumber.text.toString().trim()
         val password = binding.etPassword.text.toString()
         val verifyPassword = binding.etVerifyPassword.text.toString()
 
-        if (fullName.isEmpty()) {
-            binding.tilFullName.error = "Full name is required"
+        if (firstName.isEmpty()) {
+            binding.tilFirstName.error = "First name is required"
             return false
         } else {
-            binding.tilFullName.error = null
+            binding.tilFirstName.error = null
+        }
+
+        if (lastName.isEmpty()) {
+            binding.tilLastName.error = "Last name is required"
+            return false
+        } else {
+            binding.tilLastName.error = null
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

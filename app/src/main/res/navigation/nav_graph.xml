@@ -66,7 +66,6 @@
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.example.chamapp.ui.auth.ResetPasswordFragment"
-        android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password">
         <action
             android:id="@+id/action_resetPasswordFragment_to_passwordResetSuccessFragment"
@@ -86,6 +85,49 @@
         android:id="@+id/homeFragment"
         android:name="com.example.chamapp.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_createChamaFragment"
+            app:destination="@id/createChamaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_joinChamaFragment"
+            app:destination="@id/joinChamaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chamaDetailsFragment"
+            app:destination="@id/chamaDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createChamaFragment"
+        android:name="com.example.chamapp.ui.chama.CreateChamaFragment"
+        tools:layout="@layout/fragment_create_chama" />
+
+    <fragment
+        android:id="@+id/joinChamaFragment"
+        android:name="com.example.chamapp.ui.chama.JoinChamaFragment"
+        tools:layout="@layout/fragment_join_chama" />
+
+    <fragment
+        android:id="@+id/chamaDetailsFragment"
+        android:name="com.example.chamapp.ui.chama.ChamaDetailsFragment"
+        tools:layout="@layout/fragment_chama_details" >
+        <action
+            android:id="@+id/action_chamaDetailsFragment_to_membersListFragment"
+            app:destination="@id/membersListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/membersListFragment"
+        android:name="com.example.chamapp.ui.chama.MembersListFragment"
+        tools:layout="@layout/fragment_members_list" >
+        <action
+            android:id="@+id/action_membersListFragment_to_memberProfileFragment"
+            app:destination="@id/memberProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/memberProfileFragment"
+        android:name="com.example.chamapp.ui.chama.MemberProfileFragment"
+        tools:layout="@layout/fragment_member_profile" />
 
 </navigation>
