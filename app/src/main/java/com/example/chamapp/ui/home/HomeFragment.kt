@@ -38,11 +38,48 @@ class HomeFragment : Fragment() {
 
         // Dummy chama data
         val chamas = listOf(
-            Chama("Umoja Investment Group", 12),
-            Chama("Safari Savings", 8),
-            Chama("Jirani Welfare", 15)
+            Chama(
+                name = "Umoja Investment Group",
+                role = "Treasurer",
+                myContributions = "KES 45,000",
+                totalBalance = "KES 850,000",
+                status = "Up-to-date",
+                statusColor = "#388E3C", // Green
+                nextMeeting = "Nov 15, 2025"
+            ),
+            Chama(
+                name = "Safari Savings",
+                role = "Member",
+                myContributions = "KES 20,000",
+                totalBalance = "KES 400,000",
+                status = "Payment due soon",
+                statusColor = "#FFA000", // Orange
+                nextMeeting = "Nov 20, 2025"
+            ),
+            Chama(
+                name = "Jirani Welfare",
+                role = "Secretary",
+                myContributions = "KES 10,000",
+                totalBalance = "KES 120,000",
+                status = "In arrears",
+                statusColor = "#D32F2F", // Red
+                nextMeeting = "Nov 25, 2025"
+            )
         )
-        val adapter = ChamaAdapter(chamas)
+        val adapter = ChamaAdapter(chamas) { chama ->
+            // Navigate to ChamaDashboardFragment with chama details as arguments
+            val navController = androidx.navigation.fragment.findNavController(this)
+            val action = com.example.chamapp.ui.home.HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
+                chamaName = chama.name,
+                role = chama.role,
+                myContributions = chama.myContributions,
+                totalBalance = chama.totalBalance,
+                status = chama.status,
+                statusColor = chama.statusColor,
+                nextMeeting = chama.nextMeeting
+            )
+            navController.navigate(action)
+        }
         binding.rvChamas.layoutManager = LinearLayoutManager(requireContext())
         binding.rvChamas.adapter = adapter
 

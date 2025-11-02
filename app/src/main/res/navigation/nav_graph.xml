@@ -99,6 +99,31 @@
         <action
             android:id="@+id/action_homeFragment_to_chamaDetailsFragment"
             app:destination="@id/chamaDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chamaDashboardFragment"
+            app:destination="@id/chamaDashboardFragment">
+            <argument
+                android:name="chamaName"
+                app:argType="string" />
+            <argument
+                android:name="role"
+                app:argType="string" />
+            <argument
+                android:name="myContributions"
+                app:argType="string" />
+            <argument
+                android:name="totalBalance"
+                app:argType="string" />
+            <argument
+                android:name="status"
+                app:argType="string" />
+            <argument
+                android:name="statusColor"
+                app:argType="string" />
+            <argument
+                android:name="nextMeeting"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -133,5 +158,10 @@
         android:id="@+id/memberProfileFragment"
         android:name="com.example.chamapp.ui.chama.MemberProfileFragment"
         tools:layout="@layout/fragment_member_profile" />
+
+    <fragment
+        android:id="@+id/chamaDashboardFragment"
+        android:name="com.example.chamapp.ui.chama.ChamaDashboardFragment"
+        tools:layout="@layout/fragment_chama_dashboard" />
 
 </navigation>
