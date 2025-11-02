@@ -14,4 +14,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="wavy_header_background">Wavy header background</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="notification_bell">Notification bell</string>
 </resources>

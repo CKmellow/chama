@@ -38,7 +38,4 @@
         <!-- 2. This sets the color of the floating label text to your grey color -->
         <item name="android:textColorHint">@color/text_secondary</item>
     </style>
-
-
-
 </resources>
