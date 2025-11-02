@@ -1,39 +1,70 @@
 package com.example.chamapp.ui.auth
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.chamapp.api.LoginRequest
 import com.example.chamapp.api.RetrofitClient
 import com.example.chamapp.api.SignupRequest
-import kotlinx.coroutines.Dispatchers
+import com.example.chamapp.util.Event
+import com.example.chamapp.util.SessionManager
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import retrofit2.Response // The critical import that resolves the errors
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun registerUser(firstName: String, lastName: String, email: String, phoneNumber: String, password: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+    private val sessionManager = SessionManager(application)
+
+    private val _loginResult = MutableLiveData<Event<Boolean>>()
+    val loginResult: LiveData<Event<Boolean>> = _loginResult
+
+    fun loginUser(email: String, password: String) {
+        viewModelScope.launch {
             try {
-                val response = RetrofitClient.instance.signup(
-                    SignupRequest(
-                        first_name = firstName,
-                        last_name = lastName,
-                        email = email,
-                        phone_number = phoneNumber,
-                        password = password
-                    )
-                ).execute()
+                // This 'response' variable is now correctly typed as retrofit2.Response
+                val response: Response<com.example.chamapp.api.AuthResponse> = RetrofitClient.instance.login(
+                    LoginRequest(email = email, password = password)
+                )
 
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        val body = response.body()
-                        Log.d("AuthViewModel", "Signup success: ${body?.message}")
+                // Now, these properties will be resolvzed correctly
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+
+                    if (responseBody?.access_token != null) {
+                        sessionManager.saveAuthToken(responseBody.access_token)
+                        Log.d("AuthViewModel", "Login successful, token SAVED.")
+                        _loginResult.postValue(Event(true))
                     } else {
-                        Log.e("AuthViewModel", "Signup failed: ${response.errorBody()?.string()}")
+                        Log.e("AuthViewModel", "Login successful but no token in response.")
+                        _loginResult.postValue(Event(false))
                     }
+                } else {
+                    val errorDetails = response.errorBody()?.string()
+                    Log.e("AuthViewModel", "Login failed: $errorDetails")
+                    _loginResult.postValue(Event(false))
                 }
             } catch (e: Exception) {
-                Log.e("AuthViewModel", "Signup error: ${e.message}")
+                Log.e("AuthViewModel", "Login network error: ${e.message}", e)
+                _loginResult.postValue(Event(false))
+            }
+        }
+    }
+
+    fun registerUser(signupRequest: SignupRequest) {
+        viewModelScope.launch {
+            try {
+                val response: Response<com.example.chamapp.api.AuthResponse> = RetrofitClient.instance.signup(signupRequest)
+                if (response.isSuccessful) {
+                    Log.d("AuthViewModel", "Signup successful.")
+                } else {
+                    val errorDetails = response.errorBody()?.string()
+                    Log.e("AuthViewModel", "Signup failed: $errorDetails")
+                }
+            } catch (e: Exception) {
+                Log.e("AuthViewModel", "Signup network error: ${e.message}", e)
             }
         }
     }

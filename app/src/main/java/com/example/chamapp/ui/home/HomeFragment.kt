@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.chamapp.R //
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chamapp.databinding.FragmentHomeBinding
 
@@ -35,7 +37,9 @@ class HomeFragment : Fragment() {
         binding.tvDate.text = "Nov 2, 2025"
         binding.tvNotificationBadge.text = "3"
         // Profile photo and notification bell are static for now
-
+        binding.btnJoinChama.setOnClickListener{
+        findNavController().navigate(R.id.action_homeFragment_to_createChamaFragment)
+}
         // Dummy chama data
         val chamas = listOf(
             Chama("Umoja Investment Group", 12),
