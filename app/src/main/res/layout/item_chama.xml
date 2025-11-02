@@ -1,139 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="16dp"
+    android:layout_margin="8dp"
     app:cardElevation="4dp"
-    android:layout_marginBottom="12dp">
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@drawable/card_accent_top" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvChamaName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <!-- Chama Name -->
-            <TextView
-                android:id="@+id/tvChamaName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/gradient_start_blue"
-                app:layout_constraintEnd_toStartOf="@+id/tvChamaRole"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Umoja Investment Group" />
+        <TextView
+            android:id="@+id/tvChamaMembers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?attr/textAppearanceBody2" />
 
-            <!-- User's Role in Chama -->
-            <TextView
-                android:id="@+id/tvChamaRole"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/role_badge_bg"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="4dp"
-                android:textColor="@color/gradient_start_blue"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvChamaName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvChamaName"
-                tools:text="Treasurer" />
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="#eeeeee"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvChamaName" />
-
-            <!-- Contribution Info -->
-            <TextView
-                android:id="@+id/tvMyContributionsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="My Contributions"
-                android:textColor="#555555"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-            <TextView
-                android:id="@+id/tvMyContributions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMyContributionsLabel"
-                tools:text="KES 45,000" />
-
-            <!-- Total Balance Info -->
-            <TextView
-                android:id="@+id/tvTotalBalanceLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Balance"
-                android:textColor="#555555"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvMyContributionsLabel" />
-
-            <TextView
-                android:id="@+id/tvTotalBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTotalBalanceLabel"
-                tools:text="KES 850,000" />
-
-
-            <!-- Status and Next Meeting -->
-            <TextView
-                android:id="@+id/tvChamaStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvMyContributions"
-                tools:text="Up-to-date" />
-
-            <TextView
-                android:id="@+id/tvNextMeeting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#555555"
-                app:layout_constraintBottom_toBottomOf="@+id/tvChamaStatus"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvChamaStatus"
-                tools:text="Next meeting: Nov 15" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
