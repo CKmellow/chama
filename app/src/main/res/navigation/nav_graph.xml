@@ -85,10 +85,10 @@
             android:id="@+id/action_passwordResetSuccessFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.chamapp.ui.home.HomeFragment"
-        android:label=""
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_createChamaFragment"
@@ -101,29 +101,7 @@
             app:destination="@id/chamaDetailsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_chamaDashboardFragment"
-            app:destination="@id/chamaDashboardFragment">
-            <argument
-                android:name="chamaName"
-                app:argType="string" />
-            <argument
-                android:name="role"
-                app:argType="string" />
-            <argument
-                android:name="myContributions"
-                app:argType="string" />
-            <argument
-                android:name="totalBalance"
-                app:argType="string" />
-            <argument
-                android:name="status"
-                app:argType="string" />
-            <argument
-                android:name="statusColor"
-                app:argType="string" />
-            <argument
-                android:name="nextMeeting"
-                app:argType="string" />
-        </action>
+            app:destination="@id/chamaDashboardFragment"/>
     </fragment>
 
     <fragment
@@ -162,6 +140,28 @@
     <fragment
         android:id="@+id/chamaDashboardFragment"
         android:name="com.example.chamapp.ui.chama.ChamaDashboardFragment"
-        tools:layout="@layout/fragment_chama_dashboard" />
+        tools:layout="@layout/fragment_chama_dashboard" >
+        <argument
+            android:name="chamaName"
+            app:argType="string" />
+        <argument
+            android:name="role"
+            app:argType="string" />
+        <argument
+            android:name="myContributions"
+            app:argType="string" />
+        <argument
+            android:name="totalBalance"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="string" />
+        <argument
+            android:name="statusColor"
+            app:argType="string" />
+        <argument
+            android:name="nextMeeting"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

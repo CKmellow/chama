@@ -14,7 +14,7 @@ class AuthViewModel : ViewModel() {
     fun registerUser(firstName: String, lastName: String, email: String, phoneNumber: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitClient.instance.signup(
+                val response = com.example.chamapp.api.RetrofitClient.getInstance(null).signup(
                     SignupRequest(
                         first_name = firstName,
                         last_name = lastName,
@@ -22,8 +22,7 @@ class AuthViewModel : ViewModel() {
                         phone_number = phoneNumber,
                         password = password
                     )
-                ).execute()
-
+                )
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         val body = response.body()

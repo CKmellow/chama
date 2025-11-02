@@ -19,23 +19,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--
-    ================================================================
-    == ADDING THE TWO MISSING STYLES FOR THE APP BAR
-    ================================================================
-    -->
+    <!-- App bar overlays -->
     <style name="Theme.Chamapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="Theme.Chamapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- Style for the text input fields -->
-    <!-- Style for the text input fields -->
-    <!-- Style for the text input fields -->
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <!-- 1. This keeps the border blue at all times -->
+        <!-- Keep the border blue at all times -->
         <item name="boxStrokeColor">@color/primary_blue</item>
-
-        <!-- 2. This sets the color of the floating label text to your grey color -->
+        <!-- Floating label text color -->
         <item name="android:textColorHint">@color/text_secondary</item>
     </style>
 </resources>

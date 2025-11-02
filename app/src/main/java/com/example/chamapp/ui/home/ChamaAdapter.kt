@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamapp.R
@@ -24,18 +25,25 @@ class ChamaAdapter(
     private val onChamaClick: (Chama) -> Unit
 ) : RecyclerView.Adapter<ChamaAdapter.ChamaViewHolder>() {
 
+    private var chamaList: List<Chama> = chamas
+
+    fun updateChamas(newChamas: List<Chama>) {
+        chamaList = newChamas
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChamaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chama, parent, false)
         return ChamaViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ChamaViewHolder, position: Int) {
-        val chama = chamas[position]
+        val chama = chamaList[position]
         holder.bind(chama)
         holder.itemView.setOnClickListener { onChamaClick(chama) }
     }
 
-    override fun getItemCount() = chamas.size
+    override fun getItemCount() = chamaList.size
 
     class ChamaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // All TextViews from the new item_chama.xml layout
@@ -45,6 +53,7 @@ class ChamaAdapter(
         private val totalBalance: TextView = itemView.findViewById(R.id.tvTotalBalance)
         private val chamaStatus: TextView = itemView.findViewById(R.id.tvChamaStatus)
         private val nextMeeting: TextView = itemView.findViewById(R.id.tvNextMeeting)
+        private val btnJoin: Button = itemView.findViewById(R.id.btnJoinChama)
 
         fun bind(chama: Chama) {
             chamaName.text = chama.name
@@ -60,6 +69,10 @@ class ChamaAdapter(
             } catch (e: IllegalArgumentException) {
                 // Fallback to a default color if the string is invalid
                 chamaStatus.setTextColor(Color.BLACK)
+            }
+
+            btnJoin.setOnClickListener {
+                // TODO: Implement join chama logic here
             }
         }
     }

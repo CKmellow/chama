@@ -23,7 +23,7 @@ class ChamaDashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Fix: Use SafeArgs to get arguments, ensure SafeArgs is set up and project is rebuilt
-        val args = com.example.chamapp.ui.chama.ChamaDashboardFragmentArgs.fromBundle(requireArguments())
+    val args = com.example.chamapp.ui.chama.ChamaDashboardFragmentArgs.fromBundle(requireArguments())
         binding.tvChamaName.text = args.chamaName
         binding.tvUserRole.text = "Your Role: ${args.role}"
         binding.tvMembersActiveSince.text = "Members: 25 | Active Since: Jan 2024" // Example static, replace with real data

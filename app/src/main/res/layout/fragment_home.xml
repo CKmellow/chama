@@ -21,7 +21,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/wavy_header_background" />
 
-    <!-- Header Content -->
+    <!-- Animated Greeting Row (unique id) -->
+    <LinearLayout
+        android:id="@+id/greetingRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <ImageView
+            android:id="@+id/ivPiggyMascot"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_piggy_bank"
+            android:contentDescription="Piggy bank mascot"
+            android:layout_marginEnd="12dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvAnimatedGreeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome back, User!"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_blue"
+            android:layout_gravity="center_vertical"
+            android:alpha="0" />
+    </LinearLayout>
+
+    <!-- Header Content (keep only one tvGreeting) -->
     <TextView
         android:id="@+id/tvGreeting"
         android:layout_width="wrap_content"
@@ -254,6 +288,19 @@
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_chama"
             tools:itemCount="1"/>
+
+        <TextView
+            android:id="@+id/tvNoChamas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No chamas found."
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tvGreeting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
 
