@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chamapp.R
 import com.example.chamapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -50,6 +53,13 @@ class HomeFragment : Fragment() {
         binding.tvTotalSavingsAmount.text = "KES 150,000"
         binding.tvActiveLoansValue.text = "2 loans - KES 30,000"
         binding.tvUpcomingVotesValue.text = "3 pending"
+
+        // Handle hamburger menu click
+        binding.ivMenu.setOnClickListener {
+            // Find the drawer layout in the activity's view hierarchy and open it
+            val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
+            drawerLayout?.openDrawer(GravityCompat.START)
+        }
     }
 
     override fun onDestroyView() {
