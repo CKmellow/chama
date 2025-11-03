@@ -8,7 +8,7 @@
     android:background="#f5f5f5"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- Wavy Header Background -->
+    <!-- 🟦 Wavy Header Background -->
     <ImageView
         android:id="@+id/ivWaveHeader"
         android:layout_width="match_parent"
@@ -21,41 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/wavy_header_background" />
 
-    <!-- Animated Greeting Row (unique id) -->
-    <LinearLayout
-        android:id="@+id/greetingRow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="24dp"
-        android:paddingBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
-
-        <ImageView
-            android:id="@+id/ivPiggyMascot"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_piggy_bank"
-            android:contentDescription="Piggy bank mascot"
-            android:layout_marginEnd="12dp"
-            android:layout_gravity="center_vertical"
-            android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/tvAnimatedGreeting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome back, User!"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_blue"
-            android:layout_gravity="center_vertical"
-            android:alpha="0" />
-    </LinearLayout>
-
-    <!-- Header Content (keep only one tvGreeting) -->
+    <!-- 🟢 Greeting and User Info -->
     <TextView
         android:id="@+id/tvGreeting"
         android:layout_width="wrap_content"
@@ -80,6 +46,7 @@
         app:layout_constraintStart_toStartOf="@+id/tvGreeting"
         app:layout_constraintTop_toBottomOf="@+id/tvGreeting" />
 
+    <!-- Profile and Notification Icons -->
     <ImageView
         android:id="@+id/ivProfile"
         android:layout_width="40dp"
@@ -119,7 +86,7 @@
         android:translationY="-8dp"
         tools:text="3" />
 
-    <!-- Dashboard Cards -->
+    <!-- 🟧 Dashboard Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -131,6 +98,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="-60dp">
 
+        <!-- Create Chama Button -->
+        <Button
+            android:id="@+id/btn_create_chama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Create a New Chama"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/gradient_start_blue" />
+
+        <!-- Quick Stats Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardQuickStats"
             android:layout_width="match_parent"
@@ -143,136 +122,44 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@drawable/card_accent_top"/>
+                <TextView
+                    android:text="Quick Stats"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/gradient_start_blue" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvTotalSavingsAmount"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_marginTop="8dp"
+                    android:text="KES 150,000"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tvActiveLoansValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 loans - KES 30,000"
+                    android:textColor="#555555"
+                    android:textSize="16sp" />
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_savings_wallet"
-                            app:tint="@color/gradient_start_blue" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Total Savings"
-                            android:textColor="@color/gradient_start_blue"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tvTotalSavingsAmount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="KES 150,000"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#eeeeee"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_active_loans"
-                            app:tint="@color/gradient_start_blue" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Active Loans"
-                            android:textColor="@color/gradient_start_blue"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tvActiveLoansValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="2 loans - KES 30,000"
-                        android:textColor="#555555"
-                        android:textSize="16sp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#eeeeee"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"/>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_upcoming_votes"
-                            app:tint="@color/gradient_start_blue" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Upcoming Votes"
-                            android:textColor="@color/gradient_start_blue"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tvUpcomingVotesValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="3 pending"
-                        android:textColor="#555555"
-                        android:textSize="16sp"/>
-
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/tvUpcomingVotesValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 pending"
+                    android:textColor="#555555"
+                    android:textSize="16sp" />
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- My Chamas Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -280,14 +167,14 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/gradient_start_blue"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvChamas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_chama"
-            tools:itemCount="1"/>
+            tools:itemCount="3" />
 
         <TextView
             android:id="@+id/tvNoChamas"
@@ -298,10 +185,7 @@
             android:textSize="16sp"
             android:layout_marginTop="16dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/tvGreeting"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
+            android:gravity="center_horizontal" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
+import com.example.chamapp.api.SignupRequest
 import com.example.chamapp.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment() {
@@ -46,9 +47,23 @@ class SignUpFragment : Fragment() {
                 val lastName = binding.etLastName.text.toString().trim()
                 val email = binding.etEmail.text.toString().trim()
                 val phoneNumber = binding.etPhoneNumber.text.toString().trim()
+                // In SignUpFragment.kt, inside the btnSignUp.setOnClickListener block
+
                 val password = binding.etPassword.text.toString()
 
-                viewModel.registerUser(firstName, lastName, email, phoneNumber, password)
+                // FIX: Create a SignupRequest object
+                val signupRequest = SignupRequest(
+                    first_name = firstName,
+                    last_name = lastName,
+                    email = email,
+                    phone_number = phoneNumber,
+                    password = password
+                    // The 'role' will default to "user" as defined in the data class
+                )
+
+                // Now pass the single object to the ViewModel
+                viewModel.registerUser(signupRequest)
+
             }
         }
 

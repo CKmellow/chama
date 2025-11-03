@@ -41,7 +41,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.signUpFragment
                 // Add OTPFragment here later
             )
-
+            val chamaDestinations = setOf(
+                R.id.nav_home,
+                R.id.nav_gallery,
+                R.id.nav_slideshow
+            )
             if (destination.id in authDestinations) {
                 // If the current screen is in our auth list, hide the UI chrome
                 binding.appBarMain.toolbar.visibility = View.GONE
