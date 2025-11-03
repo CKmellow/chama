@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- Top Section -->
+    <LinearLayout
+        android:id="@+id/topSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Back" />
+            <TextView
+                android:id="@+id/tvChamaName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Umoja Investment Group"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:gravity="center" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tvUserRole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Role: Treasurer"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+        <TextView
+            android:id="@+id/tvMembersActiveSince"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Members: 25 | Active Since: Jan 2024"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+    <!-- Financial Overview Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardFinancialOverview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/topSection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <TextView
+                android:text="CHAMA FINANCIAL STATUS"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+            <TextView
+                android:id="@+id/tvChamaBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Chama Balance:    KES 850,000"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvChamaTotalContributions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Contributions:    KES 1,200,000"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvChamaActiveLoans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active Loans:           KES 350,000"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvChamaAvailableLoans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available for Loans:    KES 500,000"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- My Personal Summary Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPersonalSummary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/cardFinancialOverview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <TextView
+                android:text="MY PERSONAL SUMMARY"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+            <TextView
+                android:id="@+id/tvMyTotalContributions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Total Contributions: KES 45,000"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvMyThisMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This Month:            KES 5,000 ✅"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvMyNextPaymentDue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Payment Due:      Dec 1, 2025"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvMyActiveLoan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Active Loan:        KES 15,000"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvMyNextInstallment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Installment:      KES 2,500 (Nov 10)"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Quick Actions Buttons (example for Treasurer) -->
+    <LinearLayout
+        android:id="@+id/quickActionsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/cardPersonalSummary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnRecordContribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Record Contribution"
+            android:layout_marginEnd="8dp" />
+        <Button
+            android:id="@+id/btnReviewLoans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Review Loans"
+            android:layout_marginEnd="8dp" />
+        <Button
+            android:id="@+id/btnGenerateReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate Report" />
+    </LinearLayout>
+
+    <!-- TODO: Add role-based sections and bottom navigation here -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

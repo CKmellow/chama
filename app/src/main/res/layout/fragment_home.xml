@@ -5,23 +5,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#f5f5f5"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- Wavy Header Background -->
+    <!-- 🟦 Wavy Header Background -->
     <ImageView
         android:id="@+id/ivWaveHeader"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_wave_pattern"
-        app:tint="@color/gradient_start_blue" 
+        app:tint="@color/gradient_start_blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/wavy_header_background" />
 
-    <!-- Header Content -->
+    <!-- 🟢 Greeting and User Info -->
     <TextView
         android:id="@+id/tvGreeting"
         android:layout_width="wrap_content"
@@ -45,7 +45,8 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/tvGreeting"
         app:layout_constraintTop_toBottomOf="@+id/tvGreeting" />
-        
+
+    <!-- Profile and Notification Icons -->
     <ImageView
         android:id="@+id/ivProfile"
         android:layout_width="40dp"
@@ -68,7 +69,7 @@
         app:layout_constraintTop_toTopOf="@+id/ivProfile"
         app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
         android:contentDescription="@string/notification_bell" />
-        
+
     <TextView
         android:id="@+id/tv_notification_badge"
         android:layout_width="wrap_content"
@@ -84,29 +85,38 @@
         android:translationX="8dp"
         android:translationY="-8dp"
         tools:text="3" />
-    <Button
-        android:id="@+id/btn_create_chama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" android:text="create a New Chama" />
-    <!-- Dashboard Cards -->
+
+    <!-- 🟧 Dashboard Content -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintTop_toBottomOf="@+id/ivWaveHeader"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="-60dp">
 
+        <!-- Create Chama Button -->
+        <Button
+            android:id="@+id/btn_create_chama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Create a New Chama"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/gradient_start_blue" />
+
+        <!-- Quick Stats Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardQuickStats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/light_blue_text"
+            app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
+            app:cardElevation="4dp"
             android:layout_marginBottom="16dp">
 
             <LinearLayout
@@ -119,9 +129,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Quick Stats"
-                    android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="@color/gradient_start_blue" />
 
                 <TextView
                     android:id="@+id/tvTotalSavingsAmount"
@@ -129,37 +139,55 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="KES 150,000"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvActiveLoansValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2 loans - KES 30,000"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textColor="#555555"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:id="@+id/tvUpcomingVotesValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3 pending"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"/>
+                    android:textColor="#555555"
+                    android:textSize="16sp" />
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- My Chamas Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Chamas"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/gradient_start_blue"
+            android:layout_marginBottom="8dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvChamas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_chama"
-            tools:itemCount="3"/>
+            tools:itemCount="3" />
 
+        <TextView
+            android:id="@+id/tvNoChamas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No chamas found."
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:gravity="center_horizontal" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

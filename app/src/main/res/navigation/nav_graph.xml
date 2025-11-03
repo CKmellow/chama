@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/splashFragment">
 
+    <!-- Splash Fragment -->
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.chamapp.ui.auth.SplashFragment"
@@ -16,6 +18,7 @@
             app:destination="@id/homeFragment" />
     </fragment>
 
+    <!-- Welcome Fragment -->
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.example.chamapp.ui.auth.WelcomeFragment"
@@ -28,6 +31,7 @@
             app:destination="@id/signUpFragment" />
     </fragment>
 
+    <!-- Login Fragment -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.chamapp.ui.auth.LoginFragment"
@@ -45,6 +49,7 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <!-- Sign Up Fragment -->
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.chamapp.ui.auth.SignUpFragment"
@@ -59,6 +64,7 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <!-- Reset Password Email Fragment -->
     <fragment
         android:id="@+id/resetPasswordEmailFragment"
         android:name="com.example.chamapp.ui.auth.ResetPasswordEmailFragment"
@@ -68,6 +74,7 @@
             app:destination="@id/resetPasswordFragment" />
     </fragment>
 
+    <!-- Reset Password Fragment -->
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.example.chamapp.ui.auth.ResetPasswordFragment"
@@ -77,6 +84,7 @@
             app:destination="@id/passwordResetSuccessFragment" />
     </fragment>
 
+    <!-- Password Reset Success Fragment -->
     <fragment
         android:id="@+id/passwordResetSuccessFragment"
         android:name="com.example.chamapp.ui.auth.PasswordResetSuccessFragment"
@@ -86,6 +94,7 @@
             app:destination="@id/loginFragment" />
     </fragment>
 
+    <!-- Home Fragment -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.chamapp.ui.home.HomeFragment"
@@ -100,20 +109,26 @@
             android:id="@+id/action_homeFragment_to_chamaDetailsFragment"
             app:destination="@id/chamaDetailsFragment" />
         <action
+            android:id="@+id/action_homeFragment_to_chamaDashboardFragment"
+            app:destination="@id/chamaDashboardFragment"/>
+        <action
             android:id="@+id/action_homeFragment_self"
             app:destination="@id/homeFragment" />
     </fragment>
 
+    <!-- Create Chama Fragment -->
     <fragment
         android:id="@+id/createChamaFragment"
         android:name="com.example.chamapp.ui.chama.CreateChamaFragment"
         tools:layout="@layout/fragment_create_chama" />
 
+    <!-- Join Chama Fragment -->
     <fragment
         android:id="@+id/joinChamaFragment"
         android:name="com.example.chamapp.ui.chama.JoinChamaFragment"
         tools:layout="@layout/fragment_join_chama" />
 
+    <!-- Chama Details Fragment -->
     <fragment
         android:id="@+id/chamaDetailsFragment"
         android:name="com.example.chamapp.ui.chama.ChamaDetailsFragment"
@@ -123,6 +138,7 @@
             app:destination="@id/membersListFragment" />
     </fragment>
 
+    <!-- Members List Fragment -->
     <fragment
         android:id="@+id/membersListFragment"
         android:name="com.example.chamapp.ui.chama.MembersListFragment"
@@ -132,9 +148,38 @@
             app:destination="@id/memberProfileFragment" />
     </fragment>
 
+    <!-- Member Profile Fragment -->
     <fragment
         android:id="@+id/memberProfileFragment"
         android:name="com.example.chamapp.ui.chama.MemberProfileFragment"
         tools:layout="@layout/fragment_member_profile" />
+
+    <!-- Chama Dashboard Fragment (extra from first nav graph) -->
+    <fragment
+        android:id="@+id/chamaDashboardFragment"
+        android:name="com.example.chamapp.ui.chama.ChamaDashboardFragment"
+        tools:layout="@layout/fragment_chama_dashboard" >
+        <argument
+            android:name="chamaName"
+            app:argType="string" />
+        <argument
+            android:name="role"
+            app:argType="string" />
+        <argument
+            android:name="myContributions"
+            app:argType="string" />
+        <argument
+            android:name="totalBalance"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="string" />
+        <argument
+            android:name="statusColor"
+            app:argType="string" />
+        <argument
+            android:name="nextMeeting"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
