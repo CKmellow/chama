@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         binding.tvDate.text = "Nov 2, 2025"
         binding.tvNotificationBadge.text = "3"
         // Profile photo and notification bell are static for now
-        binding.btnJoinChama.setOnClickListener{
+        binding.btnCreateChama.setOnClickListener{
         findNavController().navigate(R.id.action_homeFragment_to_createChamaFragment)
 }
         // Dummy chama data

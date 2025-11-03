@@ -85,10 +85,10 @@
         android:translationY="-8dp"
         tools:text="3" />
     <Button
-        android:id="@+id/btn_join_chama"
+        android:id="@+id/btn_create_chama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" android:text="Join a New Chama" />
+        android:layout_marginTop="16dp" android:text="create a New Chama" />
     <!-- Dashboard Cards -->
     <LinearLayout
         android:layout_width="match_parent"
