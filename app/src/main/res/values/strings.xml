@@ -1,4 +1,34 @@
 <resources>
+    <string-array name="chama_types_array">
+        <item>investment</item>
+        <item>welfare</item>
+        <item>merry-go-round</item>
+        <item>hybrid</item>
+    </string-array>
+
+    <string-array name="contribution_schedules_array">
+        <item>weekly</item>
+        <item>monthly</item>
+        <item>custom</item>
+    </string-array>
+    <!-- In strings.xml -->
+    <string-array name="meeting_frequency_array">
+        <item>weekly</item>
+        <item>monthly</item>
+        <item>quarterly</item>
+        <item>custom</item>
+    </string-array>
+
+    <string-array name="meeting_day_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
     <string name="app_name">chamapp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

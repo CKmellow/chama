@@ -132,6 +132,65 @@
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Contribution Due Day (e.g., 5 for 5th)">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_contribution_due_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ADDED: Max Loan Term -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Max Loan Term (in months)">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_loan_max_term_months"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ADDED: Meeting Frequency -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Meeting Frequency">
+
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_meeting_frequency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- ADDED: Meeting Day -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Meeting Day">
+
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_meeting_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_create_chama"
                 android:layout_width="match_parent"
@@ -140,6 +199,13 @@
                 android:background="@drawable/gradient_button_background"
                 android:text="Create Chama and Get Invite Code"
                 android:textColor="@color/white" />
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"  />
 
         </LinearLayout>
     </ScrollView>

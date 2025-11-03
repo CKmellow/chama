@@ -40,6 +40,7 @@ class SignUpFragment : Fragment() {
             findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }
 
+        // Handle sign-up button click
         binding.btnSignUp.setOnClickListener {
             if (validateInput()) {
                 val firstName = binding.etFirstName.text.toString().trim()
@@ -48,6 +49,7 @@ class SignUpFragment : Fragment() {
                 val phoneNumber = binding.etPhoneNumber.text.toString().trim()
                 val password = binding.etPassword.text.toString()
 
+                // Register user
                 viewModel.registerUser(firstName, lastName, email, phoneNumber, password)
             }
         }
@@ -80,13 +82,11 @@ class SignUpFragment : Fragment() {
             return false
         } else binding.tilEmail.error = null
 
-        // Phone number: only check not empty
         if (phoneNumber.isEmpty()) {
             binding.tilPhoneNumber.error = "Phone number is required"
             return false
         } else binding.tilPhoneNumber.error = null
 
-        // Password: accept anything
         if (password.isEmpty()) {
             binding.tilPassword.error = "Password is required"
             return false

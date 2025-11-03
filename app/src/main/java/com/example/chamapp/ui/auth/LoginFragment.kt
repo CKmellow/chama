@@ -12,6 +12,7 @@ import com.example.chamapp.R
 import com.example.chamapp.api.LoginRequest
 import com.example.chamapp.api.RetrofitClient
 import com.example.chamapp.databinding.FragmentLoginBinding
+import com.example.chamapp.util.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,10 +33,12 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Handle login
+        // Handle login button click
         binding.btnSignIn.setOnClickListener {
             val email = binding.etEmail?.text.toString().trim()
             val password = binding.etPassword?.text.toString().trim()
+
+            android.util.Log.d("LoginFragment", "Sign In clicked: email=$email")
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
@@ -44,31 +47,54 @@ class LoginFragment : Fragment() {
             }
         }
 
-        // Navigate to Sign Up
+        // Navigate to Sign Up page
         binding.tvSignUpLink.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
         }
     }
 
     private fun loginUser(email: String, password: String) {
+        val sessionManager = SessionManager(requireContext())
+
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitClient.instance.login(LoginRequest(email, password)).execute()
+                val response = RetrofitClient.instance.login(LoginRequest(email, password))
 
                 withContext(Dispatchers.Main) {
-                    if (response.isSuccessful && response.body() != null) {
-                        val user = response.body()!!.user
-                        Toast.makeText(requireContext(), "Welcome ${user?.first_name}", Toast.LENGTH_SHORT).show()
+                    if (response.isSuccessful) {
+                        val authResponse = response.body()
+                        android.util.Log.d("LoginFragment", "Login response: $authResponse")
 
-                        // ✅ Navigate to Home on successful login
+                        val token = authResponse?.access_token
+                        val user = authResponse?.user
+
+                        if (!token.isNullOrBlank()) {
+                            sessionManager.saveAuthToken(token)
+                            android.util.Log.d("LoginFragment", "Token saved: $token")
+                        }
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Welcome ${user?.first_name ?: "User"}!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        // Navigate to Home screen
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     } else {
-                        Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
+                        val error = response.errorBody()?.string()
+                        Toast.makeText(requireContext(), "Login failed: $error", Toast.LENGTH_LONG).show()
+                        android.util.Log.e("LoginFragment", "Login failed: $error")
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    val errorMessage = when (e) {
+                        is java.net.UnknownHostException -> "No internet connection"
+                        else -> "Unexpected error: ${e.message}"
+                    }
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                    android.util.Log.e("LoginFragment", "Error: ${e.message}", e)
                 }
             }
         }
