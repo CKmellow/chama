@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
 
         if (token == null) {
             Toast.makeText(requireContext(), "Please log in again.", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+            findNavController().navigate(R.id.auth_nav)
             return
         }
 

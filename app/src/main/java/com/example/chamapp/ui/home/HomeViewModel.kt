@@ -24,7 +24,7 @@ class HomeViewModel : ViewModel() {
     fun fetchChamas(token: String?) {
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.getInstance(token).getChamas()
+                val response = RetrofitClient.instance.getChamas()
                 Log.d("HomeViewModel", "Chamas response: ${response.body()} | Raw: ${response.raw()}")
                 if (response.isSuccessful) {
                     _chamas.postValue(response.body()?.chamas ?: emptyList())
@@ -42,4 +42,5 @@ class HomeViewModel : ViewModel() {
             }
         }
     }
+
 }

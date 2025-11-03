@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
-import com.example.chamapp.api.SignupRequest
 import com.example.chamapp.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment() {
@@ -41,29 +40,17 @@ class SignUpFragment : Fragment() {
             findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
         }
 
+        // Handle sign-up button click
         binding.btnSignUp.setOnClickListener {
             if (validateInput()) {
                 val firstName = binding.etFirstName.text.toString().trim()
                 val lastName = binding.etLastName.text.toString().trim()
                 val email = binding.etEmail.text.toString().trim()
                 val phoneNumber = binding.etPhoneNumber.text.toString().trim()
-                // In SignUpFragment.kt, inside the btnSignUp.setOnClickListener block
-
                 val password = binding.etPassword.text.toString()
 
-                // FIX: Create a SignupRequest object
-                val signupRequest = SignupRequest(
-                    first_name = firstName,
-                    last_name = lastName,
-                    email = email,
-                    phone_number = phoneNumber,
-                    password = password
-                    // The 'role' will default to "user" as defined in the data class
-                )
-
-                // Now pass the single object to the ViewModel
-                viewModel.registerUser(signupRequest)
-
+                // Register user
+                viewModel.registerUser(firstName, lastName, email, phoneNumber, password)
             }
         }
 
@@ -95,13 +82,11 @@ class SignUpFragment : Fragment() {
             return false
         } else binding.tilEmail.error = null
 
-        // Phone number: only check not empty
         if (phoneNumber.isEmpty()) {
             binding.tilPhoneNumber.error = "Phone number is required"
             return false
         } else binding.tilPhoneNumber.error = null
 
-        // Password: accept anything
         if (password.isEmpty()) {
             binding.tilPassword.error = "Password is required"
             return false
