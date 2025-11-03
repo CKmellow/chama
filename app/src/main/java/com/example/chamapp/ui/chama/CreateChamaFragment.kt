@@ -77,7 +77,7 @@ class CreateChamaFragment : Fragment() {
         val contributionAmount = binding.etContributionAmount.text.toString().toDoubleOrNull()
         val interestRate = binding.etInterestRate.text.toString().toDoubleOrNull()
         val maxLoanMultiple = binding.etMaxLoanMultiple.text.toString().toIntOrNull()
-        val chamaType = binding.spinnerChamaType.selectedItem.toString()
+    val chamaType = binding.spinnerChamaType.selectedItem.toString().lowercase()
         val contributionSchedule = binding.spinnerContributionSchedule.selectedItem.toString()
         val contributionDueDay = binding.etContributionDueDay.text.toString().toIntOrNull()
         val loanMaxTerm = binding.etLoanMaxTermMonths.text.toString().toIntOrNull()

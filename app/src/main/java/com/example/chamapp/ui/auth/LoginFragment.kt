@@ -36,7 +36,7 @@ class LoginFragment : Fragment() {
         binding.btnSignIn.setOnClickListener {
             val email = binding.etEmail?.text.toString().trim()
             val password = binding.etPassword?.text.toString().trim()
-
+            android.util.Log.d("LoginFragment", "Sign In button clicked with email: $email, password: $password")
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
             } else {
@@ -52,13 +52,22 @@ class LoginFragment : Fragment() {
 // In LoginFragment.kt
 
     private fun loginUser(email: String, password: String) {
+    android.util.Log.d("LoginFragment", "loginUser called with email: $email, password: $password")
+    val sessionManager = com.example.chamapp.util.SessionManager(com.example.chamapp.App.appContext)
         lifecycleScope.launch(Dispatchers.IO) {
             try {
                 val response = RetrofitClient.instance.login(LoginRequest(email, password))
 
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        // FIX: Call .body() to get the AuthResponse object first
+                        val responseBody = response.body()
+                        android.util.Log.d("LoginFragment", "Full login response body: $responseBody")
+                        if (responseBody?.access_token != null) {
+                            android.util.Log.d("LoginFragment", "Received token from backend: ${responseBody.access_token}")
+                            sessionManager.saveAuthToken(responseBody.access_token)
+                            val savedToken = sessionManager.getAuthToken()
+                            android.util.Log.d("LoginFragment", "Token saved to SharedPreferences: $savedToken")
+                        }
                         val authResponse = response.body()
                         val user = authResponse?.user // Then get the user from the body
 

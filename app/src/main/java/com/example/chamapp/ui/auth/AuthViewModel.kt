@@ -22,7 +22,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     val loginResult: LiveData<Event<Boolean>> = _loginResult
 
     fun loginUser(email: String, password: String) {
-        viewModelScope.launch {
+    Log.d("AuthViewModel", "loginUser called with email: $email, password: $password")
+    viewModelScope.launch {
             try {
                 // This 'response' variable is now correctly typed as retrofit2.Response
                 val response: Response<com.example.chamapp.api.AuthResponse> = RetrofitClient.instance.login(
@@ -33,14 +34,16 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
 
-                    if (responseBody?.access_token != null) {
-                        sessionManager.saveAuthToken(responseBody.access_token)
-                        Log.d("AuthViewModel", "Login successful, token SAVED.")
-                        _loginResult.postValue(Event(true))
-                    } else {
-                        Log.e("AuthViewModel", "Login successful but no token in response.")
-                        _loginResult.postValue(Event(false))
-                    }
+                        if (responseBody?.access_token != null) {
+                            Log.d("AuthViewModel", "Received token from backend: ${responseBody.access_token}")
+                            sessionManager.saveAuthToken(responseBody.access_token)
+                            val savedToken = sessionManager.getAuthToken()
+                            Log.d("AuthViewModel", "Token saved to SharedPreferences: $savedToken")
+                            _loginResult.postValue(Event(true))
+                        } else {
+                            Log.e("AuthViewModel", "Login successful but no token in response.")
+                            _loginResult.postValue(Event(false))
+                        }
                 } else {
                     val errorDetails = response.errorBody()?.string()
                     Log.e("AuthViewModel", "Login failed: $errorDetails")

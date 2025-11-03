@@ -93,9 +93,12 @@ object RetrofitClient {
             val requestBuilder = originalRequest.newBuilder()
                 .header("Accept", "application/json")
 
-            if (token != null) {
-                requestBuilder.header("Authorization", "Bearer $token")
-            }
+                if (token != null) {
+                    android.util.Log.d("RetrofitClient", "Attaching token: $token")
+                    requestBuilder.header("Authorization", "Bearer $token")
+                } else {
+                    android.util.Log.d("RetrofitClient", "No token found, not attaching Authorization header.")
+                }
 
             val newRequest = requestBuilder.build()
             chain.proceed(newRequest)

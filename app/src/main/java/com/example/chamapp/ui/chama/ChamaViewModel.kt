@@ -18,6 +18,7 @@ class ChamaViewModel : ViewModel() {
     val createResult: LiveData<Event<Pair<Boolean, String>>> = _createResult
 
     fun createChama(request: CreateChamaRequest) {
+        android.util.Log.d("ChamaViewModel", "createChama called with request: $request")
         viewModelScope.launch {
             try {
                 val response = RetrofitClient.instance.createChama(request)

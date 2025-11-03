@@ -1,20 +1,22 @@
 <resources>
     <string-array name="chama_types_array">
-        <item>Formal</item>
-        <item>Informal</item>
-        <item>Merry-Go-Round</item>
+        <item>investment</item>
+        <item>welfare</item>
+        <item>merry-go-round</item>
+        <item>hybrid</item>
     </string-array>
 
     <string-array name="contribution_schedules_array">
-        <item>Daily</item>
-        <item>Weekly</item>
-        <item>Monthly</item>
+        <item>weekly</item>
+        <item>monthly</item>
+        <item>custom</item>
     </string-array>
     <!-- In strings.xml -->
     <string-array name="meeting_frequency_array">
-        <item>Weekly</item>
-        <item>Bi-Weekly</item>
-        <item>Monthly</item>
+        <item>weekly</item>
+        <item>monthly</item>
+        <item>quarterly</item>
+        <item>custom</item>
     </string-array>
 
     <string-array name="meeting_day_array">
