@@ -58,7 +58,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.0") // THIS IS THE FIX)
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.github.kittinunf.fuel:fuel:2.3.1") // For simple HTTP calls
     implementation("androidx.browser:browser:1.8.0")  // For Chrome Custom Tabs
