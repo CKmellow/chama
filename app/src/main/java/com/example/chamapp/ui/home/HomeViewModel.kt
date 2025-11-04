@@ -24,10 +24,14 @@ class HomeViewModel : ViewModel() {
     fun fetchChamas(token: String?) {
         viewModelScope.launch {
             try {
+                Log.d("HomeViewModel", "Fetching chamas with token: $token")
+                // Use the token from SessionManager, not the argument
                 val response = RetrofitClient.instance.getChamas()
-                Log.d("HomeViewModel", "Chamas response: ${response.body()} | Raw: ${response.raw()}")
+                Log.d("HomeViewModel", "Chamas response: ${response.body()} | Raw: ${response.raw()} | Error: ${response.errorBody()?.string()}")
                 if (response.isSuccessful) {
-                    _chamas.postValue(response.body()?.chamas ?: emptyList())
+                    val chamasList = response.body()?.chamas ?: emptyList()
+                    Log.d("HomeViewModel", "Parsed chamas: $chamasList")
+                    _chamas.postValue(chamasList)
                     _error.postValue(null)
                 } else {
                     val errorMsg = "Failed to fetch chamas: ${response.errorBody()?.string()} | Code: ${response.code()}"

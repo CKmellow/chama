@@ -9,82 +9,86 @@
     tools:context=".ui.home.HomeFragment">
 
     <!-- 🟦 Wavy Header Background -->
-    <ImageView
-        android:id="@+id/ivWaveHeader"
+    <FrameLayout
+        android:id="@+id/headerContainer"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_wave_pattern"
-        app:tint="@color/gradient_start_blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/wavy_header_background" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- 🟢 Greeting and User Info -->
-    <TextView
-        android:id="@+id/tvGreeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
-        android:text="Welcome back, John!"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ivWaveHeader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_wave_pattern"
+            app:tint="@color/gradient_start_blue"
+            android:contentDescription="@string/wavy_header_background" />
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Nov 2, 2025"
-        android:textColor="@color/light_blue_text"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tvGreeting"
-        app:layout_constraintTop_toBottomOf="@+id/tvGreeting" />
+        <!-- Greeting, date, icons row -->
+        <LinearLayout
+            android:id="@+id/headerContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="24dp">
 
-    <!-- Profile and Notification Icons -->
-    <ImageView
-        android:id="@+id/ivProfile"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="24dp"
-        android:src="@drawable/ic_profile_placeholder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvGreeting"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
-        android:contentDescription="@string/profile_photo" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvGreeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome back, John!"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nov 4, 2025"
+                    android:textColor="@color/light_blue_text"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-    <ImageView
-        android:id="@+id/ivNotificationBell"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_notification_bell"
-        app:tint="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/ivProfile"
-        app:layout_constraintTop_toTopOf="@+id/ivProfile"
-        app:layout_constraintBottom_toBottomOf="@+id/ivProfile"
-        android:contentDescription="@string/notification_bell" />
-
-    <TextView
-        android:id="@+id/tv_notification_badge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="20dp"
-        android:minHeight="20dp"
-        android:background="@drawable/notification_badge"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/ivNotificationBell"
-        app:layout_constraintTop_toTopOf="@+id/ivNotificationBell"
-        android:translationX="8dp"
-        android:translationY="-8dp"
-        tools:text="3" />
+            <ImageView
+                android:id="@+id/ivNotificationBell"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_notification_bell"
+                app:tint="@android:color/white"
+                android:contentDescription="@string/notification_bell" />
+            <TextView
+                android:id="@+id/tv_notification_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="20dp"
+                android:minHeight="20dp"
+                android:background="@drawable/notification_badge"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:translationX="-12dp"
+                android:translationY="-8dp"
+                tools:text="3" />
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_profile_placeholder"
+                android:contentDescription="@string/profile_photo"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </FrameLayout>
 
     <!-- 🟧 Dashboard Content -->
     <LinearLayout
@@ -92,7 +96,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/ivWaveHeader"
+        app:layout_constraintTop_toBottomOf="@id/headerContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

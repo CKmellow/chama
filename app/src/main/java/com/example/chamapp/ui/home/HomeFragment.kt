@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chamapp.MainActivity
 import com.example.chamapp.R
 import com.example.chamapp.api.Chama
 import com.example.chamapp.databinding.FragmentHomeBinding
@@ -39,16 +40,8 @@ class HomeFragment : Fragment() {
         setupButtons()
         observeViewModel()
 
-        val prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-        val token = prefs.getString("access_token", null)
-
-        if (token == null) {
-            Toast.makeText(requireContext(), "Please log in again.", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.auth_nav)
-            return
-        }
-
-        viewModel.fetchChamas(token)
+        // Remove token check from user_prefs, always try to fetch chamas
+        viewModel.fetchChamas(null)
     }
 
     private fun setupHeader() {
@@ -65,8 +58,8 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
                 chama.name,
                 chama.role,
-                chama.myContributions.toString(),
-                chama.totalBalance.toString(),
+                chama.myContributions,
+                chama.totalBalance,
                 chama.status,
                 chama.statusColor,
                 chama.nextMeeting
@@ -90,10 +83,8 @@ class HomeFragment : Fragment() {
             } else {
                 binding.tvNoChamas.visibility = View.GONE
                 binding.rvChamas.visibility = View.VISIBLE
-
-                // Map API model to UI model
                 val uiChamas = chamas.map { apiChama ->
-                    com.example.chamapp.ui.home.Chama(
+                    Chama(
                         name = apiChama.chama_name,
                         role = apiChama.chama_type ?: "",
                         myContributions = apiChama.monthly_contribution_amount?.toString() ?: "-",
@@ -104,21 +95,17 @@ class HomeFragment : Fragment() {
                     )
                 }
                 (binding.rvChamas.adapter as ChamaAdapter).updateChamas(uiChamas)
-
-                // Optional: show summary stats at the top
                 val totalSavings = uiChamas.sumOf { it.totalBalance.toDoubleOrNull() ?: 0.0 }
                 binding.tvTotalSavingsAmount.text = "KES ${"%,.0f".format(totalSavings)}"
                 binding.tvActiveLoansValue.text = "2 loans - KES 30,000"
                 binding.tvUpcomingVotesValue.text = "3 pending"
             }
         })
-
         viewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
             errorMessage?.let {
                 binding.tvNoChamas.text = it
                 binding.tvNoChamas.visibility = View.VISIBLE
                 binding.rvChamas.visibility = View.GONE
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             }
         })
     }

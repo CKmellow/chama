@@ -1,5 +1,6 @@
 package com.example.chamapp.ui.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +57,14 @@ class SplashFragment : Fragment() {
             override fun onAnimationEnd(animation: Animation?) {
                 // Wait for the splash duration before navigating
                 binding.logoCard.postDelayed({
-                    findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
+                    val prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    val token = prefs.getString("access_token", null)
+
+                    if (token != null) {
+                        findNavController().navigate(R.id.action_splashFragment_to_main_app_nav)
+                    } else {
+                        findNavController().navigate(R.id.action_splashFragment_to_auth_nav)
+                    }
                 }, splashDuration)
             }
 
