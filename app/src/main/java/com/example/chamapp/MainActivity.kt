@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 // Add OTPFragment here later
             )
             val chamaDestinations = setOf(
-                R.id.nav_home,
+                R.id.homeFragment,
                 R.id.nav_gallery,
                 R.id.nav_slideshow
             )
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 // These are now part of the main_app_nav
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.homeFragment, R.id.nav_gallery, R.id.nav_slideshow
             ), drawerLayout
         )
 
