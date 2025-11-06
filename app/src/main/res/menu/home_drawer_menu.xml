@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile_placeholder"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_create_chama"
+            android:icon="@drawable/ic_add_circle"
+            android:title="Create Chama" />
+        <item
+            android:id="@+id/nav_my_chamas"
+            android:icon="@drawable/ic_my_chamas"
+            android:title="My Chamas" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
+    </group>
+</menu>
