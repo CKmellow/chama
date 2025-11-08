@@ -49,7 +49,7 @@ data class UserData(
 
 // --- CHAMA DATA CLASSES ---
 data class Chama(
-    @SerializedName("chama_id") val id: Int,
+    @SerializedName("chama_id") val id: String,
     @SerializedName("chama_name") val chama_name: String,
     @SerializedName("description") val description: String?,
     @SerializedName("chama_type") val chama_type: String?,
