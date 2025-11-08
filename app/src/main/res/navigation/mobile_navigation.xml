@@ -3,21 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/splashFragment"> <!-- NEW START DESTINATION -->
+    app:startDestination="@id/splashFragment">
 
-    <!-- 1. Splash Fragment (The New Entry Point) -->
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.chamapp.ui.auth.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash" >
-        <!-- Action to go to the Authentication flow -->
         <action
             android:id="@+id/action_splashFragment_to_auth_nav"
             app:destination="@id/auth_nav"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
-        <!-- Action to go directly to the Main App (if logged in) -->
         <action
             android:id="@+id/action_splashFragment_to_main_app_nav"
             app:destination="@id/main_app_nav"
@@ -25,19 +22,23 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-    <!-- 2. Auth Flow (Welcome, Login, Sign Up) - No changes here -->
     <include app:graph="@navigation/auth_nav" />
 
-    <!-- 3. Main App Content (Home, Gallery, etc.) - No changes here -->
     <navigation
         android:id="@+id/main_app_nav"
-        app:startDestination="@id/nav_home">
-        <!-- ... your nav_home, nav_gallery, nav_slideshow fragments ... -->
+        app:startDestination="@id/homeFragment">
         <fragment
-            android:id="@+id/nav_home"
+            android:id="@+id/homeFragment"
             android:name="com.example.chamapp.ui.home.HomeFragment"
-            android:label="@string/menu_home"
-            tools:layout="@layout/fragment_home" />
+            android:label="@string/chamalink"
+            tools:layout="@layout/fragment_home" >
+            <action
+                android:id="@+id/action_homeFragment_to_createChamaFragment"
+                app:destination="@id/createChamaFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_chamaDashboardFragment"
+                app:destination="@id/chamaDashboardFragment" />
+        </fragment>
         <fragment
             android:id="@+id/nav_gallery"
             android:name="com.example.chamapp.ui.gallery.GalleryFragment"
@@ -48,13 +49,50 @@
             android:name="com.example.chamapp.ui.slideshow.SlideshowFragment"
             android:label="@string/menu_slideshow"
             tools:layout="@layout/fragment_slideshow" />
+        <fragment
+            android:id="@+id/createChamaFragment"
+            android:name="com.example.chamapp.ui.chama.CreateChamaFragment"
+            android:label="CreateChamaFragment"
+            tools:layout="@layout/fragment_create_chama"/>
+        <fragment
+            android:id="@+id/chamaDashboardFragment"
+            android:name="com.example.chamapp.ui.chama.ChamaDashboardFragment"
+            android:label="ChamaDashboardFragment"
+            tools:layout="@layout/fragment_chama_dashboard">
+                <argument
+                    android:name="chamaName"
+                    app:argType="string" />
+                <argument
+                    android:name="role"
+                    app:argType="string" />
+                <argument
+                    android:name="myContributions"
+                    app:argType="string" />
+                <argument
+                    android:name="totalBalance"
+                    app:argType="string" />
+                 <argument
+                    android:name="status"
+                    app:argType="string" />
+                <argument
+                    android:name="statusColor"
+                    app:argType="string" />
+                <argument
+                    android:name="nextMeeting"
+                    app:argType="string" />
+            </fragment>
     </navigation>
 
-    <!-- Global action to go from Auth to Main App - No changes here -->
     <action
-        android:id="@+id/action_global_mobile_navigation"
+        android:id="@+id/action_global_main_app_nav"
         app:destination="@id/main_app_nav"
         app:popUpTo="@id/auth_nav"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_auth_nav"
+        app:destination="@id/auth_nav"
+        app:popUpTo="@id/main_app_nav"
         app:popUpToInclusive="true" />
 
 </navigation>

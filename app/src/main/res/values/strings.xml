@@ -30,6 +30,7 @@
     </string-array>
 
     <string name="app_name">chamapp</string>
+    <string name="chamalink">chamalink</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -47,4 +48,9 @@
     <string name="wavy_header_background">Wavy header background</string>
     <string name="profile_photo">Profile photo</string>
     <string name="notification_bell">Notification bell</string>
+    <string name="greeting_welcome_back">Welcome back, %1$s!</string>
+    <string name="no_chamas_available">No chamas available.</string>
+    <string name="total_savings_amount">KES %1$,.0f</string>
+    <string name="active_loans_value">2 loans - KES 30,000</string>
+    <string name="upcoming_votes_value">3 pending</string>
 </resources>

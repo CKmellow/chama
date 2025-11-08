@@ -64,23 +64,18 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         android.util.Log.d("LoginFragment", "Login response: $authResponse")
-
-                        val token = authResponse?.access_token
-                        val user = authResponse?.user
-
-                        if (!token.isNullOrBlank()) {
-                            sessionManager.saveAuthToken(token)
-                            android.util.Log.d("LoginFragment", "Token saved: $token")
+                        if (authResponse != null && !authResponse.access_token.isNullOrEmpty()) {
+                            sessionManager.saveAuthToken(authResponse.access_token)
+                            Toast.makeText(
+                                requireContext(),
+                                "Welcome ${authResponse.user?.first_name ?: "User"}!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            // Navigate to Home screen
+                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        } else {
+                            Toast.makeText(requireContext(), "Login failed: Invalid response", Toast.LENGTH_LONG).show()
                         }
-
-                        Toast.makeText(
-                            requireContext(),
-                            "Welcome ${user?.first_name ?: "User"}!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        // Navigate to Home screen
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     } else {
                         val error = response.errorBody()?.string()
                         Toast.makeText(requireContext(), "Login failed: $error", Toast.LENGTH_LONG).show()
