@@ -17,6 +17,15 @@ import retrofit2.http.Path
 // DATA CLASSES
 // =====================
 
+data class UpdateMemberDetailsRequest(
+    val chama_id: String,
+    val user_id: String,
+    val contribution_amount: Double?,
+    val role: String?
+)
+// DATA CLASSES
+// =====================
+
 // --- AUTH REQUESTS & RESPONSES ---
 data class SignupRequest(
     val first_name: String,
@@ -126,13 +135,14 @@ interface ApiService {
 
     @POST("chamas/create")
     suspend fun createChama(@Body request: CreateChamaRequest): Response<ChamaResponse>
+    @POST("chamas/update/member")
+    suspend fun updateMemberDetails(@Body request: UpdateMemberDetailsRequest): Response<GenericResponse>
 }
 
 // =====================
 // RETROFIT CLIENT
 // =====================
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.2.2:4000/api/"
     private val sessionManager by lazy { SessionManager(App.appContext) }
 
     private val okHttpClient = OkHttpClient.Builder()

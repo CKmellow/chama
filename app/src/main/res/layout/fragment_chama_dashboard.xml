@@ -78,7 +78,10 @@
                 android:text="CHAMA FINANCIAL STATUS"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="16dp" 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
             <TextView
                 android:id="@+id/tvChamaBalance"
                 android:layout_width="wrap_content"
@@ -125,11 +128,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+            <!-- Title for Personal Summary Card -->
             <TextView
                 android:text="MY PERSONAL SUMMARY"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
             <TextView
                 android:id="@+id/tvMyTotalContributions"
                 android:layout_width="wrap_content"
