@@ -11,6 +11,7 @@ import com.example.chamapp.R
 
 // This data class now matches the detailed view in item_chama.xml
 data class Chama(
+    val id: String,
     val name: String,
     val role: String,
     val myContributions: String,

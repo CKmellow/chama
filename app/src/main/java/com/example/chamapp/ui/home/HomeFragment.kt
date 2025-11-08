@@ -55,16 +55,16 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.rvChamas.layoutManager = LinearLayoutManager(requireContext())
         binding.rvChamas.adapter = ChamaAdapter(emptyList()) { chama ->
-            val action = HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
-                chama.name,
-                chama.role,
-                chama.myContributions,
-                chama.totalBalance,
-                chama.status,
-                chama.statusColor,
-                chama.nextMeeting
-            )
-            findNavController().navigate(action)
+            val bundle = Bundle().apply {
+                putString("chamaId", chama.id)
+            }
+            val navController = findNavController()
+            val currentDest = navController.currentDestination?.id
+            if (currentDest == R.id.homeFragment) {
+                navController.navigate(R.id.action_homeFragment_to_chamaDetailsFragment, bundle)
+            } else {
+                Toast.makeText(requireContext(), "Navigation failed: not on HomeFragment", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -85,6 +85,7 @@ class HomeFragment : Fragment() {
                 binding.rvChamas.visibility = View.VISIBLE
                 val uiChamas = chamas.map { apiChama ->
                     Chama(
+                        id = apiChama.id,
                         name = apiChama.chama_name,
                         role = apiChama.chama_type ?: "",
                         myContributions = apiChama.monthly_contribution_amount?.toString() ?: "-",

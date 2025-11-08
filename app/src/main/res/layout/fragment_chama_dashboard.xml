@@ -132,40 +132,68 @@
             <TextView
                 android:text="MY PERSONAL SUMMARY"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp" />
+                android:gravity="center"
+                android:textColor="@color/primary"
+                android:layout_marginBottom="8dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginBottom="12dp" />
             <TextView
                 android:id="@+id/tvMyTotalContributions"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="My Total Contributions: KES 45,000"
-                android:textSize="14sp" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:drawableStart="@drawable/ic_money"
+                android:drawablePadding="8dp"
+                android:paddingBottom="8dp" />
             <TextView
                 android:id="@+id/tvMyThisMonth"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="This Month:            KES 5,000 ✅"
-                android:textSize="14sp" />
+                android:text="This Month: KES 5,000 "
+                android:textSize="15sp"
+                android:textColor="@color/text_secondary"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
+                android:paddingBottom="8dp" />
             <TextView
                 android:id="@+id/tvMyNextPaymentDue"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Next Payment Due:      Dec 1, 2025"
-                android:textSize="14sp" />
+                android:text="Next Payment Due: Dec 1, 2025"
+                android:textSize="15sp"
+                android:textColor="@color/text_secondary"
+                android:drawableStart="@drawable/ic_alarm"
+                android:drawablePadding="8dp"
+                android:paddingBottom="8dp" />
             <TextView
                 android:id="@+id/tvMyActiveLoan"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Active Loan:        KES 15,000"
-                android:textSize="14sp" />
+                android:text="My Active Loan: KES 15,000"
+                android:textSize="15sp"
+                android:textColor="@color/text_secondary"
+                android:drawableStart="@drawable/ic_loan"
+                android:drawablePadding="8dp"
+                android:paddingBottom="8dp" />
             <TextView
                 android:id="@+id/tvMyNextInstallment"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Next Installment:      KES 2,500 (Nov 10)"
-                android:textSize="14sp" />
+                android:text="Next Installment: KES 2,500 (Nov 10)"
+                android:textSize="15sp"
+                android:textColor="@color/text_secondary"
+                android:drawableStart="@drawable/ic_next"
+                android:drawablePadding="8dp"
+                android:paddingBottom="4dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
