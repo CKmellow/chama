@@ -22,10 +22,11 @@ class ChamaDetailsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = RetrofitClient.instance.getChamaDetails(chamaId)
+                android.util.Log.d("ChamaDetailsViewModel", "API response: isSuccessful=${response.isSuccessful}, code=${response.code()}, body=${response.body()}, errorBody=${response.errorBody()?.string()}")
                 if (response.isSuccessful) {
-                    _chama.postValue(response.body())
+                    _chama.postValue(response.body()?.chama)
                 } else {
-                    _error.postValue("Failed to load chama details.")
+                    _error.postValue("Failed to load chama details. Code: ${response.code()} Error: ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
                 _error.postValue("Network error: ${e.message}")

@@ -28,13 +28,20 @@ class ChamaDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Get chamaId from SafeArgs (update this if using SafeArgs)
+
         val chamaId = arguments?.getString("chamaId")
+        android.util.Log.d("ChamaDetailsFragment", "Received chamaId: $chamaId")
+        binding.tvChamaType.text = "chamaId: $chamaId" // TEMP: show id in UI for debug
+        android.widget.Toast.makeText(requireContext(), "ChamaDetailsFragment loaded", android.widget.Toast.LENGTH_SHORT).show()
+        android.util.Log.d("ChamaDetailsFragment", "onViewCreated called, chamaId=$chamaId")
         if (chamaId == null) {
             binding.tvChamaName.text = "Chama not found"
             return
         }
 
         viewModel.fetchChamaDetails(chamaId)
+
+        android.util.Log.d("ChamaDetailsFragment", "Called fetchChamaDetails($chamaId)")
 
         viewModel.chama.observe(viewLifecycleOwner) { chama ->
             if (chama != null) {
@@ -46,12 +53,14 @@ class ChamaDetailsFragment : Fragment() {
                 binding.tvContributionSchedule.text = "Schedule: ${chama.contribution_frequency ?: "-"}"
                 binding.tvInterestRate.text = "Interest Rate: ${chama.loan_interest_rate ?: "-"}%"
                 binding.tvMaxLoanAmount.text = "Max Loan: ${chama.max_loan_multiplier ?: "-"}x Savings"
+                android.util.Log.d("ChamaDetailsFragment", "chama loaded: $chama")
             }
         }
 
         viewModel.error.observe(viewLifecycleOwner) { errorMsg ->
             if (errorMsg != null) {
                 binding.tvChamaName.text = errorMsg
+                android.util.Log.d("ChamaDetailsFragment", "Error loading chama: $errorMsg")
             }
         }
 
