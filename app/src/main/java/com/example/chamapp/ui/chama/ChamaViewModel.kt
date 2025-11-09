@@ -18,19 +18,18 @@ class ChamaViewModel : ViewModel() {
     val createResult: LiveData<Event<Pair<Boolean, String>>> = _createResult
 
     fun createChama(request: CreateChamaRequest) {
-    android.util.Log.d("ChamaViewModel", "createChama called with request: $request")
+        android.util.Log.d("ChamaViewModel", "createChama called with request: $request")
         viewModelScope.launch {
             try {
                 val response = RetrofitClient.instance.createChama(request)
-                android.util.Log.d("ChamaViewModel", "Raw response: $response")
+
                 if (response.isSuccessful) {
                     val successMsg = response.body()?.message ?: "Chama created successfully!"
-                    android.util.Log.d("ChamaViewModel", "Parsed success message: $successMsg")
                     _createResult.postValue(Event(Pair(true, successMsg)))
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("ChamaViewModel", "API Error: HTTP ${response.code()} - $errorBody")
-                    android.util.Log.e("ChamaViewModel", "Raw error body: $errorBody")
+
                     val errorMsg = try {
                         val parsedError = Gson().fromJson(errorBody, GenericResponse::class.java)
                         if (!parsedError.error.isNullOrEmpty()) {
@@ -41,7 +40,6 @@ class ChamaViewModel : ViewModel() {
                             "An unknown error occurred. Please check the logs."
                         }
                     } catch (e: Exception) {
-                        android.util.Log.e("ChamaViewModel", "Exception while parsing error: ${e.message}", e)
                         "Error ${response.code()}: Failed to create chama. Please check inputs and try again."
                     }
                     _createResult.postValue(Event(Pair(false, errorMsg)))
@@ -52,7 +50,6 @@ class ChamaViewModel : ViewModel() {
                     "Network/Exception: Create Chama failed",
                     e
                 )
-                android.util.Log.e("ChamaViewModel", "Exception: ${e.message}", e)
                 _createResult.postValue(
                     Event(
                         Pair(
