@@ -9,10 +9,22 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_blue">#2196F3</color>
     <color name="text_secondary">#757575</color>
-    <color name="gradient_start_blue">#007BFF</color>
-    <color name="gradient_end_blue">#1E90FF</color>
+    <color name="gradient_start_blue">#002B7F</color>
+    <color name="gradient_end_blue">#3A7BD5</color>
     <color name="light_blue_text">#64B5F6</color>
     <color name="cornsilk">#FFF8DC</color>
     <color name="blue_header">#1E90FF</color>
     <color name="dark_blue">#0D47A1</color>
+
+    <!-- New UI Colors -->
+    <color name="colorPrimary">#002B7F</color>
+    <color name="colorPrimaryDark">#3A7BD5</color>
+    <color name="colorAccent">#27AE60</color>
+    <color name="gradient_start">#002B7F</color>
+    <color name="gradient_end">#3A7BD5</color>
+    <color name="emerald_green">#27AE60</color>
+    <color name="white_card">#FFFFFF</color>
+    <color name="primary_dark">#212121</color>
+    <color name="primary">#1976D2</color>
+    <color name="white_background">#FFFFFF</color>
 </resources>
