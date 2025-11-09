@@ -11,8 +11,43 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
+<<<<<<< Updated upstream
 
 // --- Data Classes (No Changes Here, Assuming they are correct) ---
+=======
+import retrofit2.http.PUT
+import retrofit2.http.Path
+
+// =====================
+// CHAMA MEMBERS DATA CLASSES
+data class UpdateChamaMemberRequest(
+    val role: String?,
+    val contribution_amount: Double?
+)
+
+data class UpdateChamaMemberResponse(
+    val message: String?,
+    val member: ChamaMember?
+)
+data class ChamaMember(
+    val id: String,
+    val chama_id: String,
+    val user_id: String,
+    val role: String?,
+    val contribution_amount: Double?,
+    val joined_at: String?
+)
+
+data class ChamaMembersResponse(
+    val members: List<ChamaMember>
+)
+
+data class MyMembershipResponse(
+    val membership: ChamaMember?
+)
+// DATA CLASSES
+// =====================
+>>>>>>> Stashed changes
 
 data class SignupRequest(
     val first_name: String,
@@ -70,19 +105,50 @@ data class GenericResponse(val message: String?, val error: String?)
 
 // --- ApiService Interface ---
 interface ApiService {
+<<<<<<< Updated upstream
+=======
+    @PUT("chama_members/{memberId}")
+    suspend fun updateChamaMember(
+        @Path("memberId") memberId: String,
+        @Body request: UpdateChamaMemberRequest
+    ): Response<UpdateChamaMemberResponse>
+    // --- CHAMA MEMBERS ---
+    @GET("chama_members/{chamaId}")
+    suspend fun getChamaMembers(@Path("chamaId") chamaId: String): Response<ChamaMembersResponse>
+
+    @GET("chama_members/{chamaId}/me")
+    suspend fun getMyMembership(@Path("chamaId") chamaId: String): Response<MyMembershipResponse>
+
+    // --- AUTH ---
+>>>>>>> Stashed changes
     @POST("auth/signup")
     suspend fun signup(@Body body: SignupRequest): Response<AuthResponse>
 
     @POST("auth/login")
     suspend fun login(@Body body: LoginRequest): Response<AuthResponse>
+<<<<<<< Updated upstream
+=======
+
+    // --- CHAMAS ---
+    @GET("chamas/fetch/chamas")
+    suspend fun getChamas(): Response<ChamasResponse>
+
+    @GET("chamas/fetch/{id}")
+    suspend fun getChamaDetails(@Path("id") chamaId: String): Response<ChamaResponse>
+
+>>>>>>> Stashed changes
     @POST("chamas/create")
     suspend fun createChama(@Body request: CreateChamaRequest): Response<ChamaResponse> // Removed stray '}'
 }
 
 // --- CORRECTED RetrofitClient ---
 object RetrofitClient {
+<<<<<<< Updated upstream
     private const val BASE_URL = "http://10.0.2.2:4000/api/"
 
+=======
+    private const val BASE_URL = "http://192.168.100.27:4000/api/"
+>>>>>>> Stashed changes
     private val sessionManager by lazy { SessionManager(App.appContext) }
 
     // This client will add the auth token to every request
