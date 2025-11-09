@@ -1,175 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="6dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/white_card">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-        <!-- Header Section -->
-        <View
-            android:id="@+id/header_view"
+        <TextView
+            android:id="@+id/tv_chama_name"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:background="@color/dark_blue"
+            android:layout_height="wrap_content"
+            android:text="Chama Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivChamaIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/ic_piggy_bank"
-            app:tint="@android:color/white"
-            app:layout_constraintTop_toTopOf="@id/header_view"
-            app:layout_constraintBottom_toBottomOf="@id/header_view"
-            app:layout_constraintStart_toStartOf="@id/header_view" />
+            app:layout_constraintEnd_toStartOf="@+id/tvChamaStatus"/>
 
         <TextView
-            android:id="@+id/tvChamaName"
+            android:id="@+id/tv_chama_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:text="Chama Description"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChamaName"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_your_contribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KES 6,000"
+            android:textColor="@color/emerald_green"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChamaDescription"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_next_meeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next meeting: 25 Nov 2025"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvYourContribution" />
+
+        <TextView
+            android:id="@+id/tv_chama_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            tools:text="ZamZam Chama"
-            app:layout_constraintStart_toEndOf="@id/ivChamaIcon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/header_view"
-            app:layout_constraintBottom_toBottomOf="@id/header_view" />
-
-        <!-- Body Section -->
-        <TextView
-            android:id="@+id/tvChamaRole"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textColor="?android:attr/textColorSecondary"
-            tools:text="Role: Chairperson"
-            app:layout_constraintTop_toBottomOf="@id/header_view"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvChamaRole"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tvMyContributionsLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center_horizontal"
-            android:text="My Contributions"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvTotalBalanceLabel" />
-
-        <TextView
-            android:id="@+id/tvMyContributions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textStyle="bold"
-            android:textColor="@color/dark_blue"
-            tools:text="KES 25,000"
-            app:layout_constraintTop_toBottomOf="@id/tvMyContributionsLabel"
-            app:layout_constraintStart_toStartOf="@id/tvMyContributionsLabel"
-            app:layout_constraintEnd_toEndOf="@id/tvMyContributionsLabel" />
-
-        <TextView
-            android:id="@+id/tvTotalBalanceLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Total Balance"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintTop_toTopOf="@id/tvMyContributionsLabel"
-            app:layout_constraintStart_toEndOf="@id/tvMyContributionsLabel"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tvTotalBalance"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textStyle="bold"
-            android:textColor="@color/dark_blue"
-            tools:text="KES 350,000"
-            app:layout_constraintTop_toBottomOf="@id/tvTotalBalanceLabel"
-            app:layout_constraintStart_toStartOf="@id/tvTotalBalanceLabel"
-            app:layout_constraintEnd_toEndOf="@id/tvTotalBalanceLabel" />
-
-        <TextView
-            android:id="@+id/tvChamaStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_status_badge"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
-            android:background="@drawable/notification_badge"
-            android:textAppearance="?attr/textAppearanceCaption"
-            android:textColor="@android:color/white"
-            tools:text="Active"
-            app:layout_constraintTop_toBottomOf="@id/tvMyContributions"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvNextMeeting"
+            android:id="@+id/tvChamaRole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            tools:text="Next Meeting: 25 Dec 2024"
-            android:textAppearance="?attr/textAppearanceCaption"
-            app:layout_constraintBottom_toBottomOf="@id/tvChamaStatus"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:text="Role: Member"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNextMeeting"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvTotalBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: KES 20,000"
+            android:textColor="@color/primary_dark"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChamaDescription"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/btnJoinChama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Join"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/primary_blue"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTotalBalance"
-            app:layout_constraintStart_toEndOf="@id/tvChamaStatus" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTotalBalance"
+            android:layout_marginTop="8dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

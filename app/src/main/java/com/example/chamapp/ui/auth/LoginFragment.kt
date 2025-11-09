@@ -65,7 +65,10 @@ class LoginFragment : Fragment() {
                         val authResponse = response.body()
                         android.util.Log.d("LoginFragment", "Login response: $authResponse")
                         if (authResponse != null && !authResponse.access_token.isNullOrEmpty()) {
+                            // Save session data
                             sessionManager.saveAuthToken(authResponse.access_token)
+                            sessionManager.saveUserName(authResponse.user?.first_name, authResponse.user?.last_name)
+
                             Toast.makeText(
                                 requireContext(),
                                 "Welcome ${authResponse.user?.first_name ?: "User"}!",

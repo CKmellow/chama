@@ -5,193 +5,249 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
+    android:background="@color/white"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- 🟦 Wavy Header Background -->
-    <FrameLayout
-        android:id="@+id/headerContainer"
+    <!-- 🟦 Header with Gradient and Curved Bottom -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_container"
         android:layout_width="match_parent"
         android:layout_height="220dp"
+        android:background="@drawable/bg_home_header_gradient"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/ivWaveHeader"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_wave_pattern"
-            app:tint="@color/gradient_start_blue"
-            android:contentDescription="@string/wavy_header_background" />
-
-        <!-- Greeting, date, icons row -->
-        <LinearLayout
-            android:id="@+id/headerContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="32dp"
-            android:paddingBottom="24dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tvGreeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Welcome back, John!"
-                    android:textColor="@android:color/white"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nov 4, 2025"
-                    android:textColor="@color/light_blue_text"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/ivNotificationBell"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_notification_bell"
-                app:tint="@android:color/white"
-                android:contentDescription="@string/notification_bell" />
-            <TextView
-                android:id="@+id/tv_notification_badge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="20dp"
-                android:minHeight="20dp"
-                android:background="@drawable/notification_badge"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:translationX="-12dp"
-                android:translationY="-8dp"
-                tools:text="3" />
-            <ImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_profile_placeholder"
-                android:contentDescription="@string/profile_photo"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
-    </FrameLayout>
-
-    <!-- 🟧 Dashboard Content -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/headerContainer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="-60dp">
+        android:padding="16dp">
 
-        <!-- Create Chama Button -->
-        <Button
-            android:id="@+id/btn_create_chama"
-            android:layout_width="match_parent"
+        <!-- Greeting Text -->
+        <TextView
+            android:id="@+id/tv_greeting"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Create a New Chama"
-            android:textAllCaps="false"
+            android:text="👋 Hi, Crystal Kanana"
             android:textColor="@android:color/white"
-            android:backgroundTint="@color/gradient_start_blue" />
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Quick Stats Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardQuickStats"
-            android:layout_width="match_parent"
+        <!-- Subtext -->
+        <TextView
+            android:id="@+id/tv_greeting_subtext"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="16dp">
+            android:text="Welcome back to your Chama dashboard"
+            android:textColor="#B0C4DE" 
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_greeting" />
 
+        <!-- Profile Photo -->
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_profile_placeholder"
+            android:contentDescription="@string/profile_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Notification Bell -->
+        <ImageView
+            android:id="@+id/iv_notification_bell"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_notification_bell"
+            app:tint="@android:color/white"
+            android:contentDescription="@string/notification_bell"
+            app:layout_constraintEnd_toStartOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 🧩 Action Shortcuts -->
+    <GridLayout
+        android:id="@+id/action_shortcuts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-60dp"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/header_container">
+
+        <!-- My Savings -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_my_savings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
-
+                android:padding="16dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_savings_shortcut" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quick Stats"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gradient_start_blue" />
-
-                <TextView
-                    android:id="@+id/tvTotalSavingsAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="KES 150,000"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvActiveLoansValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2 loans - KES 30,000"
-                    android:textColor="#555555"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvUpcomingVotesValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3 pending"
-                    android:textColor="#555555"
-                    android:textSize="16sp" />
+                    android:text="My Savings" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- My Chamas Section -->
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Analytics -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_analytics"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="My Chamas"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/gradient_start_blue"
-            android:layout_marginBottom="8dp" />
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android_layout_height="40dp"
+                    android:src="@drawable/ic_analytics_shortcut" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Analytics" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvChamas"
-            android:layout_width="match_parent"
+        <!-- My Chamas -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_my_chamas"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_chama"
-            tools:itemCount="3" />
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_my_chamas_shortcut" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="My Chamas" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/tvNoChamas"
-            android:layout_width="wrap_content"
+        <!-- Updates -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_updates"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="No chamas found."
-            android:textColor="@android:color/darker_gray"
-            android:textSize="16sp"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            android:gravity="center_horizontal" />
-    </LinearLayout>
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_updates_shortcut" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Updates" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </GridLayout>
+
+    <!-- Add RecyclerView for My Chamas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_chamas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layout_constraintTop_toBottomOf="@id/action_shortcuts"
+        app:layout_constraintBottom_toTopOf="@id/motivational_quote"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:overScrollMode="ifContentScrolls"
+        tools:listitem="@layout/item_chama" />
+
+    <!-- Motivational Quote -->
+    <TextView
+        android:id="@+id/motivational_quote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_.content"
+        android:text="Small savings, big dreams — keep growing with your chama 🌱"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:textColor="#1976D2"
+        android:background="@drawable/bg_quote_strip"
+        android:padding="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_create_chama"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_create_chama"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_add"
+        android:layout_gravity="center"
+        app:backgroundTint="@color/colorPrimary"
+        app:elevation="8dp"
+        app:borderWidth="0dp"
+        app:maxImageSize="32dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="-32dp" />
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@drawable/bg_bottom_nav"
+        app:itemIconTint="@color/bottom_nav_selector"
+        app:itemTextColor="@color/bottom_nav_selector"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled"
+        app:itemRippleColor="@color/bottom_nav_ripple"
+        app:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
