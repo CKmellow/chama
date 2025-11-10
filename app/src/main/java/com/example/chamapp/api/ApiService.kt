@@ -113,7 +113,6 @@ data class GenericResponse(
     val message: String?,
     val error: String?
 )
-
 // =====================
 // API SERVICE
 // =====================
@@ -131,7 +130,7 @@ interface ApiService {
     suspend fun getChamas(): Response<ChamasResponse>
 
     @GET("chamas/fetch/{id}")
-    suspend fun getChamaDetails(@Path("id") chamaId: String): Response<Chama>
+    suspend fun getChamaDetails(@Path("id") chamaId: String): Response<ChamaResponse>
 
     @POST("chamas/create")
     suspend fun createChama(@Body request: CreateChamaRequest): Response<ChamaResponse>
@@ -143,6 +142,9 @@ interface ApiService {
 // RETROFIT CLIENT
 // =====================
 object RetrofitClient {
+    private const val BASE_URL = "http://10.0.2.2:4000/api/"
+
+
     private val sessionManager by lazy { SessionManager(App.appContext) }
 
     private val okHttpClient = OkHttpClient.Builder()
