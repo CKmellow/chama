@@ -1,8 +1,10 @@
 package com.example.chamapp.api
 
+import android.os.Parcelable
 import com.example.chamapp.App
 import com.example.chamapp.util.SessionManager
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -57,6 +59,15 @@ data class UserData(
 )
 
 // --- CHAMA DATA CLASSES ---
+@Parcelize
+data class Member(
+    @SerializedName("user_id") val userId: String,
+    @SerializedName("first_name") val firstName: String,
+    @SerializedName("last_name") val lastName: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("role") val role: String
+) : Parcelable
+
 data class Chama(
     @SerializedName("chama_id") val id: String,
     @SerializedName("chama_name") val chama_name: String,
@@ -82,7 +93,8 @@ data class Chama(
     val totalBalance: Double? = null,
     val status: String? = null,
     val statusColor: String? = null,
-    val nextMeeting: String? = null
+    val nextMeeting: String? = null,
+    @SerializedName("members") val members: List<Member>?
 )
 
 data class ChamasResponse(
