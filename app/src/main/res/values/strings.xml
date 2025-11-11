@@ -53,4 +53,16 @@
     <string name="total_savings_amount">KES %1$,.0f</string>
     <string name="active_loans_value">2 loans - KES 30,000</string>
     <string name="upcoming_votes_value">3 pending</string>
+    <string name="greeting_hi">👋 Hi, %1$s</string>
+    <string name="greeting_subtext">Welcome back to your Chama dashboard</string>
+    <string name="my_savings">My Savings</string>
+    <string name="savings_icon_desc">Savings icon</string>
+    <string name="analytics">Analytics</string>
+    <string name="analytics_icon_desc">Analytics icon</string>
+    <string name="my_chamas">My Chamas</string>
+    <string name="my_chamas_icon_desc">My Chamas icon</string>
+    <string name="updates">Updates</string>
+    <string name="updates_icon_desc">Updates icon</string>
+    <string name="motivational_quote">Small savings, big dreams — keep growing with your chama 🌱</string>
+    <string name="create_chama_fab_desc">Create a new chama</string>
 </resources>
