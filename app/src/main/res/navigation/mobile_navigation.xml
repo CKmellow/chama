@@ -41,6 +41,9 @@
             <action
                 android:id="@+id/action_homeFragment_to_chamaDetailsFragment"
                 app:destination="@id/chamaDetailsFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_secretaryDashboardFragment"
+                app:destination="@id/secretaryDashboardFragment" />
         </fragment>
         <fragment
             android:id="@+id/nav_gallery"
@@ -89,6 +92,15 @@
             android:name="com.example.chamapp.ui.chama.ChamaDetailsFragment"
             android:label="ChamaDetailsFragment"
             tools:layout="@layout/fragment_chama_details" />
+        <fragment
+            android:id="@+id/secretaryDashboardFragment"
+            android:name="com.example.chamapp.ui.secretary.SecretaryDashboardFragment"
+            android:label="fragment_secretary_dashboard"
+            tools:layout="@layout/fragment_secretary_dashboard" >
+            <argument
+                android:name="chamaId"
+                app:argType="string" />
+        </fragment>
     </navigation>
 
     <action

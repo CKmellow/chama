@@ -61,7 +61,11 @@ class HomeFragment : Fragment() {
             val navController = findNavController()
             val currentDest = navController.currentDestination?.id
             if (currentDest == R.id.homeFragment) {
-                navController.navigate(R.id.action_homeFragment_to_chamaDetailsFragment, bundle)
+                if (chama.role.equals("secretary", ignoreCase = true)) {
+                    navController.navigate(R.id.action_homeFragment_to_secretaryDashboardFragment, bundle)
+                } else {
+                    navController.navigate(R.id.action_homeFragment_to_chamaDetailsFragment, bundle)
+                }
             } else {
                 Toast.makeText(requireContext(), "Navigation failed: not on HomeFragment", Toast.LENGTH_SHORT).show()
             }

@@ -9,18 +9,22 @@
         android:id="@+id/tv_member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+        android:text="[Member Name]"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_member_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+        android:text="[Member Email]"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_member_role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+        android:text="[Member Role]"
+        android:textSize="14sp" />
 
 </LinearLayout>
