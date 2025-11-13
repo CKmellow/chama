@@ -7,12 +7,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.chamapp.databinding.ActivityMainBinding
 import com.example.chamapp.util.SessionManager
 import com.google.android.material.navigation.NavigationView
@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var sessionManager: SessionManager
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +35,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController = findNavController(R.id.nav_host_fragment_content_main)
 
-        // Listen for navigation changes to hide/show the drawer and toolbar
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val authDestinations = setOf(
                 R.id.splashFragment,
                 R.id.welcomeFragment,
                 R.id.loginFragment,
-                R.id.signUpFragment
+                R.id.signUpFragment,
+                R.id.passwordResetSuccessFragment,
+                R.id.resetPasswordEmailFragment
             )
             if (destination.id in authDestinations) {
                 binding.appBarMain.toolbar.visibility = View.GONE
@@ -55,12 +57,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.homeFragment, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_transactions
             ), drawerLayout
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+
+        // Set the custom listener to handle the special logout case.
+        // This avoids conflicts with other setup methods.
         navView.setNavigationItemSelectedListener(this)
     }
 
@@ -70,24 +74,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        // Handle the special case for logout
         if (item.itemId == R.id.nav_logout) {
             sessionManager.clearAuthToken()
             sessionManager.clearFirstName()
-            navController.navigate(R.id.auth_nav) {
-                popUpTo(R.id.mobile_navigation) {
-                    inclusive = true
-                }
-            }
+            navController.navigate(R.id.action_global_auth_nav)
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             return true
         }
-        // Let the NavController handle other menu item clicks
-        return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item)
+
+        // For all other items, delegate to NavigationUI to handle the navigation.
+        val handled = NavigationUI.onNavDestinationSelected(item, navController)
+        if (handled) {
+            // If NavigationUI handled it, close the drawer.
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        return handled
     }
 }
