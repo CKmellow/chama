@@ -12,7 +12,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-
+import retrofit2.http.PATCH
 // =====================
 // DATA CLASSES
 // =====================
@@ -57,6 +57,25 @@ data class UserData(
 )
 
 // --- CHAMA DATA CLASSES ---
+<<<<<<< Updated upstream
+=======
+
+@Parcelize
+data class ChamaMemberRelation(
+    @SerializedName("id") val id: String,
+    @SerializedName("chama_id") val chamaId: String,
+    @SerializedName("user_id") val userId: String,
+    @SerializedName("role") val role: String?,
+    @SerializedName("contribution_amount") val contributionAmount: Double?,
+    @SerializedName("joined_at") val joinedAt: String?,
+    @SerializedName("status") val status: String?,
+    @SerializedName("first_name") val firstName: String? = null,
+    @SerializedName("last_name") val lastName: String? = null,
+    @SerializedName("email") val email: String? = null,
+    @SerializedName("phone_number") val phoneNumber: String? = null
+) : Parcelable
+
+>>>>>>> Stashed changes
 data class Chama(
     @SerializedName("chama_id") val id: String,
     @SerializedName("chama_name") val chama_name: String,
@@ -82,7 +101,12 @@ data class Chama(
     val totalBalance: Double? = null,
     val status: String? = null,
     val statusColor: String? = null,
+<<<<<<< Updated upstream
     val nextMeeting: String? = null
+=======
+    val nextMeeting: String? = null,
+    @SerializedName("members") val members: List<ChamaMemberRelation>?
+>>>>>>> Stashed changes
 )
 
 data class ChamasResponse(
@@ -117,6 +141,9 @@ data class GenericResponse(
 // API SERVICE
 // =====================
 interface ApiService {
+    // --- USERS ---
+    @GET("users/{id}")
+    suspend fun getUser(@Path("id") userId: String): Response<UserData>
 
     // --- AUTH ---
     @POST("auth/signup")
@@ -134,8 +161,11 @@ interface ApiService {
 
     @POST("chamas/create")
     suspend fun createChama(@Body request: CreateChamaRequest): Response<ChamaResponse>
-    @POST("chamas/update/member")
-    suspend fun updateMemberDetails(@Body request: UpdateMemberDetailsRequest): Response<GenericResponse>
+    @PATCH("chama_member/{id}")
+    suspend fun updateMemberDetails(
+        @Path("id") memberId: String,
+        @Body request: UpdateMemberDetailsRequest
+    ): Response<GenericResponse>
 }
 
 // =====================

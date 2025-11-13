@@ -19,8 +19,10 @@ class ChamaDetailsViewModel : ViewModel() {
     val updateResult: LiveData<String?> = _updateResult
 
     fun fetchChamaDetails(chamaId: String) {
+        android.util.Log.d("ChamaDetailsViewModel", "fetchChamaDetails called with chamaId: $chamaId (using getChamas)")
         viewModelScope.launch {
             try {
+<<<<<<< Updated upstream
                 val response = RetrofitClient.instance.getChamaDetails(chamaId)
                 android.util.Log.d("ChamaDetailsViewModel", "API response: isSuccessful=${response.isSuccessful}, code=${response.code()}, body=${response.body()}, errorBody=${response.errorBody()?.string()}")
                 if (response.isSuccessful) {
@@ -51,6 +53,23 @@ class ChamaDetailsViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _updateResult.postValue("Network error: ${e.message}")
+=======
+                val response = RetrofitClient.instance.getChamas()
+                android.util.Log.d("ChamaDetailsViewModel", "getChamas response: $response")
+                if (response.isSuccessful) {
+                    val chamas = response.body()?.chamas ?: emptyList()
+                    android.util.Log.d("ChamaDetailsViewModel", "Fetched chamas: $chamas")
+                    val chama = chamas.find { it.id == chamaId }
+                    android.util.Log.d("ChamaDetailsViewModel", "Selected chama: $chama")
+                    _chamaDetails.postValue(chama)
+                } else {
+                    android.util.Log.e("ChamaDetailsViewModel", "Failed to fetch chamas: ${response.message()}")
+                    _errorMessage.postValue("Failed to fetch chamas: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                android.util.Log.e("ChamaDetailsViewModel", "Exception: ${e.message}")
+                _errorMessage.postValue("An error occurred: ${e.message}")
+>>>>>>> Stashed changes
             }
         }
     }

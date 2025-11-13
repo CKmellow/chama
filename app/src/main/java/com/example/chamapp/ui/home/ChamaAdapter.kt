@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chamapp.R
 
 // This data class now matches the detailed view in item_chama.xml
+import com.example.chamapp.api.ChamaMemberRelation
+
 data class Chama(
     val id: String,
     val name: String,
@@ -18,7 +20,8 @@ data class Chama(
     val totalBalance: String,
     val status: String,
     val statusColor: String, // To control the color of the status text
-    val nextMeeting: String
+    val nextMeeting: String,
+    val members: List<ChamaMemberRelation>? = null
 )
 
 class ChamaAdapter(

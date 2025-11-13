@@ -19,6 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< Updated upstream
         <TextView
             android:id="@+id/tv_member_name"
             android:layout_width="0dp"
@@ -82,3 +83,35 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
+=======
+    <TextView
+        android:id="@+id/tv_member_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[Member Phone]"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tv_member_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[Member Role]"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_member_contribution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[Contribution]"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_member_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[Status]"
+        android:textSize="14sp" />
+
+</LinearLayout>
+>>>>>>> Stashed changes

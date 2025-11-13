@@ -66,6 +66,20 @@ class LoginFragment : Fragment() {
                         android.util.Log.d("LoginFragment", "Login response: $authResponse")
                         if (authResponse != null && !authResponse.access_token.isNullOrEmpty()) {
                             sessionManager.saveAuthToken(authResponse.access_token)
+<<<<<<< Updated upstream
+=======
+                            
+                            // Save user's first name and user_id to SharedPreferences
+                            authResponse.user?.let { user ->
+                                val prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                                prefs.edit().putString("first_name", user.first_name).apply()
+                                user.id?.let { userId ->
+                                    prefs.edit().putString("user_id", userId).apply()
+                                    android.util.Log.d("LoginFragment", "Saved user_id to prefs: $userId")
+                                }
+                            }
+
+>>>>>>> Stashed changes
                             Toast.makeText(
                                 requireContext(),
                                 "Welcome ${authResponse.user?.first_name ?: "User"}!",
