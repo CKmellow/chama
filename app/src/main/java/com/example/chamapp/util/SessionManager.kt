@@ -13,6 +13,7 @@ class SessionManager(context: Context) {
     companion object {
         private const val PREFS_NAME = "chamapp_prefs"
         private const val AUTH_TOKEN = "auth_token"
+        private const val USER_FIRST_NAME = "user_first_name"
     }
 
     /**
@@ -38,6 +39,32 @@ class SessionManager(context: Context) {
     fun clearAuthToken() {
         val editor = prefs.edit()
         editor.remove(AUTH_TOKEN)
+        editor.apply()
+    }
+
+    /**
+     * Saves the user's first name to SharedPreferences.
+     */
+    fun saveFirstName(firstName: String) {
+        val editor = prefs.edit()
+        editor.putString(USER_FIRST_NAME, firstName)
+        editor.apply()
+    }
+
+    /**
+     * Retrieves the user's first name from SharedPreferences.
+     * Returns null if no first name is found.
+     */
+    fun getFirstName(): String? {
+        return prefs.getString(USER_FIRST_NAME, null)
+    }
+
+    /**
+     * Clears the user's first name.
+     */
+    fun clearFirstName() {
+        val editor = prefs.edit()
+        editor.remove(USER_FIRST_NAME)
         editor.apply()
     }
 }
