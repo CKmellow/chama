@@ -5,18 +5,20 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="14dp"
     app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="@color/light_blue_card">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/bg_card_gradient">
 
         <!-- Header strip -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/card_header_blue"
+            android:background="@color/deep_blue_header"
             android:gravity="center_vertical"
             android:paddingHorizontal="16dp">
 
@@ -26,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Umoja Investment Group"
-                android:textColor="@android:color/white"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="18sp" />
 
@@ -35,9 +37,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Treasurer"
-                android:textColor="@android:color/white"
+                android:textColor="@color/deep_blue_header"
                 android:textStyle="bold"
-                android:background="@drawable/role_badge_accent_blue"
+                android:background="@drawable/role_badge_light"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
                 android:textSize="13sp" />
@@ -48,7 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/bg_card_body_glossy"
             android:padding="16dp">
 
             <TextView
@@ -56,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="My Contributions: KES 45,000"
-                android:textColor="@android:color/white"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -64,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Chama Balance: KES 850,000"
-                android:textColor="@android:color/white"
+                android:textColor="@color/light_blue_accent"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textSize="14sp" />
@@ -80,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Next Meeting: Nov 15, 2025"
-                android:textColor="@android:color/white"
+                android:textColor="@color/white"
                 android:textSize="13sp" />
 
             <TextView
@@ -88,11 +89,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Up-to-date"
-                android:textColor="@android:color/white"
+                android:textColor="@color/light_blue_accent"
                 android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
-

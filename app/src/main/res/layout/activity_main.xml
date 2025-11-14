@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@drawable/footer_wave_background"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="20dp"
         app:hideOnScroll="true">
@@ -29,6 +30,8 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
+            app:itemIconTint="@color/bottom_nav_icon_color_white"
+            app:itemTextColor="@color/bottom_nav_icon_color_white"
             app:menu="@menu/bottom_nav_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -38,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primary_blue"
         app:layout_anchor="@id/bottom_app_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

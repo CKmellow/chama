@@ -126,23 +126,27 @@
                 app:layout_constraintEnd_toStartOf="@id/frame_notification"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <FrameLayout
-                android:id="@+id/frame_app_logo"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_logo_container"
-                android:elevation="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/frame_notification"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile">
+            <!-- Replace FrameLayout with CardView for logo -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvLogoContainer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="100dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/img_app_logo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_chama_logo_stylish"
-                    app:tint="@color/white" />
-            </FrameLayout>
+                    android:src="@drawable/logo"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/app_logo" />
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

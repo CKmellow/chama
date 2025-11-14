@@ -34,6 +34,8 @@
     <color name="card_header_blue">#004AAD</color>
     <color name="card_body_blue">#1E64E2</color>
     <color name="card_accent_blue">#5FA8F5</color>
+    <color name="light_blue_card">#E3F2FD</color>
+    <color name="light_blue_accent">#82B1FF</color>
 
     <!-- Added Colors -->
     <color name="deep_blue">#0D47A1</color>
