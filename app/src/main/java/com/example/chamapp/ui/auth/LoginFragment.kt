@@ -1,6 +1,5 @@
 package com.example.chamapp.ui.auth
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -65,18 +64,15 @@ class LoginFragment : Fragment() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         android.util.Log.d("LoginFragment", "Login response: $authResponse")
-                        if (authResponse != null && !authResponse.access_token.isNullOrEmpty()) {
+                        if (authResponse != null && !authResponse.access_token.isNullOrEmpty() && authResponse.user != null) {
+                            // Save all session data using the centralized SessionManager
                             sessionManager.saveAuthToken(authResponse.access_token)
-                            
-                            // Save user's first name to SharedPreferences
-                            authResponse.user?.first_name?.let { firstName ->
-                                val prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                                prefs.edit().putString("first_name", firstName).apply()
-                            }
+                            sessionManager.saveUserId(authResponse.user.id)
+                            authResponse.user.first_name?.let { sessionManager.saveFirstName(it) }
 
                             Toast.makeText(
                                 requireContext(),
-                                "Welcome ${authResponse.user?.first_name ?: "User"}!",
+                                "Welcome ${authResponse.user.first_name ?: "User"}!",
                                 Toast.LENGTH_SHORT
                             ).show()
                             // Navigate to Home screen

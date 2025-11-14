@@ -91,7 +91,7 @@ data class Chama(
     val role: String? = null,
     val myContributions: Double? = null,
     val totalBalance: Double? = null,
-    val status: String? = null,
+val status: String? = null,
     val statusColor: String? = null,
     val nextMeeting: String? = null,
     @SerializedName("members") val members: List<Member>?
@@ -125,6 +125,18 @@ data class GenericResponse(
     val message: String?,
     val error: String?
 )
+
+// --- TRANSACTION DATA CLASSES ---
+data class Transaction(
+    val amount: Double,
+    val contributed_at: String
+)
+
+data class TransactionsResponse(
+    val transactions: List<Transaction>
+)
+
+
 // =====================
 // API SERVICE
 // =====================
@@ -148,6 +160,10 @@ interface ApiService {
     suspend fun createChama(@Body request: CreateChamaRequest): Response<ChamaResponse>
     @POST("chamas/update/member")
     suspend fun updateMemberDetails(@Body request: UpdateMemberDetailsRequest): Response<GenericResponse>
+
+    // --- TRANSACTIONS ---
+    @GET("transactions/user/{user_id}")
+    suspend fun getUserTransactions(@Path("user_id") userId: String): Response<TransactionsResponse>
 }
 
 // =====================
