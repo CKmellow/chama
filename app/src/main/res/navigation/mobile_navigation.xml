@@ -18,7 +18,7 @@
         <action
             android:id="@+id/action_splashFragment_to_main_app_nav"
             app:destination="@id/main_app_nav"
-            app:popUpTo="@id/splashFragment"
+            app:popUpTo="@+id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -38,6 +38,30 @@
             <action
                 android:id="@+id/action_homeFragment_to_chamaDashboardFragment"
                 app:destination="@id/chamaDashboardFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_chamaDetailsFragment"
+                app:destination="@id/chamaDetailsFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_notificationsFragment"
+                app:destination="@id/notificationsFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_mySavingsFragment"
+                app:destination="@id/mySavingsFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_analyticsFragment"
+                app:destination="@id/analyticsFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_myChamasFragment"
+                app:destination="@id/myChamasFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_profileFragment"
+                app:destination="@id/profileFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_updatesFragment"
+                app:destination="@id/updatesFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_joinChamaFragment"
+                app:destination="@id/joinChamaFragment" />
         </fragment>
         <fragment
             android:id="@+id/nav_gallery"
@@ -71,7 +95,7 @@
                 <argument
                     android:name="totalBalance"
                     app:argType="string" />
-                 <argument
+                <argument
                     android:name="status"
                     app:argType="string" />
                 <argument
@@ -80,7 +104,73 @@
                 <argument
                     android:name="nextMeeting"
                     app:argType="string" />
-            </fragment>
+            <action
+                android:id="@+id/action_chamaDashboardFragment_to_allMembersFragment"
+                app:destination="@id/allMembersFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/chamaDetailsFragment"
+            android:name="com.example.chamapp.ui.chama.ChamaDetailsFragment"
+            android:label="ChamaDetailsFragment"
+            tools:layout="@layout/fragment_chama_details">
+            <action
+                android:id="@+id/action_chamaDetailsFragment_to_allMembersFragment"
+                app:destination="@id/allMembersFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/notificationsFragment"
+            android:name="com.example.chamapp.ui.notifications.NotificationsFragment"
+            android:label="NotificationsFragment"
+            tools:layout="@layout/fragment_notifications" />
+        <fragment
+            android:id="@+id/mySavingsFragment"
+            android:name="com.example.chamapp.ui.savings.MySavingsFragment"
+            android:label="MySavingsFragment"
+            tools:layout="@layout/fragment_my_savings" />
+        <fragment
+            android:id="@+id/analyticsFragment"
+            android:name="com.example.chamapp.ui.analytics.AnalyticsFragment"
+            android:label="AnalyticsFragment"
+            tools:layout="@layout/fragment_analytics" />
+        <fragment
+            android:id="@+id/myChamasFragment"
+            android:name="com.example.chamapp.ui.chama.MyChamasFragment"
+            android:label="MyChamasFragment"
+            tools:layout="@layout/fragment_my_chamas" />
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.example.chamapp.ui.profile.ProfileFragment"
+            android:label="ProfileFragment"
+            tools:layout="@layout/fragment_profile" />
+        <fragment
+            android:id="@+id/updatesFragment"
+            android:name="com.example.chamapp.ui.updates.UpdatesFragment"
+            android:label="UpdatesFragment"
+            tools:layout="@layout/fragment_updates" />
+        <fragment
+            android:id="@+id/allMembersFragment"
+            android:name="com.example.chamapp.ui.chamas.AllMembersFragment"
+            android:label="AllMembersFragment"
+            tools:layout="@layout/fragment_all_members" />
+        <fragment
+            android:id="@+id/joinChamaFragment"
+            android:name="com.example.chamapp.ui.chama.JoinChamaFragment"
+            android:label="JoinChamaFragment"
+            tools:layout="@layout/fragment_join_chama" >
+            <action
+                android:id="@+id/action_joinChamaFragment_to_congratulationsFragment"
+                app:destination="@id/congratulationsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/congratulationsFragment"
+            android:name="com.example.chamapp.ui.chama.CongratulationsFragment"
+            android:label="CongratulationsFragment"
+            tools:layout="@layout/fragment_congratulations" >
+            <action
+                android:id="@+id/action_congratulationsFragment_to_chamaDetailsFragment"
+                app:destination="@id/chamaDetailsFragment"
+                app:popUpTo="@id/homeFragment" />
+        </fragment>
     </navigation>
 
     <action
@@ -94,5 +184,5 @@
         app:destination="@id/auth_nav"
         app:popUpTo="@id/main_app_nav"
         app:popUpToInclusive="true" />
-
 </navigation>
+

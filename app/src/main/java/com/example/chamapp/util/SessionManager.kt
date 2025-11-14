@@ -37,6 +37,17 @@ class SessionManager(context: Context) {
     }
 
     /**
+     * Saves the user's first name, last name, and email to SharedPreferences.
+     */
+    fun saveUserDetails(firstName: String?, lastName: String?, email: String?) {
+        val editor = prefs.edit()
+        editor.putString(USER_FIRST_NAME, firstName)
+        editor.putString(USER_LAST_NAME, lastName)
+        editor.putString("user_email", email)
+        editor.apply()
+    }
+
+    /**
      * Retrieves the authentication token from SharedPreferences.
      * Returns null if no token is found.
      */

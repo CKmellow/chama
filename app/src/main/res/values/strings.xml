@@ -65,4 +65,6 @@
     <string name="updates_icon_desc">Updates icon</string>
     <string name="motivational_quote">Small savings, big dreams — keep growing with your chama 🌱</string>
     <string name="create_chama_fab_desc">Create a new chama</string>
+    <string name="chama_role_format">Your Role: %1$s</string>
+    <string name="chama_balance_format">KES %1$s</string>
 </resources>

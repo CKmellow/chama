@@ -7,14 +7,16 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
+import com.example.chamapp.data.AuthResult
 import com.example.chamapp.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment() {
-
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AuthViewModel by viewModels()
@@ -49,8 +51,25 @@ class SignUpFragment : Fragment() {
                 val phoneNumber = binding.etPhoneNumber.text.toString().trim()
                 val password = binding.etPassword.text.toString()
 
-                // Register user
                 viewModel.registerUser(firstName, lastName, email, phoneNumber, password)
+            }
+        }
+
+        viewModel.registrationResult.observe(viewLifecycleOwner) { result ->
+            binding.progressBar.isVisible = false
+            binding.btnSignUp.isEnabled = true
+            when(result) {
+                is AuthResult.Loading -> {
+                    binding.progressBar.isVisible = true
+                    binding.btnSignUp.isEnabled = false
+                }
+                is AuthResult.Success -> {
+                    Toast.makeText(requireContext(), "Registration Successful! Please login.", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
+                }
+                is AuthResult.Error -> {
+                    Toast.makeText(requireContext(), "Registration Failed: ${result.message}", Toast.LENGTH_LONG).show()
+                }
             }
         }
 
@@ -105,3 +124,4 @@ class SignUpFragment : Fragment() {
         _binding = null
     }
 }
+

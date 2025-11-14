@@ -24,7 +24,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvChamaStatus"/>
+            app:layout_constraintEnd_toStartOf="@+id/tv_chama_status"/>
 
         <TextView
             android:id="@+id/tv_chama_description"
@@ -34,7 +34,7 @@
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvChamaName"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chama_name"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
@@ -46,7 +46,7 @@
             android:textStyle="bold"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvChamaDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chama_description"
             android:layout_marginTop="8dp"/>
 
         <TextView
@@ -56,7 +56,7 @@
             android:text="Next meeting: 25 Nov 2025"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvYourContribution" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_your_contribution" />
 
         <TextView
             android:id="@+id/tv_chama_status"
@@ -80,7 +80,7 @@
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNextMeeting"
+            app:layout_constraintTop_toBottomOf="@+id/tv_next_meeting"
             android:layout_marginTop="4dp"/>
 
         <TextView
@@ -92,7 +92,7 @@
             android:textStyle="bold"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvChamaDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tv_chama_description"
             android:layout_marginTop="8dp"/>
 
         <Button
@@ -103,6 +103,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalBalance"
             android:layout_marginTop="8dp"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
+

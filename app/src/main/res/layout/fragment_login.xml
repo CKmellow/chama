@@ -123,6 +123,17 @@
         app:layout_constraintTop_toBottomOf="@+id/llInputContainer" />
 
 
+    <!-- ProgressBar for loading state -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <!-- 6. Forgot Password Link -->
     <TextView
         android:id="@+id/tvForgotPassword"
@@ -133,7 +144,7 @@
         android:textColor="@color/light_blue_text"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
 
     <!-- 7. Bottom Sign Up Link -->

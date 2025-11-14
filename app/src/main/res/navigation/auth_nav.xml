@@ -5,13 +5,11 @@
     android:id="@+id/auth_nav"
     app:startDestination="@id/welcomeFragment">
 
-    <!-- ✅ 1. Welcome Fragment -->
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.example.chamapp.ui.auth.WelcomeFragment"
         android:label="WelcomeFragment"
         tools:layout="@layout/fragment_welcome">
-        <!-- Action: Go from Welcome → Login -->
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -19,8 +17,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
-
-        <!-- Action: Go from Welcome → Sign Up -->
         <action
             android:id="@+id/action_welcomeFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
@@ -30,7 +26,6 @@
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
-    <!-- ✅ 2. Login Fragment -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.chamapp.ui.auth.LoginFragment"
@@ -43,18 +38,24 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
-
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
+            android:id="@+id/action_loginFragment_to_main_app_nav"
             app:destination="@id/main_app_nav"
             app:popUpTo="@id/auth_nav"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"/>
     </fragment>
 
-    <!-- ✅ 3. Sign-Up Fragment -->
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.chamapp.ui.auth.SignUpFragment"
         android:label="Member sign up"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
 </navigation>

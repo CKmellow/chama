@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by viewModels()
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,29 +34,40 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupHeader()
+        sessionManager = SessionManager(requireContext())
+        setupGreeting()
         setupRecyclerView()
-        setupButtons()
-        observeViewModel()
+        setupObservers()
+        viewModel.fetchChamas(sessionManager.getAuthToken() ?: "")
 
-        viewModel.fetchChamas(null)
+        val cardSavings = view.findViewById<View>(R.id.card_savings)
+        val cardAnalytics = view.findViewById<View>(R.id.card_analytics)
+        val cardChamas = view.findViewById<View>(R.id.card_chamas)
+        val cardUpdates = view.findViewById<View>(R.id.card_updates)
+        val imgNotificationBell = view.findViewById<View>(R.id.img_notification_bell)
+
+        imgNotificationBell.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
+        }
+        cardSavings.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_mySavingsFragment)
+        }
+        cardAnalytics.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_analyticsFragment)
+        }
+        cardChamas.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_myChamasFragment)
+        }
+        cardUpdates.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_updatesFragment)
+        }
     }
 
-    private fun setupHeader() {
-        val sessionManager = SessionManager(requireContext())
-        val (firstName, lastName) = sessionManager.getUserName()
-        val fullName = listOfNotNull(firstName, lastName).joinToString(" ").ifBlank { "User" }
-
-        // The XML IDs are `tv_greeting` and `tv_greeting_subtext`.
-        // View Binding converts these to the properties `tvGreeting` and `tvGreetingSubtext`.
-        // This code is now correct and matches the layout file.
-        binding.tvGreeting.text = "👋 Hi, $fullName"
-        binding.tvGreetingSubtext.text = "Welcome back to your Chama dashboard"
-
-        binding.ivNotificationBell.setOnClickListener {
-            // TODO: Navigate to notifications screen
-        }
+    private fun setupGreeting() {
+        val username = sessionManager.getUserName()
+        binding.tvGreetingHi.setText(R.string.greeting_hi)
+        binding.tvGreetingName.text = username.first ?: ""
+        binding.tvSubtext.setText(R.string.greeting_subtext)
     }
 
     private fun setupRecyclerView() {
@@ -80,28 +92,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupButtons() {
-        binding.cardMySavings.setOnClickListener {
-            // TODO: Navigate to My Savings
-        }
-        binding.cardAnalytics.setOnClickListener {
-            // TODO: Navigate to Analytics
-        }
-        binding.cardMyChamas.setOnClickListener {
-            // TODO: Navigate to My Chamas list
-        }
-        binding.cardUpdates.setOnClickListener {
-            // TODO: Navigate to Updates
-        }
-    }
-
-    private fun observeViewModel() {
+    private fun setupObservers() {
         viewModel.chamas.observe(viewLifecycleOwner, Observer { chamas ->
             try {
                 if (chamas.isNullOrEmpty()) {
                     val dummyChamas = listOf(
                         Chama(
-                            id = 0,
+                            id = "0",
                             chama_name = "Test Chama",
                             description = "A test chama for UI check",
                             chama_type = null,

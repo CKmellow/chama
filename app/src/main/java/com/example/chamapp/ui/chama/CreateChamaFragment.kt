@@ -40,29 +40,29 @@ class CreateChamaFragment : Fragment() {
 
     private fun setupSpinners() {
         // Populate Chama Type Spinner
-        ArrayAdapter.createFromResource(
+        val chamaTypeAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.chama_types_array, // This must exist in res/values/strings.xml
             android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinnerChamaType.adapter = adapter
-        }
+        )
+        chamaTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerChamaType.setAdapter(chamaTypeAdapter)
 
         // Populate Contribution Schedule Spinner
-        ArrayAdapter.createFromResource(
+        val contributionScheduleAdapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.contribution_schedules_array, // This must exist in res/values/strings.xml
             android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinnerContributionSchedule.adapter = adapter
-        }
+        )
+        contributionScheduleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerContributionSchedule.setAdapter(contributionScheduleAdapter)
+
         val meetingFrequencyAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.meeting_frequency_array))
         binding.spinnerMeetingFrequency.setAdapter(meetingFrequencyAdapter)
 
         val meetingDayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.meeting_day_array))
-        binding.spinnerMeetingDay.setAdapter(meetingDayAdapter)    }
+        binding.spinnerMeetingDay.setAdapter(meetingDayAdapter)
+    }
 
     private fun setupClickListeners() {
         binding.btnCreateChama.setOnClickListener {
@@ -77,8 +77,8 @@ class CreateChamaFragment : Fragment() {
         val contributionAmount = binding.etContributionAmount.text.toString().toDoubleOrNull()
         val interestRate = binding.etInterestRate.text.toString().toDoubleOrNull()
         val maxLoanMultiple = binding.etMaxLoanMultiple.text.toString().toIntOrNull()
-    val chamaType = binding.spinnerChamaType.selectedItem.toString().lowercase()
-        val contributionSchedule = binding.spinnerContributionSchedule.selectedItem.toString()
+        val chamaType = binding.spinnerChamaType.text.toString().lowercase()
+        val contributionSchedule = binding.spinnerContributionSchedule.text.toString()
         val contributionDueDay = binding.etContributionDueDay.text.toString().toIntOrNull()
         val loanMaxTerm = binding.etLoanMaxTermMonths.text.toString().toIntOrNull()
         val meetingFrequency = binding.spinnerMeetingFrequency.text.toString()
