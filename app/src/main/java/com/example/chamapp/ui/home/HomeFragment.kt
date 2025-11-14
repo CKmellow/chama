@@ -78,9 +78,6 @@ class HomeFragment : Fragment() {
             val navController = findNavController()
             val currentDest = navController.currentDestination?.id
             if (currentDest == R.id.homeFragment) {
-<<<<<<< Updated upstream
-                navController.navigate(R.id.action_homeFragment_to_chamaDetailsFragment, bundle)
-=======
                 if (member != null) {
                     val role = member.role?.lowercase()
                     if (role == "secretary") {
@@ -93,7 +90,6 @@ class HomeFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "Sorry not a member", Toast.LENGTH_SHORT).show()
                 }
->>>>>>> Stashed changes
             } else {
                 Toast.makeText(requireContext(), "Navigation failed: not on HomeFragment", Toast.LENGTH_SHORT).show()
             }

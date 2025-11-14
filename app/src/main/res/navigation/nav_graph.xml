@@ -112,8 +112,20 @@
             android:id="@+id/action_homeFragment_to_chamaDashboardFragment"
             app:destination="@id/chamaDashboardFragment"/>
         <action
+            android:id="@+id/action_homeFragment_to_secretaryDashboardFragment"
+            app:destination="@id/secretaryDashboardFragment" />
+        <action
             android:id="@+id/action_homeFragment_self"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <!-- Secretary Dashboard Fragment -->
+    <fragment
+        android:id="@+id/secretaryDashboardFragment"
+        android:name="com.example.chamapp.ui.chama.SecretaryDashboardFragment"
+        tools:layout="@layout/fragment_secretary_dashboard" >
+        <argument
+            android:name="chamaId"
+            app:argType="string" />
     </fragment>
 
     <!-- Create Chama Fragment -->

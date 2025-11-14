@@ -43,12 +43,12 @@ class ChamaDetailsFragment : Fragment() {
 
         android.util.Log.d("ChamaDetailsFragment", "Called fetchChamaDetails($chamaId)")
 
-        viewModel.chama.observe(viewLifecycleOwner) { chama ->
+        viewModel.chamaDetails.observe(viewLifecycleOwner) { chama ->
             if (chama != null) {
                 binding.tvChamaName.text = chama.chama_name
                 binding.tvChamaType.text = "Type: ${chama.chama_type ?: "-"}"
                 binding.tvCreationDate.text = "Created: ${chama.created_at ?: "-"}"
-                binding.tvMemberCount.text = "Members: " // TODO: Show actual member count
+                binding.tvMemberCount.text = "Members: ${chama.members?.size ?: 0}"
                 binding.tvContributionAmount.text = "Contribution: KES ${chama.monthly_contribution_amount ?: "-"}"
                 binding.tvContributionSchedule.text = "Schedule: ${chama.contribution_frequency ?: "-"}"
                 binding.tvInterestRate.text = "Interest Rate: ${chama.loan_interest_rate ?: "-"}%"
@@ -57,7 +57,7 @@ class ChamaDetailsFragment : Fragment() {
             }
         }
 
-        viewModel.error.observe(viewLifecycleOwner) { errorMsg ->
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
             if (errorMsg != null) {
                 binding.tvChamaName.text = errorMsg
                 android.util.Log.d("ChamaDetailsFragment", "Error loading chama: $errorMsg")
@@ -88,7 +88,8 @@ class ChamaDetailsFragment : Fragment() {
                     val chamaId = arguments?.getString("chamaId") ?: return@setPositiveButton
                     val prefs = requireContext().getSharedPreferences("user_prefs", android.content.Context.MODE_PRIVATE)
                     val userId = prefs.getString("user_id", null) ?: return@setPositiveButton
-                    viewModel.updateMemberDetails(chamaId, userId, newContribution, newRole)
+                    val memberId = "" // TODO: Get actual memberId if available
+                    viewModel.updateMemberDetails(memberId, chamaId, userId, newContribution, newRole)
                 }
                 .setNegativeButton("Cancel", null)
                 .show()

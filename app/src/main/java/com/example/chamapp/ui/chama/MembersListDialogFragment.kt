@@ -57,7 +57,7 @@ class MembersListDialogFragment : DialogFragment() {
         fun newInstance(members: List<ChamaMemberRelation>): MembersListDialogFragment {
             val fragment = MembersListDialogFragment()
             val args = Bundle()
-            args.putParcelableArrayList(ARG_MEMBERS, ArrayList(members))
+            args.putParcelableArrayList(ARG_MEMBERS, ArrayList<android.os.Parcelable>(members as List<android.os.Parcelable>))
             fragment.arguments = args
             return fragment
         }

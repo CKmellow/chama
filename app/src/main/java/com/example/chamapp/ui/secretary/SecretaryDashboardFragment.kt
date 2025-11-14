@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.chamapp.api.Chama
+import com.example.chamapp.api.ChamaMemberRelation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,7 +27,7 @@ class SecretaryDashboardFragment : Fragment() {
             return fragment
         }
     }
-    private val viewModel: com.example.chamapp.ui.chama.ChamaDetailsViewModel by viewModels()
+    private val viewModel: com.example.chamapp.ui.chama.ChamaViewModel by viewModels()
 
     private var _binding: FragmentSecretaryDashboardBinding? = null
     private val binding get() = _binding!!
@@ -44,34 +46,31 @@ class SecretaryDashboardFragment : Fragment() {
 
         binding.rvMembers.layoutManager = LinearLayoutManager(requireContext())
 
-    // Fetch chamaId from arguments using companion object's constant
-    val chamaId = arguments?.getString(ARG_CHAMA_ID) ?: ""
-    android.util.Log.d("SecretaryDashboard", "Fetched chamaId: $chamaId")
-    viewModel.fetchChamaDetails(chamaId)
+        val chamaId = arguments?.getString(ARG_CHAMA_ID) ?: ""
+        android.util.Log.d("SecretaryDashboard", "Fetched chamaId: $chamaId")
+        viewModel.fetchChamas()
 
-        viewModel.chamaDetails.observe(viewLifecycleOwner) { chama ->
-            android.util.Log.d("SecretaryDashboard", "chamaDetails.observe triggered, chama: $chama")
+        viewModel.chamas.observe(viewLifecycleOwner) { chamasList: List<Chama> ->
+            val chama = chamasList.firstOrNull { it.id == chamaId }
+            android.util.Log.d("SecretaryDashboard", "Found chama: $chama")
             if (chama != null) {
-                android.util.Log.d("SecretaryDashboard", "Fetched chama: $chama")
-                binding.tvChamaName.text = chama.chama_name
-                val balance = chama.total_balance ?: chama.totalBalance ?: 0.0
+                binding.tvChamaName.text = chama.chama_name ?: "No Name"
+                val balance = chama.totalBalance ?: 0.0
                 binding.tvTotalContributionLabel.text = "Total Balance: Ksh ${String.format("%,.2f", balance)}"
-                val members = (chama.members ?: emptyList()).map { relation ->
+                val members = chama.members?.map { relation ->
                     Member(
-                        name = listOfNotNull(relation.firstName, relation.lastName).joinToString(" ").ifBlank { relation.userId },
+                        name = listOfNotNull(relation.firstName, relation.lastName).joinToString(" ").ifBlank { relation.userId ?: "" },
                         role = relation.role ?: "",
                         contribution = relation.contributionAmount?.toString() ?: "0",
                         status = relation.status ?: "",
                         email = relation.email,
                         phone = relation.phoneNumber,
-                        profilePictureUrl = null // Add if available
+                        profilePictureUrl = null
                     )
-                }
-                android.util.Log.d("SecretaryDashboard", "Final members list: $members")
+                } ?: emptyList()
                 binding.rvMembers.adapter = MemberAdapter(members)
             } else {
                 binding.tvChamaName.text = "No chama found"
-                android.util.Log.e("SecretaryDashboard", "chama is null or not found for id: $chamaId")
                 binding.rvMembers.adapter = MemberAdapter(emptyList())
             }
         }

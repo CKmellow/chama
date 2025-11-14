@@ -16,6 +16,7 @@ import com.example.chamapp.util.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.content.Context
 
 class LoginFragment : Fragment() {
 
@@ -66,8 +67,6 @@ class LoginFragment : Fragment() {
                         android.util.Log.d("LoginFragment", "Login response: $authResponse")
                         if (authResponse != null && !authResponse.access_token.isNullOrEmpty()) {
                             sessionManager.saveAuthToken(authResponse.access_token)
-<<<<<<< Updated upstream
-=======
                             
                             // Save user's first name and user_id to SharedPreferences
                             authResponse.user?.let { user ->
@@ -79,7 +78,6 @@ class LoginFragment : Fragment() {
                                 }
                             }
 
->>>>>>> Stashed changes
                             Toast.makeText(
                                 requireContext(),
                                 "Welcome ${authResponse.user?.first_name ?: "User"}!",

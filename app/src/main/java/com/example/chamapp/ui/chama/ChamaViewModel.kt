@@ -13,6 +13,26 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class ChamaViewModel : ViewModel() {
+    private val _chamas = MutableLiveData<List<com.example.chamapp.api.Chama>>()
+    val chamas: LiveData<List<com.example.chamapp.api.Chama>> get() = _chamas
+
+    fun fetchChamas() {
+        viewModelScope.launch {
+            try {
+                val response = com.example.chamapp.api.RetrofitClient.instance.getChamas()
+                if (response.isSuccessful) {
+                    val chamas = response.body()?.chamas ?: emptyList()
+                    _chamas.postValue(chamas)
+                } else {
+                    android.util.Log.e("ChamaViewModel", "getChamas API error: ${response.code()} - ${response.errorBody()?.string()}")
+                    _chamas.postValue(emptyList())
+                }
+            } catch (e: Exception) {
+                android.util.Log.e("ChamaViewModel", "Exception in getChamas: ${e.message}", e)
+                _chamas.postValue(emptyList())
+            }
+        }
+    }
 
     private val _createResult = MutableLiveData<Event<Pair<Boolean, String>>>()
     val createResult: LiveData<Event<Pair<Boolean, String>>> = _createResult

@@ -57,10 +57,6 @@ data class UserData(
 )
 
 // --- CHAMA DATA CLASSES ---
-<<<<<<< Updated upstream
-=======
-
-@Parcelize
 data class ChamaMemberRelation(
     @SerializedName("id") val id: String,
     @SerializedName("chama_id") val chamaId: String,
@@ -73,9 +69,7 @@ data class ChamaMemberRelation(
     @SerializedName("last_name") val lastName: String? = null,
     @SerializedName("email") val email: String? = null,
     @SerializedName("phone_number") val phoneNumber: String? = null
-) : Parcelable
-
->>>>>>> Stashed changes
+)
 data class Chama(
     @SerializedName("chama_id") val id: String,
     @SerializedName("chama_name") val chama_name: String,
@@ -101,12 +95,8 @@ data class Chama(
     val totalBalance: Double? = null,
     val status: String? = null,
     val statusColor: String? = null,
-<<<<<<< Updated upstream
-    val nextMeeting: String? = null
-=======
     val nextMeeting: String? = null,
-    @SerializedName("members") val members: List<ChamaMemberRelation>?
->>>>>>> Stashed changes
+    @SerializedName("members") val members: List<ChamaMemberRelation>? = null
 )
 
 data class ChamasResponse(

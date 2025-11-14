@@ -41,7 +41,21 @@
             <action
                 android:id="@+id/action_homeFragment_to_chamaDetailsFragment"
                 app:destination="@id/chamaDetailsFragment" />
-        </fragment>
+            <action
+                android:id="@+id/action_homeFragment_to_secretaryDashboardFragment"
+                app:destination="@id/secretaryDashboardFragment" />
+        <!-- homeFragment ends here, no extra closing tag needed -->
+            </fragment>
+
+            <fragment
+                android:id="@+id/secretaryDashboardFragment"
+                android:name="com.example.chamapp.ui.secretary.SecretaryDashboardFragment"
+                android:label="SecretaryDashboardFragment"
+                tools:layout="@layout/fragment_secretary_dashboard">
+                <argument
+                    android:name="chamaId"
+                    app:argType="string" />
+            </fragment>
         <fragment
             android:id="@+id/nav_gallery"
             android:name="com.example.chamapp.ui.gallery.GalleryFragment"
