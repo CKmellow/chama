@@ -17,23 +17,24 @@ import com.example.chamapp.ui.home.HomeViewModel
 class AllMembersFragment : Fragment() {
         // Helper to convert raw member maps to ChamaMember objects
         private fun convertRawMembers(membersList: List<*>): List<com.example.chamapp.data.ChamaMember> {
-            return membersList.mapNotNull { memberMap ->
-                if (memberMap is Map<*, *>) {
-                    com.example.chamapp.data.ChamaMember(
-                        id = memberMap["id"] as? String ?: "",
-                        chamaId = memberMap["chama_id"] as? String ?: "",
-                        userId = memberMap["user_id"] as? String ?: "",
-                        role = memberMap["role"] as? String,
-                        contributionAmount = (memberMap["contribution_amount"] as? Number)?.toDouble(),
-                        joinedAt = memberMap["joined_at"] as? String,
-                        status = memberMap["status"] as? String,
-                        firstName = memberMap["first_name"] as? String,
-                        lastName = memberMap["last_name"] as? String,
-                        email = memberMap["email"] as? String,
-                        phoneNumber = memberMap["phone_number"] as? String
-                    )
-                } else null
-            }
+        return membersList.mapNotNull { memberMap ->
+            if (memberMap is Map<*, *>) {
+                com.example.chamapp.data.ChamaMember(
+                    id = memberMap["id"] as? String ?: "",
+                    chamaId = memberMap["chama_id"] as? String ?: memberMap["chamaId"] as? String ?: "",
+                    userId = memberMap["user_id"] as? String ?: memberMap["userId"] as? String ?: "",
+                    role = memberMap["role"] as? String,
+                    contributionAmount = (memberMap["contribution_amount"] as? Number)?.toDouble()
+                        ?: (memberMap["contributionAmount"] as? Number)?.toDouble(),
+                    joinedAt = memberMap["joined_at"] as? String ?: memberMap["joinedAt"] as? String,
+                    status = memberMap["status"] as? String,
+                    firstName = memberMap["first_name"] as? String,
+                    lastName = memberMap["last_name"] as? String,
+                    email = memberMap["email"] as? String,
+                    phoneNumber = memberMap["phone_number"] as? String
+                )
+            } else null
+        }
         }
     private var _binding: FragmentAllMembersBinding? = null
     private val binding get() = _binding!!
