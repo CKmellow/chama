@@ -146,7 +146,7 @@ class CreateChamaFragment : Fragment() {
     }
 
     private fun navigateToMyChamas() {
-        findNavController().navigate(R.id.action_createChamaFragment_to_myChamasFragment)
+        findNavController().navigate(R.id.myChamasFragment)
     }
 
     private fun createChama() {
@@ -235,7 +235,8 @@ class CreateChamaFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.ivBackArrow.setOnClickListener {
-            findNavController().navigate(R.id.action_createChamaFragment_to_homeFragment)
+            // Navigate back to HomeFragment
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 

@@ -65,6 +65,8 @@
     <string name="chama_role_format">Role: %1$s</string>
     <string name="chama_balance_format">Balance: %1$s</string>
     <string name="step_indicator">Step 1 of 4</string>
+    <string name="your_chamas_title">Your Chamas</string>
+    <string name="profile_placeholder_desc">Profile placeholder</string>
     <!-- Removed duplicate string-arrays: chama_types_array, contribution_schedules_array, meeting_frequency_array, meeting_day_array -->
     <!-- Add any other missing strings here -->
 </resources>
