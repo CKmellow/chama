@@ -40,13 +40,14 @@ class HomeFragment : Fragment() {
         setupGreeting()
         setupRecyclerView()
         setupObservers()
-        viewModel.fetchChamas(sessionManager.getAuthToken() ?: "")
+        viewModel.fetchMyChamas(sessionManager.getAuthToken() ?: "")
 
         val cardSavings = view.findViewById<View>(R.id.card_savings)
         val cardAnalytics = view.findViewById<View>(R.id.card_analytics)
         val cardChamas = view.findViewById<View>(R.id.card_chamas)
         val cardUpdates = view.findViewById<View>(R.id.card_updates)
         val imgNotificationBell = view.findViewById<View>(R.id.img_notification_bell)
+        val fabQuickAction = view.findViewById<View>(R.id.fab_quick_action)
 
         imgNotificationBell.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
@@ -61,7 +62,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_myChamasFragment)
         }
         cardUpdates.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_updatesFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_joinChamaFragment)
+        }
+        fabQuickAction.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_joinChamaFragment)
         }
     }
 

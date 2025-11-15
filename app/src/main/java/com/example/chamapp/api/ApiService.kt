@@ -117,6 +117,17 @@ data class GenericResponse(
 // API SERVICE
 // =====================
 interface ApiService {
+            @GET("auth/users/{id}")
+            suspend fun getUserById(@Path("id") userId: String): Response<UserResponse>
+        data class UserResponse(
+            val user: UserData
+        )
+        @GET("chamas/my-chamas")
+        suspend fun getMyChamas(): Response<ChamasResponse>
+    @POST("chamas/{id}/regenerate-invite")
+    suspend fun regenerateInviteCode(
+        @Path("id") chamaId: String
+    ): Response<RegenerateInviteResponse>
 
     // --- AUTH ---
     @POST("auth/signup")
@@ -134,8 +145,30 @@ interface ApiService {
 
     @POST("chamas/create")
     suspend fun createChama(@Body request: CreateChamaRequest): Response<ChamaResponse>
+
+    @POST("chamas/{id}/invite-member")
+    suspend fun inviteMember(
+        @Path("id") chamaId: String,
+        @Body body: InviteMemberRequest
+    ): Response<GenericResponse>
+
+    @POST("chamas/join")
+    suspend fun joinChama(@Body body: Map<String, String>): Response<JoinChamaResponse>
+
+    @POST("chamas/invite-codes")
+    suspend fun storeInviteCode(@Body body: Map<String, String>): Response<GenericResponse>
 }
 
+data class RegenerateInviteResponse(
+    val message: String?,
+    val invitation_code: String?
+)
+
+data class InviteMemberRequest(
+    val memberId: String
+)
+
+data class JoinChamaResponse(val success: Boolean, val message: String)
 // =====================
 // RETROFIT CLIENT
 // =====================

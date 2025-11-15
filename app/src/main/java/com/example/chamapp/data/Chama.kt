@@ -10,5 +10,5 @@ data class Chama(
     @SerializedName("description") val description: String?,
     @SerializedName("chama_type") val chamaType: String?,
     @SerializedName("members") val members: List<ChamaMember> = emptyList(),
-    // Add other fields as needed
+    @SerializedName("total_balance") val totalBalance: Double? = null,
 )

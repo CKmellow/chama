@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/splashFragment">
-
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.chamapp.ui.auth.SplashFragment"
@@ -24,9 +23,31 @@
 
     <include app:graph="@navigation/auth_nav" />
 
+    <fragment
+        android:id="@+id/updatesFragment"
+        android:name="com.example.chamapp.ui.updates.UpdatesFragment"
+        android:label="UpdatesFragment"
+        tools:layout="@layout/fragment_updates" />
+
+
+    <fragment
+        android:id="@+id/inviteCodeDisplayFragment"
+        android:name="com.example.chamapp.ui.chamas.InviteCodeDisplayFragment"
+        android:label="InviteCodeDisplayFragment"
+        tools:layout="@layout/fragment_invite_code_display" />
+
     <navigation
         android:id="@+id/main_app_nav"
         app:startDestination="@id/homeFragment">
+        <fragment
+            android:id="@+id/allMembersFragment"
+            android:name="com.example.chamapp.ui.chamas.AllMembersFragment"
+            android:label="AllMembersFragment"
+            tools:layout="@layout/fragment_all_members">
+            <action
+                android:id="@+id/action_allMembersFragment_to_generateInviteFragment"
+                app:destination="@id/generateInviteFragment" />
+        </fragment>
         <fragment
             android:id="@+id/homeFragment"
             android:name="com.example.chamapp.ui.home.HomeFragment"
@@ -142,16 +163,17 @@
             android:name="com.example.chamapp.ui.profile.ProfileFragment"
             android:label="ProfileFragment"
             tools:layout="@layout/fragment_profile" />
+
+
         <fragment
-            android:id="@+id/updatesFragment"
-            android:name="com.example.chamapp.ui.updates.UpdatesFragment"
-            android:label="UpdatesFragment"
-            tools:layout="@layout/fragment_updates" />
-        <fragment
-            android:id="@+id/allMembersFragment"
-            android:name="com.example.chamapp.ui.chamas.AllMembersFragment"
-            android:label="AllMembersFragment"
-            tools:layout="@layout/fragment_all_members" />
+            android:id="@+id/generateInviteFragment"
+            android:name="com.example.chamapp.ui.chamas.GenerateInviteFragment"
+            android:label="GenerateInviteFragment"
+            tools:layout="@layout/fragment_generate_invite">
+            <action
+                android:id="@+id/action_generateInviteFragment_to_inviteCodeDisplayFragment"
+                app:destination="@id/inviteCodeDisplayFragment" />
+        </fragment>
         <fragment
             android:id="@+id/joinChamaFragment"
             android:name="com.example.chamapp.ui.chama.JoinChamaFragment"

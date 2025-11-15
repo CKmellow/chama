@@ -16,9 +16,7 @@ class MemberAdapter(private val members: List<ChamaMember>) : RecyclerView.Adapt
     class MemberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tv_member_name)
         val tvRole: TextView = itemView.findViewById(R.id.tv_member_role)
-        val tvEmail: TextView = itemView.findViewById(R.id.tv_member_email)
-        val tvPhone: TextView = itemView.findViewById(R.id.tv_member_phone)
-        val tvContribution: TextView = itemView.findViewById(R.id.tv_member_contribution)
+        val ivMenu: View = itemView.findViewById(R.id.iv_member_menu)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
@@ -28,7 +26,6 @@ class MemberAdapter(private val members: List<ChamaMember>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: MemberViewHolder, position: Int) {
         val member = members[position]
-        // Show name if available, otherwise show fallback
         val name = listOfNotNull(member.firstName, member.lastName).joinToString(" ")
         holder.tvName.text = if (name.isNotBlank()) {
             name
@@ -40,9 +37,7 @@ class MemberAdapter(private val members: List<ChamaMember>) : RecyclerView.Adapt
             "Member"
         }
         holder.tvRole.text = member.role ?: "Member"
-        holder.tvEmail.text = member.email ?: "-"
-        holder.tvPhone.text = member.phoneNumber ?: "-"
-        holder.tvContribution.text = member.contributionAmount?.let { "Ksh %.2f".format(it) } ?: "-"
+        // ...existing code...
     }
 
     override fun getItemCount(): Int = members.size

@@ -97,25 +97,15 @@ class ChamaDetailsFragment : Fragment() {
         
         // Observe chamas to enable/disable the button (but keep it enabled)
         viewModel.chamas.observe(viewLifecycleOwner) { chamas ->
-            android.util.Log.d("ChamaDetailsFragment", "chamas observed: $chamas")
-            android.util.Log.d("ChamaDetailsFragment", "Chamas list size: ${chamas?.size ?: 0}")
-            
-            if (chamas != null) {
-                chamas.forEachIndexed { index, ch ->
-                    android.util.Log.d("ChamaDetailsFragment", "Chama[$index]: id='${ch.id}', name='${ch.chama_name}'")
-                }
-            }
-            
             // Find the actual chama object by id
             val chama = chamas?.find { it.id == chamaId }
+            binding.tvChamaName.text = chama?.chama_name ?: "Unknown"
+            binding.tvChamaBalance.text = getString(R.string.chama_balance_format, chama?.totalBalance ?: 0.0)
+            viewAllButton.isEnabled = true
+            binding.btnViewAllMembers.isEnabled = true
             if (chama != null) {
-                viewAllButton.isEnabled = true
-                binding.btnViewAllMembers.isEnabled = true
                 android.util.Log.d("ChamaDetailsFragment", "btnViewAllMembers enabled for chama: $chama")
             } else {
-                // Keep button enabled even if chama not found - let click handler deal with it
-                viewAllButton.isEnabled = true
-                binding.btnViewAllMembers.isEnabled = true
                 android.util.Log.e("ChamaDetailsFragment", "Chama not found, but keeping button enabled. chamaId: $chamaId")
             }
         }

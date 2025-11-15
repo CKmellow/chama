@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as androidx.navigation.fragment.NavHostFragment
         navController = navHostFragment.navController
 
+        /*
         // --- Setup Bottom Navigation ---
         binding.bottomNavView.setupWithNavController(navController)
 
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                 binding.fabCreateChama.visibility = View.VISIBLE
             }
         }
+        */
     }
 
     override fun onSupportNavigateUp(): Boolean {

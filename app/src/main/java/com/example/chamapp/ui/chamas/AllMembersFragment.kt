@@ -1,5 +1,8 @@
 package com.example.chamapp.ui.chamas
-
+import androidx.navigation.fragment.findNavController
+import com.example.chamapp.R
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -51,10 +54,21 @@ class AllMembersFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+                binding.fabAddMember.setOnClickListener {
+            // Get chamaId from arguments
+            val chamaId = arguments?.getString("chamaId")
+            if (chamaId.isNullOrBlank()) {
+                android.widget.Toast.makeText(requireContext(), "No chamaId provided", android.widget.Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            val bundle = Bundle().apply { putString("chamaId", chamaId) }
+            findNavController().navigate(R.id.action_allMembersFragment_to_generateInviteFragment, bundle)
+        }
         android.util.Log.d("AllMembersFragment", "=== onViewCreated START ===")
         super.onViewCreated(view, savedInstanceState)
         binding.rvAllMembers.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvAllMembers.adapter = MemberAdapter(emptyList())
+        val memberAdapter = MemberAdapter(emptyList())
+        binding.rvAllMembers.adapter = memberAdapter
         binding.tvEmptyMembers.visibility = View.VISIBLE
         binding.rvAllMembers.visibility = View.GONE
 
@@ -66,7 +80,7 @@ class AllMembersFragment : Fragment() {
         val sessionManager = com.example.chamapp.util.SessionManager(requireContext())
         val token = sessionManager.getAuthToken() ?: ""
         android.util.Log.d("AllMembersFragment", "Fetched token: $token")
-        viewModel.fetchChamas(token)
+            viewModel.fetchMyChamas(token)
 
         if (chamaId.isNullOrEmpty()) {
             android.util.Log.w("AllMembersFragment", "No chamaId provided")
@@ -90,23 +104,44 @@ class AllMembersFragment : Fragment() {
                 }
                 val members = convertRawMembers(rawMembers)
                 android.util.Log.d("AllMembersFragment", "Members extracted count: ${members.size}")
-                members.forEachIndexed { idx, member ->
-                    android.util.Log.d("AllMembersFragment", "Member[$idx]: $member")
-                }
-                binding.rvAllMembers.adapter = MemberAdapter(members)
-                android.util.Log.d("AllMembersFragment", "Adapter updated with members: ${members.size}")
-                if (members.isEmpty() && !hasTriedFetchingDetails) {
-                    hasTriedFetchingDetails = true
-                    android.util.Log.d("AllMembersFragment", "No members found, fetching chama details from API")
-                    viewModel.fetchChamaDetails(chamaId)
-                    return@observe
-                }
-                if (members.isEmpty()) {
-                    binding.tvEmptyMembers.visibility = View.VISIBLE
-                    binding.rvAllMembers.visibility = View.GONE
-                } else {
-                    binding.tvEmptyMembers.visibility = View.GONE
-                    binding.rvAllMembers.visibility = View.VISIBLE
+                // Fetch first/last name for each member from backend if missing
+                lifecycleScope.launch {
+                    val updatedMembers = members.map { member ->
+                        if (member.firstName.isNullOrBlank() && member.userId.isNotBlank()) {
+                            try {
+                                val response = com.example.chamapp.api.RetrofitClient.instance.getUserById(member.userId)
+                                if (response.isSuccessful) {
+                                    val user = response.body()?.user
+                                    member.copy(
+                                        firstName = user?.first_name,
+                                        lastName = user?.last_name
+                                    )
+                                } else member
+                            } catch (e: Exception) {
+                                member
+                            }
+                        } else member
+                    }
+                    memberAdapter.apply {
+                        val field = this::class.java.getDeclaredField("members")
+                        field.isAccessible = true
+                        field.set(this, updatedMembers)
+                        notifyDataSetChanged()
+                    }
+                    android.util.Log.d("AllMembersFragment", "Adapter updated with members: ${updatedMembers.size}")
+                    if (updatedMembers.isEmpty() && !hasTriedFetchingDetails) {
+                        hasTriedFetchingDetails = true
+                        android.util.Log.d("AllMembersFragment", "No members found, fetching chama details from API")
+                        viewModel.fetchChamaDetails(chamaId)
+                        return@launch
+                    }
+                    if (updatedMembers.isEmpty()) {
+                        binding.tvEmptyMembers.visibility = View.VISIBLE
+                        binding.rvAllMembers.visibility = View.GONE
+                    } else {
+                        binding.tvEmptyMembers.visibility = View.GONE
+                        binding.rvAllMembers.visibility = View.VISIBLE
+                    }
                 }
             } catch (e: Exception) {
                 android.util.Log.e("AllMembersFragment", "Error in observer: ${e.message}", e)
@@ -118,6 +153,25 @@ class AllMembersFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun inviteMember(chamaId: String, memberId: String) {
+        android.util.Log.d("AllMembersFragment", "Inviting member: $memberId to chama: $chamaId")
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val response = com.example.chamapp.api.RetrofitClient.instance.inviteMember(
+                    chamaId,
+                    com.example.chamapp.api.InviteMemberRequest(memberId)
+                )
+                if (response.isSuccessful) {
+                    val code = response.body()?.message ?: "Invite sent!"
+                    android.widget.Toast.makeText(requireContext(), "Invite code: $code", android.widget.Toast.LENGTH_LONG).show()
+                } else {
+                    android.widget.Toast.makeText(requireContext(), "Failed to invite: ${response.errorBody()?.string()}", android.widget.Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                android.widget.Toast.makeText(requireContext(), "Error: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
 

@@ -27,29 +27,22 @@ class HomeViewModel : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
-    fun fetchChamas(token: String?) {
+    fun fetchMyChamas(token: String?) {
         viewModelScope.launch {
             try {
-                Log.d("HomeViewModel", "Fetching chamas with token: $token")
-                val response = RetrofitClient.instance.getChamas()
-                Log.d("HomeViewModel", "Chamas response: ${response.body()} | Raw: ${response.raw()} | Error: ${response.errorBody()?.string()}")
+                Log.d("HomeViewModel", "Fetching my chamas with token: $token")
+                val response = RetrofitClient.instance.getMyChamas()
                 if (response.isSuccessful) {
                     val chamasList = response.body()?.chamas ?: emptyList()
-                    Log.d("HomeViewModel", "Parsed chamas: $chamasList")
                     _chamas.postValue(chamasList)
-                    Log.d("HomeViewModel", "_chamas.postValue called with: $chamasList")
                     _error.postValue(null)
                 } else {
-                    val errorMsg = "Failed to fetch chamas: ${response.errorBody()?.string()} | Code: ${response.code()}"
-                    Log.e("HomeViewModel", errorMsg)
+                    val errorMsg = "Failed to fetch my chamas: ${response.errorBody()?.string()} | Code: ${response.code()}"
                     _chamas.postValue(emptyList())
-                    Log.d("HomeViewModel", "_chamas.postValue called with: emptyList (error)")
                     _error.postValue(errorMsg)
                 }
             } catch (e: Exception) {
-                Log.e("HomeViewModel", "Exception: ${e.message}", e)
                 _chamas.postValue(emptyList())
-                Log.d("HomeViewModel", "_chamas.postValue called with: emptyList (exception)")
                 _error.postValue(e.message ?: "Unknown error")
             }
         }
