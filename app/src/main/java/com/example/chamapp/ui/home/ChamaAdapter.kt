@@ -20,7 +20,7 @@ class ChamaAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChamaViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_chama, parent, false)
+            .inflate(R.layout.chama_card_item, parent, false)
         return ChamaViewHolder(view)
     }
 
@@ -32,27 +32,25 @@ class ChamaAdapter(
     override fun getItemCount() = chamas.size
 
     class ChamaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bind(chama: Chama) {
-            val nameView = itemView.findViewById<TextView>(R.id.tv_chama_name)
+            val nameView = itemView.findViewById<TextView>(R.id.tvChamaName)
             nameView.text = chama.name ?: "Unnamed Chama"
-            val descView = itemView.findViewById<TextView>(R.id.tv_chama_description)
-            descView.text = "Members: ${chama.members?.size ?: 0}"
-            // Add more fields as needed
-
-            val myContributions: TextView = itemView.findViewById(R.id.tv_your_contribution)
-            myContributions.text = "KES ${chama.myContributions ?: "-"}"
-            val nextMeeting: TextView = itemView.findViewById(R.id.tv_next_meeting)
-            nextMeeting.text = "Next meeting: ${chama.nextMeeting ?: "-"}"
-            val chamaStatus: TextView = itemView.findViewById(R.id.tv_chama_status)
-            chamaStatus.text = chama.status ?: "-"
-
+            val roleView = itemView.findViewById<TextView>(R.id.tvUserRole)
+            roleView.text = chama.role ?: "Member"
+            val myContributions = itemView.findViewById<TextView>(R.id.tvMyContributions)
+            myContributions.text = "My Contributions: KES ${chama.myContributions ?: "-"}"
+            val chamaBalance = itemView.findViewById<TextView>(R.id.tvChamaBalance)
+            chamaBalance.text = "Chama Balance: KES ${chama.totalBalance ?: "-"}"
+            val nextMeeting = itemView.findViewById<TextView>(R.id.tvNextMeeting)
+            nextMeeting.text = "Next Meeting: ${chama.nextMeeting ?: "-"}"
+            val statusView = itemView.findViewById<TextView>(R.id.tvStatus)
+            statusView.text = chama.status ?: "-"
             val color = try {
                 Color.parseColor(chama.statusColor ?: "#388E3C")
             } catch (e: Exception) {
-                Color.BLACK
+                Color.WHITE
             }
-            chamaStatus.setTextColor(color)
+            statusView.setTextColor(color)
         }
     }
 }
