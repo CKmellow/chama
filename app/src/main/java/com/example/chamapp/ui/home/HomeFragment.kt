@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chamapp.R
+import com.example.chamapp.data.Chama
 import com.example.chamapp.databinding.FragmentHomeBinding
 import com.example.chamapp.util.SessionManager
 
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
         val drawerLayout = view.findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
         val hamburgerMenu = view.findViewById<View>(R.id.iv_hamburger_menu)
         hamburgerMenu.setOnClickListener {
-            drawerLayout?.openDrawer(android.view.Gravity.START)
+            drawerLayout?.openDrawer(androidx.core.view.GravityCompat.START)
         }
         imgNotificationBell.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
@@ -68,6 +69,37 @@ class HomeFragment : Fragment() {
         cardUpdates.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_updatesFragment)
         }
+
+        // Sidebar menu navigation
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_join_chama -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_joinChamaFragment)
+                    true
+                }
+                R.id.nav_my_chamas -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_myChamasFragment)
+                    true
+                }
+                R.id.nav_invest -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_investFragment)
+                    true
+                }
+                R.id.nav_create_chama -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_createChamaFragment)
+                    true
+                }
+                R.id.nav_profile -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+                    true
+                }
+                R.id.nav_logout -> {
+                    // Implement logout logic if needed
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun setupGreeting() {
@@ -79,29 +111,8 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvChamas.layoutManager = LinearLayoutManager(requireContext())
-
         if (binding.rvChamas.adapter == null) {
-            binding.rvChamas.adapter = ChamaAdapter(emptyList()) { chama ->
-                try {
-                    val action =
-                        HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
-                            chama.name ?: "-",
-                            chama.role ?: "-",
-                            chama.myContributions ?: "-",
-                            chama.totalBalance ?: "-",
-                            chama.status ?: "-",
-                            chama.statusColor ?: "#388E3C",
-                            chama.nextMeeting ?: "-"
-                        )
-                    findNavController().navigate(action)
-                } catch (e: Exception) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Navigation error: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
+            binding.rvChamas.adapter = ChamaAdapter(emptyList())
         }
     }
 
@@ -109,8 +120,7 @@ class HomeFragment : Fragment() {
         viewModel.chamas.observe(viewLifecycleOwner, Observer { chamas ->
             try {
                 if (chamas.isNullOrEmpty()) {
-                    // Dummy fallback
-                    val dummy = listOf(
+                    val dummy: List<Chama> = listOf(
                         Chama(
                             id = "0",
                             name = "Test Chama",
@@ -123,25 +133,33 @@ class HomeFragment : Fragment() {
                             members = null
                         )
                     )
-
                     binding.rvChamas.visibility = View.VISIBLE
                     (binding.rvChamas.adapter as? ChamaAdapter)?.updateChamas(dummy)
                     Toast.makeText(requireContext(), "No chamas found, showing dummy data", Toast.LENGTH_SHORT).show()
-
                 } else {
                     binding.rvChamas.visibility = View.VISIBLE
-                    // Map API Chama to UI Chama
-                    val mapped = chamas.map { apiChama ->
+                    val mapped: List<Chama> = chamas.map { apiChama ->
                         Chama(
                             id = apiChama.id,
-                            name = apiChama.chama_name ?: "-", // Use only existing field
+                            name = apiChama.chama_name,
                             role = apiChama.role,
                             myContributions = apiChama.myContributions?.toString(),
                             totalBalance = apiChama.totalBalance?.toString(),
                             status = apiChama.status,
                             statusColor = apiChama.statusColor,
                             nextMeeting = apiChama.nextMeeting,
-                            members = apiChama.members
+                            members = apiChama.members?.map { member ->
+                                com.example.chamapp.data.ChamaMemberRelation(
+                                    userId = member.userId,
+                                    firstName = member.firstName,
+                                    lastName = member.lastName,
+                                    role = member.role,
+                                    contributionAmount = member.contributionAmount,
+                                    status = member.status,
+                                    email = member.email,
+                                    phoneNumber = member.phoneNumber
+                                )
+                            }
                         )
                     }
                     (binding.rvChamas.adapter as? ChamaAdapter)?.updateChamas(mapped)
@@ -150,7 +168,6 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), "Data error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         })
-
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
             error?.let {
                 // TODO: handle error UI

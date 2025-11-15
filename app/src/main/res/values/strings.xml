@@ -1,81 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="chama_types_array">
-        <item>investment</item>
-        <item>welfare</item>
-        <item>merry-go-round</item>
-        <item>hybrid</item>
-    </string-array>
-
-    <string-array name="contribution_schedules_array">
-        <item>weekly</item>
-        <item>monthly</item>
-        <item>custom</item>
-    </string-array>
-    <!-- In strings.xml -->
-    <string-array name="meeting_frequency_array">
-        <item>weekly</item>
-        <item>monthly</item>
-        <item>quarterly</item>
-        <item>custom</item>
-    </string-array>
-
-    <string-array name="meeting_day_array">
-        <item>Monday</item>
-        <item>Tuesday</item>
-        <item>Wednesday</item>
-        <item>Thursday</item>
-        <item>Friday</item>
-        <item>Saturday</item>
-        <item>Sunday</item>
-    </string-array>
-
-    <string name="app_name">chamapp</string>
-    <string name="chamalink">chamalink</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="wave_background">Wave background</string>
-    <string name="app_icon">App icon</string>
-    <string name="header_background">Header Background</string>
+    <string name="app_name">Chamapp</string>
+    <string name="cancel">Cancel</string>
+    <string name="contribution_schedule_label">Contribution Schedule</string>
+    <string name="meeting_notes_hint">Meeting notes (optional)</string>
+    <string name="review_create">Review &amp; Create</string>
+    <string name="wave_background">Wave Background</string>
+    <string name="app_icon">App Icon</string>
+    <string name="wave_pattern_desc">Wave pattern background</string>
+    <string name="back_arrow_desc">Back arrow</string>
+    <string name="create_chama_title">Create Chama</string>
+    <string name="logo_desc">App logo</string>
+    <string name="chama_identity">Chama Identity</string>
+    <string name="chama_name_hint">Chama Name</string>
+    <string name="chama_name_desc">Enter the name of your chama</string>
+    <string name="chama_description_hint">Chama Description</string>
+    <string name="chama_description_desc">Describe your chama</string>
+    <string name="chama_type_hint">Chama Type</string>
+    <string name="chama_type">Select the type of chama</string>
+    <string name="next">Next</string>
+    <string name="financial_rules">Financial Rules</string>
+    <string name="monthly_contribution_amount_hint">Monthly Contribution Amount</string>
+    <string name="monthly_contribution_amount_desc">Enter the monthly contribution amount</string>
+    <string name="loan_interest_rate_hint">Loan Interest Rate (%)</string>
+    <string name="loan_interest_rate_desc">Enter the loan interest rate</string>
+    <string name="max_loan_multiple_hint">Max Loan Multiple of Savings</string>
+    <string name="max_loan_multiple_desc">Enter the max loan multiple</string>
+    <string name="contribution_due_day_hint">Contribution Due Day</string>
+    <string name="contribution_due_day_desc">Enter the due day for contributions</string>
+    <string name="loan_max_term_months_hint">Max Loan Term (in months)</string>
+    <string name="loan_max_term_months_desc">Enter the max loan term in months</string>
+    <string name="back">Back</string>
+    <string name="meeting_details">Meeting Details</string>
+    <string name="meeting_frequency_hint">Meeting Frequency</string>
+    <string name="meeting_frequency">Select meeting frequency</string>
+    <string name="meeting_day_hint">Meeting Day</string>
+    <string name="meeting_day">Select meeting day</string>
+    <string name="create_chama">Create Chama and Get Invite Code</string>
+    <string name="sidebar_menu_desc">Sidebar menu</string>
+    <string name="greeting_hi">Hi</string>
+    <string name="greeting_subtext">Welcome back! Here are your latest updates.</string>
+    <string name="welcome_chamalink">Welcome to ChamaLink</string>
+    <string name="savings_caption">Your savings</string>
+    <string name="notification_bell_desc">Notification bell</string>
     <string name="app_logo">App Logo</string>
-    <string name="back_button">Back Button</string>
+    <string name="menu_my_chamas">My Chamas</string>
+    <string name="chama_invitation_title">Chama Invitation</string>
+    <string name="app_logo_desc">App Logo</string>
+    <string name="enter_invitation_code">Enter Invitation Code</string>
+    <string name="invitation_code_hint">Invitation Code</string>
+    <string name="join_chama">Join Chama</string>
+    <string name="header_background">Header background</string>
+    <string name="back_button">Back</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="wavy_header_background">Wavy header background</string>
-    <string name="profile_photo">Profile photo</string>
-    <string name="notification_bell">Notification bell</string>
-    <string name="greeting_welcome_back">Welcome back, %1$s!</string>
-    <string name="no_chamas_available">No chamas available.</string>
-    <string name="total_savings_amount">KES %1$,.0f</string>
-    <string name="active_loans_value">2 loans - KES 30,000</string>
-    <string name="upcoming_votes_value">3 pending</string>
-    <string name="greeting_hi">👋 Hi, %1$s</string>
-    <string name="greeting_subtext">Welcome back to your Chama dashboard</string>
-    <string name="my_savings">My Savings</string>
-    <string name="savings_icon_desc">Savings icon</string>
-    <string name="analytics">Analytics</string>
-    <string name="analytics_icon_desc">Analytics icon</string>
-    <string name="my_chamas">My Chamas</string>
-    <string name="my_chamas_icon_desc">My Chamas icon</string>
-    <string name="updates">Updates</string>
-    <string name="updates_icon_desc">Updates icon</string>
-    <string name="motivational_quote">Small savings, big dreams — keep growing with your chama 🌱</string>
-    <string name="create_chama_fab_desc">Create a new chama</string>
-    <string name="chama_role_format">Your Role: %1$s</string>
-    <string name="chama_balance_format">KES %1$s</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_create_chama">Create Chama</string>
-    <string name="menu_my_chamas">My Chamas</string>
     <string name="menu_join_chama">Join Chama</string>
     <string name="menu_invest">Invest</string>
     <string name="menu_logout">Logout</string>
-    <string name="wave_pattern_desc">Wave pattern background</string>
-    <string name="sidebar_menu_desc">Open sidebar menu</string>
-    <string name="welcome_chamalink">Welcome to ChamaLink!</string>
-    <string name="savings_caption">A penny saved is a penny earned!</string>
-    <string name="notification_bell_desc">Notifications</string>
+    <string name="action_settings">Settings</string>
+    <string name="chamalink">ChamaLink</string>
+    <string name="chama_role_format">Role: %1$s</string>
+    <string name="chama_balance_format">Balance: %1$s</string>
+    <string name="step_indicator">Step 1 of 4</string>
+    <!-- Removed duplicate string-arrays: chama_types_array, contribution_schedules_array, meeting_frequency_array, meeting_day_array -->
+    <!-- Add any other missing strings here -->
 </resources>

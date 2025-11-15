@@ -32,101 +32,205 @@ class CreateChamaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupSpinners()
-        setupClickListeners()
+        setupStepNavigation()
         setupObservers()
+        setupClickListeners()
+        binding.ivBackArrow.setOnClickListener {
+            findNavController().navigate(R.id.action_createChamaFragment_to_homeFragment)
+        }
+    }
+
+    private fun setupStepNavigation() {
+        // Step 1 visible, others hidden
+        binding.cardStep1.visibility = View.VISIBLE
+        binding.llNavigationStep1.visibility = View.VISIBLE
+        binding.cardStep2.visibility = View.GONE
+        binding.llNavigationStep2.visibility = View.GONE
+        binding.cardStep3.visibility = View.GONE
+        binding.llNavigationStep3.visibility = View.GONE
+
+        binding.btnNextStep1.setOnClickListener {
+            if (!validateStep1()) return@setOnClickListener
+            binding.cardStep1.visibility = View.GONE
+            binding.llNavigationStep1.visibility = View.GONE
+            binding.cardStep2.visibility = View.VISIBLE
+            binding.llNavigationStep2.visibility = View.VISIBLE
+        }
+        // Back button navigation to homepage
+        binding.btnCancelStep1.setOnClickListener {
+            findNavController().navigate(R.id.action_createChamaFragment_to_homeFragment)
+        }
+        binding.btnNextStep2.setOnClickListener {
+            if (!validateStep2()) return@setOnClickListener
+            binding.cardStep2.visibility = View.GONE
+            binding.llNavigationStep2.visibility = View.GONE
+            binding.cardStep3.visibility = View.VISIBLE
+            binding.llNavigationStep3.visibility = View.VISIBLE
+        }
+        binding.btnBackStep2.setOnClickListener {
+            binding.cardStep2.visibility = View.GONE
+            binding.llNavigationStep2.visibility = View.GONE
+            binding.cardStep1.visibility = View.VISIBLE
+            binding.llNavigationStep1.visibility = View.VISIBLE
+        }
+        binding.btnBackStep3.setOnClickListener {
+            binding.cardStep3.visibility = View.GONE
+            binding.llNavigationStep3.visibility = View.GONE
+            binding.cardStep2.visibility = View.VISIBLE
+            binding.llNavigationStep2.visibility = View.VISIBLE
+        }
+        binding.btnNextStep3.setOnClickListener {
+            if (!validateStep3()) return@setOnClickListener
+            binding.cardStep3.visibility = View.GONE
+            binding.llNavigationStep3.visibility = View.GONE
+            binding.cardStep4.visibility = View.VISIBLE
+            binding.llNavigationStep4.visibility = View.VISIBLE
+        }
+        binding.btnBackStep4.setOnClickListener {
+            binding.cardStep4.visibility = View.GONE
+            binding.llNavigationStep4.visibility = View.GONE
+            binding.cardStep3.visibility = View.VISIBLE
+            binding.llNavigationStep3.visibility = View.VISIBLE
+        }
+        binding.btnCreateChamaFinal.setOnClickListener {
+            if (!validateStep3()) return@setOnClickListener
+            createChama()
+        }
     }
 
     private fun setupSpinners() {
-        // Populate Chama Type Spinner
+        // Chama Type
         val chamaTypeAdapter = ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.chama_types_array, // This must exist in res/values/strings.xml
-            android.R.layout.simple_spinner_item
+            R.array.chama_types_array,
+            android.R.layout.simple_dropdown_item_1line
         )
-        chamaTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerChamaType.setAdapter(chamaTypeAdapter)
+        binding.spinnerChamaType.setOnClickListener {
+            binding.spinnerChamaType.showDropDown()
+        }
 
-        // Populate Contribution Schedule Spinner
+        // Meeting Frequency
+        val meetingFrequencyAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.meeting_frequency_array,
+            android.R.layout.simple_dropdown_item_1line
+        )
+        binding.spinnerMeetingFrequency.setAdapter(meetingFrequencyAdapter)
+        binding.spinnerMeetingFrequency.setOnClickListener {
+            binding.spinnerMeetingFrequency.showDropDown()
+        }
+
+        // Meeting Day
+        val meetingDayAdapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.meeting_day_array,
+            android.R.layout.simple_dropdown_item_1line
+        )
+        binding.spinnerMeetingDay.setAdapter(meetingDayAdapter)
+        binding.spinnerMeetingDay.setOnClickListener {
+            binding.spinnerMeetingDay.showDropDown()
+        }
+
+        // Contribution Schedule (Spinner)
         val contributionScheduleAdapter = ArrayAdapter.createFromResource(
             requireContext(),
-            R.array.contribution_schedules_array, // This must exist in res/values/strings.xml
+            R.array.contribution_schedules_array,
             android.R.layout.simple_spinner_item
         )
         contributionScheduleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerContributionSchedule.setAdapter(contributionScheduleAdapter)
-
-        val meetingFrequencyAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.meeting_frequency_array))
-        binding.spinnerMeetingFrequency.setAdapter(meetingFrequencyAdapter)
-
-        val meetingDayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.meeting_day_array))
-        binding.spinnerMeetingDay.setAdapter(meetingDayAdapter)
+        binding.spinnerContributionSchedule.adapter = contributionScheduleAdapter
     }
 
-    private fun setupClickListeners() {
-        binding.btnCreateChama.setOnClickListener {
-            handleCreateChama()
-        }
-    }
-
-    private fun handleCreateChama() {
-        // 1. Collect and validate data from the form
-        val chamaName = binding.etChamaName.text.toString().trim()
+    private fun createChama() {
+        val name = binding.etChamaName.text.toString().trim()
         val description = binding.etChamaDescription.text.toString().trim()
-        val contributionAmount = binding.etContributionAmount.text.toString().toDoubleOrNull()
-        val interestRate = binding.etInterestRate.text.toString().toDoubleOrNull()
-        val maxLoanMultiple = binding.etMaxLoanMultiple.text.toString().toIntOrNull()
-        val chamaType = binding.spinnerChamaType.text.toString().lowercase()
-        val contributionSchedule = binding.spinnerContributionSchedule.text.toString()
-        val contributionDueDay = binding.etContributionDueDay.text.toString().toIntOrNull()
-        val loanMaxTerm = binding.etLoanMaxTermMonths.text.toString().toIntOrNull()
+        val chamaType = binding.spinnerChamaType.text.toString()
+        val contributionAmount = binding.etContributionAmount.text.toString().toDoubleOrNull() ?: 0.0
+        val contributionSchedule = if (binding.spinnerContributionSchedule.selectedItem != null) binding.spinnerContributionSchedule.selectedItem.toString() else ""
+        val interestRate = binding.etInterestRate.text.toString().toDoubleOrNull() ?: 0.0
+        val maxLoanMultiple = binding.etMaxLoanMultiple.text.toString().toDoubleOrNull() ?: 1.0 // changed to Double
+        val contributionDueDay = binding.etContributionDueDay.text.toString().trim() // changed to String
+        val loanMaxTermMonths = binding.etLoanMaxTermMonths.text.toString().toIntOrNull() ?: 1
         val meetingFrequency = binding.spinnerMeetingFrequency.text.toString()
         val meetingDay = binding.spinnerMeetingDay.text.toString()
-        if (chamaName.isEmpty() || description.isEmpty() || contributionAmount == null || interestRate == null || maxLoanMultiple == null) {
-            Toast.makeText(requireContext(), "Please fill all fields correctly.", Toast.LENGTH_SHORT).show()
-            return
-        }
 
-        // 2. Create the request object
-        val request = CreateChamaRequest(
-            chama_name = chamaName,
-            description = description,
-            contribution_amount = contributionAmount,
-            interest_rate = interestRate,
-            max_loan_multiple = maxLoanMultiple,
-            chama_type = chamaType,
-            contribution_schedule = contributionSchedule,
-            contribution_due_day = contributionDueDay,
-            loan_max_term_months = loanMaxTerm,
-            meeting_frequency = meetingFrequency,
-            meeting_day = meetingDay
-
+        viewModel.createChama(
+            CreateChamaRequest(
+                name,
+                description,
+                chamaType,
+                contributionAmount,
+                contributionSchedule,
+                interestRate,
+                maxLoanMultiple,
+                contributionDueDay,
+                loanMaxTermMonths,
+                meetingFrequency,
+                meetingDay
+            )
         )
+    }
 
-        setLoading(true)
-        // 3. Call the ViewModel function
-        viewModel.createChama(request)
+    private fun validateStep1(): Boolean {
+        if (binding.etChamaName.text.isNullOrBlank()) {
+            binding.tilChamaName.error = "Chama name required"
+            return false
+        } else binding.tilChamaName.error = null
+        if (binding.etChamaDescription.text.isNullOrBlank()) {
+            binding.tilChamaDescription.error = "Description required"
+            return false
+        } else binding.tilChamaDescription.error = null
+        return true
+    }
+    private fun validateStep2(): Boolean {
+        if (binding.etContributionAmount.text.isNullOrBlank()) {
+            binding.tilContributionAmount.error = "Contribution required"
+            return false
+        } else binding.tilContributionAmount.error = null
+        if (binding.etInterestRate.text.isNullOrBlank()) {
+            binding.tilInterestRate.error = "Interest rate required"
+            return false
+        } else binding.tilInterestRate.error = null
+        return true
+    }
+    private fun validateStep3(): Boolean {
+        binding.btnCreateChamaFinal.isEnabled = true
+        if (binding.etMaxLoanMultiple.text.isNullOrBlank()) {
+            binding.tilMaxLoanMultiple.error = "Max loan multiple required"
+            return false
+        } else binding.tilMaxLoanMultiple.error = null
+        if (binding.etContributionDueDay.text.isNullOrBlank()) {
+            binding.tilContributionDueDay.error = "Contribution due day required"
+            return false
+        } else binding.tilContributionDueDay.error = null
+        if (binding.etLoanMaxTermMonths.text.isNullOrBlank()) {
+            binding.tilLoanMaxTermMonths.error = "Max loan term required"
+            return false
+        } else binding.tilLoanMaxTermMonths.error = null
+        return true
     }
 
     private fun setupObservers() {
-        // 4. Observe the result from the ViewModel
         viewModel.createResult.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let { (isSuccess, message) ->
-                setLoading(false)
+            val result = event.getContentIfNotHandled() ?: return@observe
+            binding.progressBar.isVisible = false
+            binding.btnCreateChamaFinal.isEnabled = true
+            val (success, message) = result
+            if (success) {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-                if (isSuccess) {
-                    // Navigate back to the previous screen on success
-
-                    findNavController().popBackStack()
-                }
+                findNavController().navigate(R.id.action_createChamaFragment_to_homeFragment)
+            } else {
+                Toast.makeText(requireContext(), "Failed: $message", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun setLoading(isLoading: Boolean) {
-        binding.progressBar.isVisible = isLoading
-        binding.btnCreateChama.isEnabled = !isLoading
+    private fun setupClickListeners() {
+        binding.ivBackArrow.setOnClickListener {
+            findNavController().navigate(R.id.action_createChamaFragment_to_homeFragment)
+        }
     }
 
     override fun onDestroyView() {

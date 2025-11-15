@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -25,7 +24,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_wave_pattern"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"
+                android:contentDescription="@string/wave_pattern_desc" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -39,14 +39,15 @@
                     android:src="@drawable/ic_arrow_back"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@android:color/white" />
+                    app:tint="@android:color/white"
+                    android:contentDescription="@string/back_arrow_desc" />
 
                 <TextView
                     android:id="@+id/tv_header_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Chama Invitation"
+                    android:text="@string/chama_invitation_title"
                     android:textColor="@android:color/white"
                     android:textSize="22sp"
                     android:textStyle="bold"
@@ -54,6 +55,19 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_back_arrow"
                     app:layout_constraintTop_toTopOf="@id/iv_back_arrow" />
+
+                <!-- Centered, larger logo below the header title -->
+                <ImageView
+                    android:id="@+id/iv_app_logo"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/logo"
+                    app:layout_constraintTop_toBottomOf="@id/tv_header_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/app_logo_desc" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -74,7 +88,7 @@
                 android:id="@+id/tv_invitation_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter Invitation Code"
+                android:text="@string/enter_invitation_code"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/deep_blue"
@@ -85,7 +99,7 @@
                 android:id="@+id/til_invitation_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Invitation Code"
+                android:hint="@string/invitation_code_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_invitation_code"
@@ -98,13 +112,20 @@
                 android:id="@+id/btn_join_chama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Join Chama"
+                android:text="@string/join_chama"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 app:cornerRadius="24dp"
                 android:textSize="16sp"
                 app:backgroundTint="@color/deep_blue"
                 android:layout_marginTop="16dp" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:visibility="gone" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

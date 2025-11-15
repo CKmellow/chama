@@ -7,24 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chamapp.R
-import com.example.chamapp.api.ChamaMemberRelation
-
-// Merged model (keeps their extended fields, your nullable-safe values)
-data class Chama(
-    val id: String,
-    val name: String,
-    val role: String? = null,
-    val myContributions: String? = null,
-    val totalBalance: String? = null,
-    val status: String? = null,
-    val statusColor: String? = "#388E3C",
-    val nextMeeting: String? = null,
-    val members: List<ChamaMemberRelation>? = null
-)
+import com.example.chamapp.data.Chama
 
 class ChamaAdapter(
-    private var chamas: List<Chama>,
-    private val onChamaClick: (Chama) -> Unit
+    private var chamas: List<Chama>
 ) : RecyclerView.Adapter<ChamaAdapter.ChamaViewHolder>() {
 
     fun updateChamas(newChamas: List<Chama>) {
@@ -41,26 +27,24 @@ class ChamaAdapter(
     override fun onBindViewHolder(holder: ChamaViewHolder, position: Int) {
         val chama = chamas[position]
         holder.bind(chama)
-        holder.itemView.setOnClickListener { onChamaClick(chama) }
     }
 
     override fun getItemCount() = chamas.size
 
     class ChamaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        // ✔ Using YOUR layout element IDs
-        private val chamaName: TextView = itemView.findViewById(R.id.tv_chama_name)
-        private val chamaDescription: TextView = itemView.findViewById(R.id.tv_chama_description)
-        private val myContributions: TextView = itemView.findViewById(R.id.tv_your_contribution)
-        private val nextMeeting: TextView = itemView.findViewById(R.id.tv_next_meeting)
-        private val chamaStatus: TextView = itemView.findViewById(R.id.tv_chama_status)
-
         fun bind(chama: Chama) {
-            // ✔ Mapping their model fields into your UI structure
-            chamaName.text = chama.name
-            chamaDescription.text = chama.role ?: chama.totalBalance ?: "Chama Member"
+            val nameView = itemView.findViewById<TextView>(R.id.tv_chama_name)
+            nameView.text = chama.name ?: "Unnamed Chama"
+            val descView = itemView.findViewById<TextView>(R.id.tv_chama_description)
+            descView.text = "Members: ${chama.members?.size ?: 0}"
+            // Add more fields as needed
+
+            val myContributions: TextView = itemView.findViewById(R.id.tv_your_contribution)
             myContributions.text = "KES ${chama.myContributions ?: "-"}"
+            val nextMeeting: TextView = itemView.findViewById(R.id.tv_next_meeting)
             nextMeeting.text = "Next meeting: ${chama.nextMeeting ?: "-"}"
+            val chamaStatus: TextView = itemView.findViewById(R.id.tv_chama_status)
             chamaStatus.text = chama.status ?: "-"
 
             val color = try {

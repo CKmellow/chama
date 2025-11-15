@@ -111,8 +111,8 @@ data class CreateChamaRequest(
     @SerializedName("monthly_contribution_amount") val contribution_amount: Double,
     @SerializedName("contribution_frequency") val contribution_schedule: String,
     @SerializedName("loan_interest_rate") val interest_rate: Double,
-    @SerializedName("max_loan_multiplier") val max_loan_multiple: Int,
-    @SerializedName("contribution_due_day") val contribution_due_day: Int?,
+    @SerializedName("max_loan_multiplier") val max_loan_multiple: Double, // changed to Double
+    @SerializedName("contribution_due_day") val contribution_due_day: String, // changed to String
     @SerializedName("loan_max_term_months") val loan_max_term_months: Int?,
     @SerializedName("meeting_frequency") val meeting_frequency: String,
     @SerializedName("meeting_day") val meeting_day: String
@@ -126,6 +126,17 @@ data class ChamaResponse(
 data class GenericResponse(
     val message: String?,
     val error: String?
+)
+
+data class JoinChamaRequest(
+    val invitation_code: String,
+    val contribution_amount: Double? = null
+)
+
+data class JoinChamaResponse(
+    val message: String?,
+    val member: ChamaMemberRelation?,
+    val error: String? = null
 )
 // =====================
 // API SERVICE
@@ -156,6 +167,9 @@ interface ApiService {
         @Path("id") memberId: String,
         @Body request: UpdateMemberDetailsRequest
     ): Response<GenericResponse>
+
+    @POST("chamas/join")
+    suspend fun joinChama(@Body request: JoinChamaRequest): Response<JoinChamaResponse>
 }
 
 // =====================
@@ -194,3 +208,21 @@ object RetrofitClient {
             .create(ApiService::class.java)
     }
 }
+
+object ApiHelper {
+    suspend fun joinChama(invitationCode: String, contributionAmount: Double? = null): JoinChamaResult {
+        return try {
+            val response = RetrofitClient.instance.joinChama(JoinChamaRequest(invitationCode, contributionAmount))
+            if (response.isSuccessful && response.body()?.member != null) {
+                JoinChamaResult(success = true, error = null)
+            } else {
+                JoinChamaResult(success = false, error = response.body()?.error ?: response.message())
+            }
+        } catch (e: Exception) {
+            JoinChamaResult(success = false, error = e.message)
+        }
+    }
+}
+
+data class JoinChamaResult(val success: Boolean, val error: String?)
+// =====================
