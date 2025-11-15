@@ -37,9 +37,11 @@ class CreateChamaFragment : Fragment() {
         setupObservers()
         setupClickListeners()
         binding.ivBackArrow.setOnClickListener {
-            findNavController().navigate(R.id.action_createChamaFragment_to_homeFragment)
+            // Navigate back to HomeFragment
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
+
 
     private fun setupStepNavigation() {
         // Step 1 visible, others hidden
@@ -143,6 +145,10 @@ class CreateChamaFragment : Fragment() {
         binding.spinnerContributionSchedule.adapter = contributionScheduleAdapter
     }
 
+    private fun navigateToMyChamas() {
+        findNavController().navigate(R.id.action_createChamaFragment_to_myChamasFragment)
+    }
+
     private fun createChama() {
         val name = binding.etChamaName.text.toString().trim()
         val description = binding.etChamaDescription.text.toString().trim()
@@ -220,7 +226,7 @@ class CreateChamaFragment : Fragment() {
             val (success, message) = result
             if (success) {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-                findNavController().navigate(R.id.action_createChamaFragment_to_homeFragment)
+                navigateToMyChamas()
             } else {
                 Toast.makeText(requireContext(), "Failed: $message", Toast.LENGTH_LONG).show()
             }
