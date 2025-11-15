@@ -40,6 +40,36 @@
             app:layout_constraintStart_toStartOf="@+id/tv_member_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_member_name" />
 
+        <TextView
+            android:id="@+id/tv_member_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_member_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_role"
+            app:layout_constraintEnd_toStartOf="@+id/iv_contribution_status" />
+
+        <TextView
+            android:id="@+id/tv_member_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_member_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_email"
+            app:layout_constraintEnd_toStartOf="@+id/iv_contribution_status" />
+
+        <TextView
+            android:id="@+id/tv_member_contribution"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Contribution"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_member_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_phone"
+            app:layout_constraintEnd_toStartOf="@+id/iv_contribution_status" />
+
         <ImageView
             android:id="@+id/iv_contribution_status"
             android:layout_width="24dp"

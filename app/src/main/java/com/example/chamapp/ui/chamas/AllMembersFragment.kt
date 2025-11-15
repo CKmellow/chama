@@ -62,7 +62,10 @@ class AllMembersFragment : Fragment() {
 
         // Force LiveData update to trigger observer
         android.util.Log.d("AllMembersFragment", "Calling viewModel.fetchChamas() to force LiveData update")
-        viewModel.fetchChamas()
+        val sessionManager = com.example.chamapp.util.SessionManager(requireContext())
+        val token = sessionManager.getAuthToken() ?: ""
+        android.util.Log.d("AllMembersFragment", "Fetched token: $token")
+        viewModel.fetchChamas(token)
 
         if (chamaId.isNullOrEmpty()) {
             android.util.Log.w("AllMembersFragment", "No chamaId provided")
@@ -78,7 +81,13 @@ class AllMembersFragment : Fragment() {
                 } else {
                     android.util.Log.d("AllMembersFragment", "Selected chama: ${chama.chama_name} (id: ${chama.id})")
                 }
-                val members = if (chama != null) convertRawMembers(chama.members ?: emptyList<Any>()) else emptyList()
+                // Prefer chama.chama_members if present, else fallback to chama.members
+                val rawMembers: List<Any> = when {
+                    chama != null && chama.chama_members is List<*> -> chama.chama_members as List<Any>
+                    chama != null && chama.members is List<*> -> chama.members as List<Any>
+                    else -> emptyList()
+                }
+                val members = convertRawMembers(rawMembers)
                 android.util.Log.d("AllMembersFragment", "Members extracted count: ${members.size}")
                 members.forEachIndexed { idx, member ->
                     android.util.Log.d("AllMembersFragment", "Member[$idx]: $member")

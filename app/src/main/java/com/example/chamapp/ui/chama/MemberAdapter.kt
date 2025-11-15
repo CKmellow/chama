@@ -16,7 +16,9 @@ class MemberAdapter(private val members: List<ChamaMember>) : RecyclerView.Adapt
     class MemberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tv_member_name)
         val tvRole: TextView = itemView.findViewById(R.id.tv_member_role)
-        // Email and phone fields are not present in item_member.xml, so remove them
+        val tvEmail: TextView = itemView.findViewById(R.id.tv_member_email)
+        val tvPhone: TextView = itemView.findViewById(R.id.tv_member_phone)
+        val tvContribution: TextView = itemView.findViewById(R.id.tv_member_contribution)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
@@ -31,17 +33,16 @@ class MemberAdapter(private val members: List<ChamaMember>) : RecyclerView.Adapt
         holder.tvName.text = if (name.isNotBlank()) {
             name
         } else if (!member.email.isNullOrBlank()) {
-            // Use email as fallback if name is missing
             member.email
         } else if (!member.userId.isNullOrBlank()) {
-            // Use userId as last resort
             "Member ${member.userId.take(8)}"
         } else {
-            // Final fallback
             "Member"
         }
         holder.tvRole.text = member.role ?: "Member"
-        // Email and phone fields are not present in layout, so skip setting them
+        holder.tvEmail.text = member.email ?: "-"
+        holder.tvPhone.text = member.phoneNumber ?: "-"
+        holder.tvContribution.text = member.contributionAmount?.let { "Ksh %.2f".format(it) } ?: "-"
     }
 
     override fun getItemCount(): Int = members.size
