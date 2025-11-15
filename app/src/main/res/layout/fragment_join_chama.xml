@@ -74,60 +74,31 @@
                 android:id="@+id/tv_invitation_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="You've Been Invited!"
+                android:text="Enter Invitation Code"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/deep_blue"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="24dp"/>
 
-            <com.google.android.material.card.MaterialCardView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_invitation_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="6dp"
-                android:layout_marginBottom="32dp">
-
-                <LinearLayout
+                android:hint="Invitation Code"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_invitation_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="You have been invited to join:"
-                        android:textSize="16sp"
-                        android:textColor="@color/dark_gray"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_chama_name_invite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sunshine Group"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/deep_blue"
-                        android:layout_marginBottom="16dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_invited_by"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Invited by: Jane Doe"
-                        android:textSize="14sp"
-                        android:textColor="@color/medium_gray"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_accept_invitation"
+                android:id="@+id/btn_join_chama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Accept Invitation"
+                android:text="Join Chama"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 app:cornerRadius="24dp"
@@ -137,4 +108,3 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

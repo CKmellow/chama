@@ -1,5 +1,6 @@
 package com.example.chamapp.ui.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
 import com.example.chamapp.data.AuthResult
 import com.example.chamapp.databinding.FragmentLoginBinding
+import com.example.chamapp.util.SessionManager
 
 class LoginFragment : Fragment() {
+
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -54,13 +57,36 @@ class LoginFragment : Fragment() {
                     binding.progressBar?.isVisible = true
                     binding.btnSignIn.isEnabled = false
                 }
+
                 is AuthResult.Success -> {
-                    val name = result.data?.user?.first_name ?: "User"
-                    Toast.makeText(requireContext(), "Login Successful! Welcome $name", Toast.LENGTH_LONG).show()
+                    val user = result.data?.user
+                    val name = user?.first_name ?: "User"
+
+                    // Save token & user data (from remote functionality)
+                    val sessionManager = SessionManager(requireContext())
+                    sessionManager.saveAuthToken(result.data?.access_token ?: "")
+
+                    val prefs = requireContext()
+                        .getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+
+                    user?.id?.let { prefs.edit().putString("user_id", it).apply() }
+                    prefs.edit().putString("first_name", name).apply()
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Login Successful! Welcome $name",
+                        Toast.LENGTH_LONG
+                    ).show()
+
                     findNavController().navigate(R.id.action_loginFragment_to_main_app_nav)
                 }
+
                 is AuthResult.Error -> {
-                    Toast.makeText(requireContext(), "Login Failed: ${result.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Login Failed: ${result.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

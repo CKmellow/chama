@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chamapp.R
-import com.example.chamapp.api.Chama
 import com.example.chamapp.databinding.FragmentHomeBinding
 import com.example.chamapp.util.SessionManager
 
@@ -34,10 +33,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         sessionManager = SessionManager(requireContext())
+
         setupGreeting()
         setupRecyclerView()
         setupObservers()
+
+        // Fetch chamas using token
         viewModel.fetchChamas(sessionManager.getAuthToken() ?: "")
 
         val cardSavings = view.findViewById<View>(R.id.card_savings)
@@ -45,7 +48,11 @@ class HomeFragment : Fragment() {
         val cardChamas = view.findViewById<View>(R.id.card_chamas)
         val cardUpdates = view.findViewById<View>(R.id.card_updates)
         val imgNotificationBell = view.findViewById<View>(R.id.img_notification_bell)
-
+        val drawerLayout = view.findViewById<androidx.drawerlayout.widget.DrawerLayout>(R.id.drawer_layout)
+        val hamburgerMenu = view.findViewById<View>(R.id.iv_hamburger_menu)
+        hamburgerMenu.setOnClickListener {
+            drawerLayout?.openDrawer(android.view.Gravity.START)
+        }
         imgNotificationBell.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
         }
@@ -72,21 +79,27 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvChamas.layoutManager = LinearLayoutManager(requireContext())
+
         if (binding.rvChamas.adapter == null) {
             binding.rvChamas.adapter = ChamaAdapter(emptyList()) { chama ->
                 try {
-                    val action = HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
-                        chama.chama_name ?: "-",
-                        chama.role ?: "-",
-                        chama.myContributions?.toString() ?: "-",
-                        chama.totalBalance?.toString() ?: "-",
-                        chama.status ?: "-",
-                        chama.statusColor ?: "#388E3C",
-                        chama.nextMeeting ?: "-"
-                    )
+                    val action =
+                        HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
+                            chama.name ?: "-",
+                            chama.role ?: "-",
+                            chama.myContributions ?: "-",
+                            chama.totalBalance ?: "-",
+                            chama.status ?: "-",
+                            chama.statusColor ?: "#388E3C",
+                            chama.nextMeeting ?: "-"
+                        )
                     findNavController().navigate(action)
                 } catch (e: Exception) {
-                    Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Navigation error: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -96,51 +109,51 @@ class HomeFragment : Fragment() {
         viewModel.chamas.observe(viewLifecycleOwner, Observer { chamas ->
             try {
                 if (chamas.isNullOrEmpty()) {
-                    val dummyChamas = listOf(
+                    // Dummy fallback
+                    val dummy = listOf(
                         Chama(
                             id = "0",
-                            chama_name = "Test Chama",
-                            description = "A test chama for UI check",
-                            chama_type = null,
-                            invitation_code = null,
-                            is_invitation_code_active = null,
-                            monthly_contribution_amount = 1000.0,
-                            contribution_frequency = null,
-                            contribution_due_day = "Tomorrow",
-                            loan_interest_rate = null,
-                            max_loan_multiplier = null,
-                            loan_max_term_months = null,
-                            meeting_frequency = null,
-                            meeting_day = null,
-                            created_by = null,
-                            created_at = null,
-                            updated_at = null,
-                            is_active = null,
-                            total_balance = null,
+                            name = "Test Chama",
                             role = "Member",
-                            myContributions = 1000.0,
-                            totalBalance = 20000.0,
+                            myContributions = "1000",
+                            totalBalance = "20000",
                             status = "Active",
                             statusColor = "#388E3C",
-                            nextMeeting = "Tomorrow"
+                            nextMeeting = "Tomorrow",
+                            members = null
                         )
                     )
+
                     binding.rvChamas.visibility = View.VISIBLE
-                    (binding.rvChamas.adapter as? ChamaAdapter)?.updateChamas(dummyChamas)
+                    (binding.rvChamas.adapter as? ChamaAdapter)?.updateChamas(dummy)
                     Toast.makeText(requireContext(), "No chamas found, showing dummy data", Toast.LENGTH_SHORT).show()
+
                 } else {
                     binding.rvChamas.visibility = View.VISIBLE
-                    (binding.rvChamas.adapter as? ChamaAdapter)?.updateChamas(chamas)
-                    Toast.makeText(requireContext(), "Loaded ${chamas.size} chamas", Toast.LENGTH_SHORT).show()
+                    // Map API Chama to UI Chama
+                    val mapped = chamas.map { apiChama ->
+                        Chama(
+                            id = apiChama.id,
+                            name = apiChama.chama_name ?: "-", // Use only existing field
+                            role = apiChama.role,
+                            myContributions = apiChama.myContributions?.toString(),
+                            totalBalance = apiChama.totalBalance?.toString(),
+                            status = apiChama.status,
+                            statusColor = apiChama.statusColor,
+                            nextMeeting = apiChama.nextMeeting,
+                            members = apiChama.members
+                        )
+                    }
+                    (binding.rvChamas.adapter as? ChamaAdapter)?.updateChamas(mapped)
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Data error: ${e.message}", Toast.LENGTH_LONG).show()
             }
         })
 
-        viewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
-            errorMessage?.let {
-                // Handle error display
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+            error?.let {
+                // TODO: handle error UI
             }
         })
     }

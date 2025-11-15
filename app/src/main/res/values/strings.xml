@@ -67,4 +67,15 @@
     <string name="create_chama_fab_desc">Create a new chama</string>
     <string name="chama_role_format">Your Role: %1$s</string>
     <string name="chama_balance_format">KES %1$s</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_create_chama">Create Chama</string>
+    <string name="menu_my_chamas">My Chamas</string>
+    <string name="menu_join_chama">Join Chama</string>
+    <string name="menu_invest">Invest</string>
+    <string name="menu_logout">Logout</string>
+    <string name="wave_pattern_desc">Wave pattern background</string>
+    <string name="sidebar_menu_desc">Open sidebar menu</string>
+    <string name="welcome_chamalink">Welcome to ChamaLink!</string>
+    <string name="savings_caption">A penny saved is a penny earned!</string>
+    <string name="notification_bell_desc">Notifications</string>
 </resources>
