@@ -1,5 +1,8 @@
 package com.example.chamapp.api
+import kotlinx.parcelize.RawValue
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import com.example.chamapp.App
 import com.example.chamapp.util.SessionManager
 import com.google.gson.annotations.SerializedName
@@ -12,7 +15,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-
 // =====================
 // DATA CLASSES
 // =====================
@@ -48,6 +50,10 @@ data class UserData(
 )
 
 // --- CHAMA DATA CLASSES ---
+
+
+
+@Parcelize
 data class Chama(
     @SerializedName("chama_id") val id: String,
     @SerializedName("chama_name") val chama_name: String,
@@ -68,13 +74,15 @@ data class Chama(
     @SerializedName("updated_at") val updated_at: String?,
     @SerializedName("is_active") val is_active: Boolean?,
     @SerializedName("total_balance") val total_balance: Double?,
+    @SerializedName("members") val members: @RawValue List<com.example.chamapp.data.ChamaMember>? = null,
+    @SerializedName("chama_members") val chama_members: @RawValue List<Any>? = null, // Raw members from /fetch/:id endpoint
     val role: String? = null,
     val myContributions: Double? = null,
     val totalBalance: Double? = null,
     val status: String? = null,
     val statusColor: String? = null,
     val nextMeeting: String? = null
-)
+) : Parcelable
 
 data class ChamasResponse(
     @SerializedName("chamas")
@@ -96,7 +104,7 @@ data class CreateChamaRequest(
 )
 
 data class ChamaResponse(
-    val message: String,
+    val message: String? = null,
     val chama: Chama
 )
 
@@ -122,7 +130,7 @@ interface ApiService {
     suspend fun getChamas(): Response<ChamasResponse>
 
     @GET("chamas/fetch/{id}")
-    suspend fun getChamaDetails(@Path("id") chamaId: String): Response<Chama>
+    suspend fun getChamaDetails(@Path("id") chamaId: String): Response<ChamaResponse>
 
     @POST("chamas/create")
     suspend fun createChama(@Body request: CreateChamaRequest): Response<ChamaResponse>
@@ -132,7 +140,7 @@ interface ApiService {
 // RETROFIT CLIENT
 // =====================
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.2.2:4000/api/"
+    private const val BASE_URL = "http://192.168.1.2:4000/api/"
     private val sessionManager by lazy { SessionManager(App.appContext) }
 
     private val okHttpClient = OkHttpClient.Builder()

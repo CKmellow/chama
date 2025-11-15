@@ -12,9 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chamapp.R
 import com.example.chamapp.api.Chama
+import com.example.chamapp.data.ChamaMember
 import com.example.chamapp.databinding.FragmentHomeBinding
 import com.example.chamapp.util.SessionManager
-
+import com.example.chamapp.ui.home.HomeViewModel
+import com.example.chamapp.ui.home.ChamaAdapter
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -75,16 +77,9 @@ class HomeFragment : Fragment() {
         if (binding.rvChamas.adapter == null) {
             binding.rvChamas.adapter = ChamaAdapter(emptyList()) { chama ->
                 try {
-                    val action = HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
-                        chama.chama_name ?: "-",
-                        chama.role ?: "-",
-                        chama.myContributions?.toString() ?: "-",
-                        chama.totalBalance?.toString() ?: "-",
-                        chama.status ?: "-",
-                        chama.statusColor ?: "#388E3C",
-                        chama.nextMeeting ?: "-"
-                    )
-                    findNavController().navigate(action)
+                    // Pass chama.id as argument to ChamaDetailsFragment
+                    val bundle = Bundle().apply { putString("chamaId", chama.id) }
+                    findNavController().navigate(R.id.action_homeFragment_to_chamaDetailsFragment, bundle)
                 } catch (e: Exception) {
                     Toast.makeText(requireContext(), "Navigation error: ${e.message}", Toast.LENGTH_LONG).show()
                 }

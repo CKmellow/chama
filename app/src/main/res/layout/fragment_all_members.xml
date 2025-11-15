@@ -66,6 +66,20 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView
+        android:id="@+id/tvEmptyMembers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No members found."
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_all_members"
         android:layout_width="match_parent"
@@ -75,4 +89,3 @@
         tools:listitem="@layout/item_chama_member" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

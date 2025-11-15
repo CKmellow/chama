@@ -60,7 +60,10 @@ class LoginFragment : Fragment() {
                     findNavController().navigate(R.id.action_loginFragment_to_main_app_nav)
                 }
                 is AuthResult.Error -> {
-                    Toast.makeText(requireContext(), "Login Failed: ${result.message}", Toast.LENGTH_LONG).show()
+                    // Show detailed error message and log it
+                    val apiMessage = if (result is AuthResult.Error && result.message != null) result.message else "Unknown error"
+                    Toast.makeText(requireContext(), "Login Failed: $apiMessage", Toast.LENGTH_LONG).show()
+                    android.util.Log.e("LoginFragment", "Login failed: $apiMessage")
                 }
             }
         }

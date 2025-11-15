@@ -154,6 +154,9 @@
         android:name="com.example.chamapp.ui.chama.MemberProfileFragment"
         tools:layout="@layout/fragment_member_profile" />
 
+        <action
+            android:id="@+id/action_chamaDashboardFragment_to_membersListFragment"
+            app:destination="@id/membersListFragment" />
     <!-- Chama Dashboard Fragment (extra from first nav graph) -->
     <fragment
         android:id="@+id/chamaDashboardFragment"

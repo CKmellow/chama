@@ -185,4 +185,3 @@
         app:popUpTo="@id/main_app_nav"
         app:popUpToInclusive="true" />
 </navigation>
-

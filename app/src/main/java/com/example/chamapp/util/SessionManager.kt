@@ -15,6 +15,17 @@ class SessionManager(context: Context) {
         private const val AUTH_TOKEN = "auth_token"
         private const val USER_FIRST_NAME = "user_first_name"
         private const val USER_LAST_NAME = "user_last_name"
+        private const val USER_ID = "user_id"
+    }
+
+    fun saveUserId(userId: String?) {
+        val editor = prefs.edit()
+        editor.putString(USER_ID, userId)
+        editor.apply()
+    }
+
+    fun getUserId(): String? {
+        return prefs.getString(USER_ID, null)
     }
 
     /**

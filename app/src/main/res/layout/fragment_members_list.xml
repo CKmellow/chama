@@ -91,4 +91,3 @@
         tools:listitem="@layout/item_chama_member"
         android:padding="8dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-

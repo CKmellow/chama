@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!-- Allows HTTP traffic only to localhost (emulator) -->
+    <!-- Allows HTTP traffic to localhost (emulator) -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">10.0.2.2</domain>
     </domain-config>
 
-    <!-- Optional: allows HTTP to your LAN IP if using a physical device -->
+    <!-- Allows HTTP to your LAN IP for physical device debugging -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.100</domain> <!-- Replace with your PC LAN IP -->
+        <domain includeSubdomains="true">192.168.1.2</domain> <!-- Your PC LAN IP -->
     </domain-config>
 </network-security-config>
