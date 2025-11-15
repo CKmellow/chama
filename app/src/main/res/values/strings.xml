@@ -8,7 +8,7 @@
     <string name="wave_background">Wave Background</string>
     <string name="app_icon">App Icon</string>
     <string name="wave_pattern_desc">Wave pattern background</string>
-    <string name="back_arrow_desc">Back arrow</string>
+    <string name="back_arrow_desc">Back to Home</string>
     <string name="create_chama_title">Create Chama</string>
     <string name="logo_desc">App logo</string>
     <string name="chama_identity">Chama Identity</string>
@@ -67,6 +67,7 @@
     <string name="step_indicator">Step 1 of 4</string>
     <string name="your_chamas_title">Your Chamas</string>
     <string name="profile_placeholder_desc">Profile placeholder</string>
+    <string name="invest_title">Invest</string>
     <!-- Removed duplicate string-arrays: chama_types_array, contribution_schedules_array, meeting_frequency_array, meeting_day_array -->
     <!-- Add any other missing strings here -->
 </resources>

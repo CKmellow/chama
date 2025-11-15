@@ -199,4 +199,16 @@
             app:argType="string" />
     </fragment>
 
+    <!-- Invest Fragment -->
+    <fragment
+        android:id="@+id/investFragment"
+        android:name="com.example.chamapp.ui.invest.InvestFragment"
+        tools:layout="@layout/fragment_invest" >
+        <action
+            android:id="@+id/action_investFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

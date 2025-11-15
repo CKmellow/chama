@@ -40,6 +40,7 @@ class HomeFragment : Fragment() {
         setupGreeting()
         setupRecyclerView()
         setupObservers()
+        setupInvestNavigation()
 
         // Fetch chamas using token
         viewModel.fetchChamas(sessionManager.getAuthToken() ?: "")
@@ -173,6 +174,10 @@ class HomeFragment : Fragment() {
                 // TODO: handle error UI
             }
         })
+    }
+
+    private fun setupInvestNavigation() {
+        // Remove any reference to btn_invest, navigation to InvestFragment is handled via sidebar menu (R.id.nav_invest)
     }
 
     override fun onDestroyView() {
