@@ -37,14 +37,14 @@ class MyChamasViewModel : ViewModel() {
                             nextMeeting = apiChama.nextMeeting,
                             members = apiChama.members?.map { member ->
                                 ChamaMemberRelation(
+                                    id = member.id,
                                     userId = member.userId,
-                                    firstName = member.firstName,
-                                    lastName = member.lastName,
+                                    name = member.name, // Use 'name' from API
                                     role = member.role,
-                                    contributionAmount = member.contributionAmount,
                                     status = member.status,
                                     email = member.email,
-                                    phoneNumber = member.phoneNumber
+                                    phoneNumber = member.phoneNumber?.toString(), // Convert to String
+                                    joinedAt = member.joinedAt
                                 )
                             }
                         )

@@ -26,11 +26,15 @@ class MembersAdapter(private val members: List<ChamaMemberRelation>) : RecyclerV
         private val nameTextView: TextView = itemView.findViewById(R.id.tv_member_name)
         private val emailTextView: TextView = itemView.findViewById(R.id.tv_member_email)
         private val roleTextView: TextView = itemView.findViewById(R.id.tv_member_role)
+        private val phoneTextView: TextView = itemView.findViewById(R.id.tv_member_phone)
+        private val statusTextView: TextView = itemView.findViewById(R.id.tv_member_status)
 
         fun bind(member: ChamaMemberRelation) {
-            nameTextView.text = member.userId // Or fetch user name if available
-            emailTextView.text = member.userId // Or fetch user email if available
-            roleTextView.text = member.role
+            nameTextView.text = member.name ?: ""
+            emailTextView.text = member.email ?: ""
+            roleTextView.text = member.role ?: ""
+            phoneTextView.text = member.phoneNumber?.toString() ?: ""
+            statusTextView.text = member.status ?: ""
         }
     }
 }

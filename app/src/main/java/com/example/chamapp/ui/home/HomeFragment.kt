@@ -183,14 +183,14 @@ class HomeFragment : Fragment() {
                             nextMeeting = apiChama.nextMeeting,
                             members = apiChama.members?.map { member ->
                                 com.example.chamapp.data.ChamaMemberRelation(
+                                    id = member.id,
                                     userId = member.userId,
-                                    firstName = member.firstName,
-                                    lastName = member.lastName,
+                                    name = member.name,
                                     role = member.role,
-                                    contributionAmount = member.contributionAmount,
                                     status = member.status,
                                     email = member.email,
-                                    phoneNumber = member.phoneNumber
+                                    phoneNumber = member.phoneNumber?.toString(),
+                                    joinedAt = member.joinedAt
                                 )
                             }
                         )

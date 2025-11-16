@@ -41,7 +41,6 @@ class ChamaDetailsViewModel : ViewModel() {
                 val request = UpdateMemberDetailsRequest(
                     chama_id = chamaId,
                     user_id = userId,
-                    contribution_amount = contributionAmount,
                     role = role
                 )
                 val response = RetrofitClient.instance.updateMemberDetails(memberId, request)

@@ -15,12 +15,12 @@ data class Chama(
 )
 
 data class ChamaMemberRelation(
+    val id: String?,
     val userId: String?,
-    val firstName: String?,
-    val lastName: String?,
+    val name: String?,
     val role: String?,
-    val contributionAmount: Double?,
     val status: String?,
     val email: String?,
-    val phoneNumber: String?
+    val phoneNumber: String?,
+    val joinedAt: String?
 )

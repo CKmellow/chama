@@ -78,6 +78,9 @@ class ChamaDashboardFragment : Fragment() {
 
         // Fetch total contributions on load
         fetchTotalContributions(chamaId)
+
+        // Fetch chama members on load
+        fetchChamaMembers(chamaId)
     }
 
     private fun initiateStkPush(chamaId: String, amount: Double) {

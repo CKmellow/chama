@@ -20,7 +20,6 @@ import retrofit2.http.PATCH
 data class UpdateMemberDetailsRequest(
     val chama_id: String,
     val user_id: String,
-    val contribution_amount: Double?,
     val role: String?
 )
 // DATA CLASSES
@@ -59,16 +58,13 @@ data class UserData(
 // --- CHAMA DATA CLASSES ---
 data class ChamaMemberRelation(
     @SerializedName("id") val id: String,
-    @SerializedName("chama_id") val chamaId: String,
     @SerializedName("user_id") val userId: String,
+    @SerializedName("name") val name: String?,
     @SerializedName("role") val role: String?,
-    @SerializedName("contribution_amount") val contributionAmount: Double?,
+    @SerializedName("email") val email: String?,
+    @SerializedName("phoneNumber") val phoneNumber: Long?,
     @SerializedName("joined_at") val joinedAt: String?,
-    @SerializedName("status") val status: String?,
-    @SerializedName("first_name") val firstName: String? = null,
-    @SerializedName("last_name") val lastName: String? = null,
-    @SerializedName("email") val email: String? = null,
-    @SerializedName("phone_number") val phoneNumber: String? = null
+    @SerializedName("status") val status: String?
 )
 data class Chama(
     @SerializedName("chama_id") val id: String,
@@ -130,7 +126,7 @@ data class GenericResponse(
 
 data class JoinChamaRequest(
     val invitation_code: String,
-    val contribution_amount: Double? = null
+
 )
 
 data class JoinChamaResponse(
@@ -219,7 +215,7 @@ interface ApiService {
         @Path("chama_id") chamaId: String
     ): Response<UserContributionsResponse>
 
-    @GET("chama_members/{chamaId}")
+    @GET("chamamembers/{chamaId}")
     suspend fun getChamaMembers(@Path("chamaId") chamaId: String): Response<ChamaMembersResponse>
 }
 
@@ -264,7 +260,7 @@ object RetrofitClient {
 object ApiHelper {
     suspend fun joinChama(invitationCode: String, contributionAmount: Double? = null): JoinChamaResult {
         return try {
-            val response = RetrofitClient.instance.joinChama(JoinChamaRequest(invitationCode, contributionAmount))
+            val response = RetrofitClient.instance.joinChama(JoinChamaRequest(invitationCode))
             if (response.isSuccessful && response.body()?.member != null) {
                 JoinChamaResult(success = true, error = null)
             } else {
