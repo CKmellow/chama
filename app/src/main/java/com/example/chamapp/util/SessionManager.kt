@@ -15,6 +15,7 @@ class SessionManager(context: Context) {
         private const val AUTH_TOKEN = "auth_token"
         private const val USER_FIRST_NAME = "user_first_name"
         private const val USER_LAST_NAME = "user_last_name"
+        private const val USER_ID = "user_id"
     }
 
     /**
@@ -48,6 +49,15 @@ class SessionManager(context: Context) {
     }
 
     /**
+     * Saves the user's ID to SharedPreferences.
+     */
+    fun saveUserId(userId: String?) {
+        val editor = prefs.edit()
+        editor.putString(USER_ID, userId)
+        editor.apply()
+    }
+
+    /**
      * Retrieves the authentication token from SharedPreferences.
      * Returns null if no token is found.
      */
@@ -65,6 +75,12 @@ class SessionManager(context: Context) {
         return Pair(firstName, lastName)
     }
 
+    /**
+     * Retrieves the user's ID from SharedPreferences.
+     */
+    fun getUserId(): String? {
+        return prefs.getString(USER_ID, null)
+    }
 
     /**
      * Clears all session data (token and user names).
@@ -74,6 +90,7 @@ class SessionManager(context: Context) {
         editor.remove(AUTH_TOKEN)
         editor.remove(USER_FIRST_NAME)
         editor.remove(USER_LAST_NAME)
+        editor.remove(USER_ID)
         editor.apply()
     }
 }

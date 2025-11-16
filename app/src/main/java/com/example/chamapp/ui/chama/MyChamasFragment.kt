@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chamapp.R
 import com.example.chamapp.databinding.FragmentMyChamasBinding
 import com.example.chamapp.ui.home.ChamaAdapter
 
@@ -27,7 +29,29 @@ class MyChamasFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ChamaAdapter(emptyList())
+        adapter = ChamaAdapter(emptyList()) { chama ->
+            val role = chama.role?.lowercase() ?: "user"
+            if (role in listOf("secretary", "treasurer", "chairperson", "chairman")) {
+                val action = MyChamasFragmentDirections.actionMyChamasFragmentToChamaDashboardFragment(
+                    chama.id ?: "",
+                    chama.name ?: "",
+                    role,
+                    chama.myContributions ?: "",
+                    chama.totalBalance ?: "",
+                    chama.status ?: "",
+                    chama.statusColor ?: "",
+                    chama.nextMeeting ?: ""
+                )
+                findNavController().navigate(action)
+            } else {
+                val action = MyChamasFragmentDirections.actionMyChamasFragmentToChamaDetailsFragment(
+                    chama.id ?: "",
+                    chama.name ?: "",
+                    role
+                )
+                findNavController().navigate(action)
+            }
+        }
         binding.rvMyChamas.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMyChamas.adapter = adapter
 

@@ -167,16 +167,18 @@
         android:name="com.example.chamapp.ui.invest.InvestFragment"
         tools:layout="@layout/fragment_invest" />
 
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.chamapp.ui.profile.ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
-
     <!-- My Chamas Fragment -->
     <fragment
         android:id="@+id/myChamasFragment"
         android:name="com.example.chamapp.ui.chama.MyChamasFragment"
-        tools:layout="@layout/fragment_my_chamas" />
+        tools:layout="@layout/fragment_my_chamas">
+        <action
+            android:id="@+id/action_myChamasFragment_to_chamaDashboardFragment"
+            app:destination="@id/chamaDashboardFragment" />
+        <action
+            android:id="@+id/action_myChamasFragment_to_chamaDetailsFragment"
+            app:destination="@id/chamaDetailsFragment" />
+    </fragment>
 
     <!-- Create Chama Fragment -->
     <fragment
@@ -205,10 +207,22 @@
     <fragment
         android:id="@+id/chamaDetailsFragment"
         android:name="com.example.chamapp.ui.chama.ChamaDetailsFragment"
-        tools:layout="@layout/fragment_chama_details">
+        tools:layout="@layout/fragment_chama_details" >
+        <argument
+            android:name="chamaId"
+            app:argType="string" />
+        <argument
+            android:name="chamaName"
+            app:argType="string" />
+        <argument
+            android:name="role"
+            app:argType="string" />
         <action
             android:id="@+id/action_chamaDetailsFragment_to_membersListFragment"
             app:destination="@id/membersListFragment" />
+        <action
+            android:id="@+id/action_chamaDetailsFragment_to_myContributionsFragment"
+            app:destination="@id/myContributionsFragment" />
     </fragment>
 
     <!-- Members List Fragment -->
@@ -233,6 +247,9 @@
         android:name="com.example.chamapp.ui.chama.ChamaDashboardFragment"
         tools:layout="@layout/fragment_chama_dashboard">
         <argument
+            android:name="chamaId"
+            app:argType="string" />
+        <argument
             android:name="chamaName"
             app:argType="string" />
         <argument
@@ -253,6 +270,9 @@
         <argument
             android:name="nextMeeting"
             app:argType="string" />
+        <action
+            android:id="@+id/action_chamaDashboardFragment_to_myContributionsFragment"
+            app:destination="@id/myContributionsFragment" />
     </fragment>
 
     <!-- Invest Fragment -->
@@ -265,6 +285,16 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- My Contributions Fragment -->
+    <fragment
+        android:id="@+id/myContributionsFragment"
+        android:name="com.example.chamapp.ui.chama.MyContributionsFragment"
+        tools:layout="@layout/fragment_my_contributions" >
+        <argument
+            android:name="chamaId"
+            app:argType="string" />
     </fragment>
 
 </navigation>

@@ -121,7 +121,31 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.rvChamas.layoutManager = LinearLayoutManager(requireContext())
         if (binding.rvChamas.adapter == null) {
-            binding.rvChamas.adapter = ChamaAdapter(emptyList())
+            binding.rvChamas.adapter = ChamaAdapter(emptyList()) { chama ->
+                val role = chama.role?.lowercase() ?: "user"
+                if (role in listOf("secretary", "treasurer", "chairperson", "chairman")) {
+                    // Navigate to ChamaDashboardFragment
+                    val action = HomeFragmentDirections.actionHomeFragmentToChamaDashboardFragment(
+                        chama.id ?: "",
+                        chama.name ?: "",
+                        role,
+                        chama.myContributions ?: "",
+                        chama.totalBalance ?: "",
+                        chama.status ?: "",
+                        chama.statusColor ?: "",
+                        chama.nextMeeting ?: ""
+                    )
+                    findNavController().navigate(action)
+                } else {
+                    // Navigate to ChamaDetailsFragment (chamaId, chamaName, role)
+                    val action = HomeFragmentDirections.actionHomeFragmentToChamaDetailsFragment(
+                        chama.id ?: "",
+                        chama.name ?: "",
+                        role
+                    )
+                    findNavController().navigate(action)
+                }
+            }
         }
     }
 

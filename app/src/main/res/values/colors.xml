@@ -32,5 +32,6 @@
     <!-- Added missing color resources for resource linking errors -->
     <color name="white_card">#FFFFFF</color>
     <color name="light_blue_text">#81D4FA</color>
+    <color name="gray_dark">#616161</color>
     <!-- Add any other missing colors here -->
 </resources>

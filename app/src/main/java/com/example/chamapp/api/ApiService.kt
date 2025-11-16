@@ -139,6 +139,41 @@ data class JoinChamaResponse(
     val error: String? = null
 )
 // =====================
+// DATA CLASSES FOR NEW ENDPOINTS
+// =====================
+data class DepositRequest(
+    val chama_id: String,
+    val amount: Double
+)
+data class DepositResponse(
+    val message: String?,
+    val mpesa: Any?,
+    val error: String? = null
+)
+data class ChamaTotalResponse(
+    val total_amount: Double?,
+    val total_transactions: Int?,
+    val error: String? = null
+)
+data class UserContributionsResponse(
+    val contributions: List<Contribution>?,
+    val error: String? = null
+)
+data class Contribution(
+    val contribution_id: Int?,
+    val chama_id: String?,
+    val user_id: String?,
+    val amount: Double?,
+    val contributed_at: String?,
+    val mpesa_receipt_number: String?,
+    val checkout_request_id: String?,
+    val status: String?
+)
+data class ChamaMembersResponse(
+    val members: List<ChamaMemberRelation>?,
+    val error: String? = null
+)
+// =====================
 // API SERVICE
 // =====================
 interface ApiService {
@@ -170,6 +205,22 @@ interface ApiService {
 
     @POST("chamas/join")
     suspend fun joinChama(@Body request: JoinChamaRequest): Response<JoinChamaResponse>
+
+    // --- NEW ENDPOINTS ---
+    @POST("transactions/stk-push")
+    suspend fun depositToChama(@Body request: DepositRequest): Response<DepositResponse>
+
+    @GET("transactions/chama/{chama_id}/total")
+    suspend fun getChamaTotalContributions(@Path("chama_id") chamaId: String): Response<ChamaTotalResponse>
+
+    @GET("transactions/user/{user_id}/chama/{chama_id}")
+    suspend fun getUserContributions(
+        @Path("user_id") userId: String,
+        @Path("chama_id") chamaId: String
+    ): Response<UserContributionsResponse>
+
+    @GET("chama_members/{chamaId}")
+    suspend fun getChamaMembers(@Path("chamaId") chamaId: String): Response<ChamaMembersResponse>
 }
 
 // =====================

@@ -10,7 +10,8 @@ import com.example.chamapp.R
 import com.example.chamapp.data.Chama
 
 class ChamaAdapter(
-    private var chamas: List<Chama>
+    private var chamas: List<Chama>,
+    private val onChamaClick: ((Chama) -> Unit)? = null
 ) : RecyclerView.Adapter<ChamaAdapter.ChamaViewHolder>() {
 
     fun updateChamas(newChamas: List<Chama>) {
@@ -27,6 +28,9 @@ class ChamaAdapter(
     override fun onBindViewHolder(holder: ChamaViewHolder, position: Int) {
         val chama = chamas[position]
         holder.bind(chama)
+        holder.itemView.setOnClickListener {
+            onChamaClick?.invoke(chama)
+        }
     }
 
     override fun getItemCount() = chamas.size
