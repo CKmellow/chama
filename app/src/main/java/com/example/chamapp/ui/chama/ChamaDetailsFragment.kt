@@ -38,6 +38,7 @@ class ChamaDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val chamaId = arguments?.getString("chamaId")
+        val chamaName = arguments?.getString("chamaName")
         binding.ivBackArrow.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -70,7 +71,7 @@ class ChamaDetailsFragment : Fragment() {
             )
         }
         fetchTotalContributions(chamaId)
-        binding.tvChamaName.text = getString(R.string.chama_id_debug, chamaId ?: "-")
+        binding.tvChamaName.text = chamaName ?: getString(R.string.chama_not_found)
         if (chamaId == null) {
             binding.tvChamaName.text = getString(R.string.chama_not_found)
             return
