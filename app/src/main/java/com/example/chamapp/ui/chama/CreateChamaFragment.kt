@@ -150,31 +150,31 @@ class CreateChamaFragment : Fragment() {
     }
 
     private fun createChama() {
-        val name = binding.etChamaName.text.toString().trim()
+        val chamaName = binding.etChamaName.text.toString().trim()
         val description = binding.etChamaDescription.text.toString().trim()
         val chamaType = binding.spinnerChamaType.text.toString()
-        val contributionAmount = binding.etContributionAmount.text.toString().toDoubleOrNull() ?: 0.0
-        val contributionSchedule = if (binding.spinnerContributionSchedule.selectedItem != null) binding.spinnerContributionSchedule.selectedItem.toString() else ""
-        val interestRate = binding.etInterestRate.text.toString().toDoubleOrNull() ?: 0.0
-        val maxLoanMultiple = binding.etMaxLoanMultiple.text.toString().toDoubleOrNull() ?: 1.0 // changed to Double
-        val contributionDueDay = binding.etContributionDueDay.text.toString().trim() // changed to String
+        val monthlyContributionAmount = binding.etContributionAmount.text.toString().toDoubleOrNull() ?: 0.0
+        val contributionFrequency = if (binding.spinnerContributionSchedule.selectedItem != null) binding.spinnerContributionSchedule.selectedItem.toString() else ""
+        val loanInterestRate = binding.etInterestRate.text.toString().toDoubleOrNull() ?: 0.0
+        val maxLoanMultiplier = binding.etMaxLoanMultiple.text.toString().toDoubleOrNull() ?: 1.0
+        val contributionDueDay = binding.etContributionDueDay.text.toString().trim()
         val loanMaxTermMonths = binding.etLoanMaxTermMonths.text.toString().toIntOrNull() ?: 1
         val meetingFrequency = binding.spinnerMeetingFrequency.text.toString()
         val meetingDay = binding.spinnerMeetingDay.text.toString()
 
         viewModel.createChama(
             CreateChamaRequest(
-                name,
-                description,
-                chamaType,
-                contributionAmount,
-                contributionSchedule,
-                interestRate,
-                maxLoanMultiple,
-                contributionDueDay,
-                loanMaxTermMonths,
-                meetingFrequency,
-                meetingDay
+                chama_name = chamaName,
+                description = description,
+                chama_type = chamaType,
+                monthly_contribution_amount = monthlyContributionAmount,
+                contribution_frequency = contributionFrequency,
+                loan_interest_rate = loanInterestRate,
+                max_loan_multiplier = maxLoanMultiplier,
+                contribution_due_day = contributionDueDay,
+                loan_max_term_months = loanMaxTermMonths,
+                meeting_frequency = meetingFrequency,
+                meeting_day = meetingDay
             )
         )
     }

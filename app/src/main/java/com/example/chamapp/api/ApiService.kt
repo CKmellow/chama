@@ -104,11 +104,11 @@ data class CreateChamaRequest(
     val chama_name: String,
     val description: String,
     val chama_type: String,
-    @SerializedName("monthly_contribution_amount") val contribution_amount: Double,
-    @SerializedName("contribution_frequency") val contribution_schedule: String,
-    @SerializedName("loan_interest_rate") val interest_rate: Double,
-    @SerializedName("max_loan_multiplier") val max_loan_multiple: Double, // changed to Double
-    @SerializedName("contribution_due_day") val contribution_due_day: String, // changed to String
+    @SerializedName("monthly_contribution_amount") val monthly_contribution_amount: Double,
+    @SerializedName("contribution_frequency") val contribution_frequency: String,
+    @SerializedName("loan_interest_rate") val loan_interest_rate: Double,
+    @SerializedName("max_loan_multiplier") val max_loan_multiplier: Double,
+    @SerializedName("contribution_due_day") val contribution_due_day: String,
     @SerializedName("loan_max_term_months") val loan_max_term_months: Int?,
     @SerializedName("meeting_frequency") val meeting_frequency: String,
     @SerializedName("meeting_day") val meeting_day: String
