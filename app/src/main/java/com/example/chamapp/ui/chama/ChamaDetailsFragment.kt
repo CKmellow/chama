@@ -69,10 +69,7 @@ class ChamaDetailsFragment : Fragment() {
                 bundle
             )
         }
-        // View all members button logic
-        binding.tvViewAllMembers.setOnClickListener {
-            fetchChamaMembers(chamaId)
-        }
+
         // Fetch total contributions on load
         fetchTotalContributions(chamaId)
         binding.tvChamaName.text = getString(R.string.chama_id_debug, chamaId ?: "-")

@@ -70,10 +70,6 @@ class ChamaDashboardFragment : Fragment() {
             fetchUserContributions(chamaId)
         }
 
-        // View all members button logic
-        binding.tvViewAllMembers.setOnClickListener {
-            fetchChamaMembers(chamaId)
-        }
 
         // RecyclerView setup
         binding.rvChamaMembers.layoutManager = LinearLayoutManager(requireContext())
