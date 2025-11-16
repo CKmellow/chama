@@ -43,7 +43,7 @@ class ChamaDetailsFragment : Fragment() {
         // Deposit button logic
         binding.llDeposit.setOnClickListener {
             val inputView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_input_amount, null)
-            val editText = inputView.findViewById<android.widget.EditText>(R.id.et_amount)
+            val editText = inputView.findViewById<android.widget.EditText>(R.id.etAmount)
             AlertDialog.Builder(requireContext())
                 .setTitle("Enter deposit amount")
                 .setView(inputView)
@@ -103,9 +103,9 @@ class ChamaDetailsFragment : Fragment() {
             }
         }
 
-        binding.rvMembers.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvChamaMembers.layoutManager = LinearLayoutManager(requireContext())
         membersAdapter = MembersAdapter(emptyList())
-        binding.rvMembers.adapter = membersAdapter
+        binding.rvChamaMembers.adapter = membersAdapter
     }
 
     private fun initiateStkPush(chamaId: String?, amount: Double) {
@@ -130,15 +130,23 @@ class ChamaDetailsFragment : Fragment() {
             try {
                 val response = RetrofitClient.instance.getChamaTotalContributions(chamaId)
                 if (response.isSuccessful && response.body() != null) {
-                    val total = response.body()!!.total_amount ?: 0.0
-                    val count = response.body()!!.total_transactions ?: 0
-                    binding.tvChamaBalance.text = getString(R.string.chama_balance_format, total)
-                    binding.tvTotalTransactions.text = getString(R.string.transactions_count, count)
+                    val body = response.body()!!
+                    if (body.error != null) {
+                        binding.tvChamaBalance.text = getString(R.string.error_with_message, body.error)
+//                        binding.tvTotalTransactions.text = getString(R.string.transactions_count, 0)
+                    } else {
+                        val totalAmount = body.total_amount ?: 0.0
+                        val totalTransactions = body.total_transactions ?: 0
+                        binding.tvChamaBalance.text = getString(R.string.chama_balance_format, totalAmount)
+//                        binding.tvTotalTransactions.text = getString(R.string.transactions_count, totalTransactions)
+                    }
                 } else {
                     binding.tvChamaBalance.text = getString(R.string.error)
+//                    binding.tvTotalTransactions.text = getString(R.string.transactions_count, 0)
                 }
             } catch (e: Exception) {
                 binding.tvChamaBalance.text = getString(R.string.error_with_message, e.message ?: "Unknown")
+//                binding.tvTotalTransactions.text = getString(R.string.transactions_count, 0)
             }
         }
     }
@@ -157,8 +165,8 @@ class ChamaDetailsFragment : Fragment() {
                 if (response.isSuccessful && response.body()?.members != null) {
                     val members = response.body()!!.members!!
                     membersAdapter = MembersAdapter(members)
-                    binding.rvMembers.adapter = membersAdapter
-                    binding.rvMembers.visibility = View.VISIBLE
+                    binding.rvChamaMembers.adapter = membersAdapter
+                    binding.rvChamaMembers.visibility = View.VISIBLE
                 } else {
                     Toast.makeText(requireContext(), "Failed to load members", Toast.LENGTH_LONG).show()
                 }

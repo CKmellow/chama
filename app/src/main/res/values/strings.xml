@@ -73,6 +73,11 @@
     <string name="transactions_count">Transactions: %1$d</string>
     <string name="error">Error</string>
     <string name="error_with_message">Error: %1$s</string>
+    <string name="dialog_enter_amount">Enter Amount</string>
+    <string name="dialog_amount_hint">Amount</string>
+    <string name="dialog_prompt">Prompt</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="not_authorized_to_view_total">You are not authorized to view the total balance.</string>
     <!-- Removed duplicate string-arrays: chama_types_array, contribution_schedules_array, meeting_frequency_array, meeting_day_array -->
     <!-- Add any other missing strings here -->
 </resources>

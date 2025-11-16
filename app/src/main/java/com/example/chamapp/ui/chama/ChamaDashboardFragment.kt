@@ -47,7 +47,7 @@ class ChamaDashboardFragment : Fragment() {
         // Deposit button logic
         binding.llDeposit.setOnClickListener {
             val inputView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_input_amount, null)
-            val editText = inputView.findViewById<android.widget.EditText>(R.id.et_amount)
+            val editText = inputView.findViewById<android.widget.EditText>(R.id.etAmount)
             AlertDialog.Builder(requireContext())
                 .setTitle("Enter deposit amount")
                 .setView(inputView)
@@ -107,7 +107,7 @@ class ChamaDashboardFragment : Fragment() {
                     val total = response.body()!!.total_amount ?: 0.0
                     val count = response.body()!!.total_transactions ?: 0
                     binding.tvChamaBalance.text = getString(R.string.chama_balance_format, total)
-                    binding.tvTotalTransactions.text = "Transactions: $count"
+//                    binding.tvTotalTransactions.text = "Transactions: $count"
                 } else {
                     binding.tvChamaBalance.text = "Error"
                 }
