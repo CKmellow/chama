@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.chamas.MyChamasFragment">
+    tools:context=".ui.chama.MyChamasFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -28,7 +28,8 @@
                 android:src="@drawable/ic_wave_pattern"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/wave_pattern_desc" />
 
             <ImageView
                 android:id="@+id/iv_back_arrow"
@@ -40,7 +41,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_title"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                android:contentDescription="@string/back_arrow_desc" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -49,7 +51,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="40dp"
                 android:elevation="2dp"
-                android:text="Your Chamas"
+                android:text="@string/your_chamas_title"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 app:layout_constraintStart_toEndOf="@id/iv_back_arrow"
@@ -74,7 +76,8 @@
                     android:focusable="true"
                     android:padding="8dp"
                     android:src="@drawable/ic_notifications"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    android:contentDescription="@string/notification_bell_desc" />
 
                 <View
                     android:id="@+id/view_red_dot"
@@ -99,7 +102,8 @@
                 app:civ_border_color="@color/white"
                 app:civ_border_width="2dp"
                 app:layout_constraintEnd_toStartOf="@id/frame_notification"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/profile_placeholder_desc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -65,4 +65,5 @@ dependencies {
     implementation("com.github.kittinunf.fuel:fuel:2.3.1") // For simple HTTP calls
     implementation("androidx.browser:browser:1.8.0") // For Chrome Custom Tabs
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
 }

@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="primary_blue">#2196F3</color>
+    <color name="gray_light">#E0E0E0</color>
+    <!-- Standard Material Design colors -->
+    <color name="primary_blue">#1976D2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="black">#000000</color>
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_700">#3700B3</color>
     <color name="text_secondary">#757575</color>
-    <color name="gradient_start_blue">#002B7F</color>
-    <color name="gradient_end_blue">#3A7BD5</color>
-    <color name="light_blue_text">#64B5F6</color>
-    <color name="cornsilk">#FFF8DC</color>
-    <color name="blue_header">#1E90FF</color>
-    <color name="dark_blue">#0D47A1</color>
-
-    <!-- New UI Colors -->
-    <color name="colorPrimary">#002B7F</color>
-    <color name="colorPrimaryDark">#3A7BD5</color>
-    <color name="colorAccent">#27AE60</color>
-    <color name="gradient_start">#002B7F</color>
-    <color name="gradient_end">#3A7BD5</color>
-    <color name="emerald_green">#27AE60</color>
-    <color name="white_card">#FFFFFF</color>
-    <color name="primary_dark">#212121</color>
+    <color name="card_body_blue">#E3F2FD</color>
+    <color name="gradient_end_blue">#1565C0</color>
+    <color name="gradient_start_blue">#42A5F5</color>
     <color name="primary">#1976D2</color>
+    <color name="primary_dark">#0D47A1</color>
     <color name="white_background">#FFFFFF</color>
-    <color name="textColorPrimary">#212121</color>
-
-    <!-- Bank Card Colors -->
-    <color name="deep_blue_header">#004AAD</color>
-    <color name="card_header_blue">#004AAD</color>
-    <color name="card_body_blue">#1E64E2</color>
-    <color name="card_accent_blue">#5FA8F5</color>
-    <color name="light_blue_card">#E3F2FD</color>
-    <color name="light_blue_accent">#82B1FF</color>
-
-    <!-- Added Colors -->
+    <color name="colorPrimary">#1976D2</color>
+    <color name="emerald_green">#2ECC71</color>
+    <color name="card_header_blue">#1565C0</color>
     <color name="deep_blue">#0D47A1</color>
+    <color name="blue_header">#1976D2</color>
     <color name="accent_blue">#448AFF</color>
     <color name="stroke_color">#BDBDBD</color>
-    <color name="dark_gray">#A9A9A9</color>
-    <color name="medium_gray">#D3D3D3</color>
+    <color name="card_accent_blue">#82B1FF</color>
+    <color name="cornsilk">#FFF8DC</color>
+    <color name="light_blue_card">#E1F5FE</color>
+    <color name="deep_blue_header">#0D47A1</color>
+    <color name="light_blue_accent">#81D4FA</color>
+    <color name="dark_gray">#707070</color>
+    <!-- Added missing color resources for resource linking errors -->
+    <color name="white_card">#FFFFFF</color>
+    <color name="light_blue_text">#81D4FA</color>
+    <color name="gray_dark">#616161</color>
+    <!-- Add any other missing colors here -->
 </resources>

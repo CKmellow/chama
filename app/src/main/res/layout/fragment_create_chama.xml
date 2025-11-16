@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -15,6 +16,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             app:contentScrim="@color/deep_blue_header"
@@ -22,13 +24,16 @@
             app:titleEnabled="false">
 
             <ImageView
+                android:id="@+id/iv_wave"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_wave_pattern"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"
+                android:contentDescription="@string/wave_pattern_desc" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="16dp">
@@ -38,6 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_back"
+                    android:contentDescription="@string/back_arrow_desc"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@android:color/white" />
@@ -47,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Create a New Chama"
+                    android:text="@string/create_chama_title"
                     android:textColor="@android:color/white"
                     android:textSize="22sp"
                     android:textStyle="bold"
@@ -55,10 +61,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_back_arrow"
                     app:layout_constraintTop_toTopOf="@id/iv_back_arrow" />
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/logo"
+                    android:contentDescription="@string/app_logo_desc"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_chama_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- Main Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/content_scroll_view"
         android:layout_width="match_parent"
@@ -66,13 +86,25 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/root_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Card 1: Chama Identity -->
+            <!-- Step indicator (optional small text) -->
+            <TextView
+                android:id="@+id/tv_step_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/step_indicator"
+                android:textSize="12sp"
+                android:textColor="@color/deep_blue"
+                android:layout_marginBottom="8dp" />
+
+            <!-- STEP 1: Chama Identity -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_step_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
@@ -80,32 +112,45 @@
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
+                    android:id="@+id/step1_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
-                        android:text="Chama Identity"
+                        android:id="@+id/tv_step1_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chama_identity"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/deep_blue"
                         android:layout_marginBottom="8dp" />
 
+                    <!-- Chama name -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_chama_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Chama Name"
+                        android:hint="@string/chama_name_hint"
                         app:startIconDrawable="@drawable/ic_group">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_chama_name"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/chama_name_desc" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Description -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_chama_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Chama Description"
+                        android:hint="@string/chama_description_hint"
                         android:layout_marginTop="8dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -113,182 +158,467 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:minLines="3"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:contentDescription="@string/chama_description_desc" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Chama type (dropdown) -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_chama_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Chama Type"
+                        android:hint="@string/chama_type_hint"
                         android:layout_marginTop="8dp">
 
                         <AutoCompleteTextView
                             android:id="@+id/spinner_chama_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="none" />
+                            android:hint="@string/chama_type"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 2: Financial Rules -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Navigation Buttons for Step 1 -->
+            <LinearLayout
+                android:id="@+id/ll_navigation_step_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
+                android:paddingTop="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_next_step_1"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/next"
+                    app:icon="@drawable/ic_arrow_forward"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="@color/deep_blue"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_cancel_step_1"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/cancel"
+                    app:backgroundTint="@color/gray_light"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- STEP 2: Financial Rules -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_step_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="6dp"
                 android:layout_marginBottom="16dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="16dp"
+                    android:id="@+id/step2_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
-                        android:text="Financial Rules"
+                        android:id="@+id/tv_step2_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/financial_rules"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/deep_blue"
                         android:layout_marginBottom="8dp" />
 
+                    <!-- Contribution amount -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_contribution_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Monthly Contribution Amount"
-                        app:startIconDrawable="@drawable/ic_money">
+                        android:hint="@string/monthly_contribution_amount_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_contribution_amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:contentDescription="@string/monthly_contribution_amount_desc" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Contribution schedule -->
+                    <TextView
+                        android:id="@+id/tv_schedule_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/contribution_schedule_label" />
+
+                    <Spinner
+                        android:id="@+id/spinner_contribution_schedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+
+                    <!-- Interest rate -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_interest_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Loan Interest Rate (%)"
-                        app:startIconDrawable="@drawable/ic_percent"
+                        android:hint="@string/loan_interest_rate_hint"
                         android:layout_marginTop="8dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_interest_rate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="numberDecimal" />
+                            android:inputType="numberDecimal"
+                            android:contentDescription="@string/loan_interest_rate_desc" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Max loan multiple -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_max_loan_multiple"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Max Loan Multiple of Savings"
+                        android:hint="@string/max_loan_multiple_hint"
                         android:layout_marginTop="8dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_max_loan_multiple"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:contentDescription="@string/max_loan_multiple_desc" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Contribution due day -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_contribution_due_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Contribution Schedule"
+                        android:hint="@string/contribution_due_day_hint"
                         android:layout_marginTop="8dp">
-                        <AutoCompleteTextView
-                            android:id="@+id/spinner_contribution_schedule"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="none" />
-                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.App.TextInputLayout"
-                        android:hint="Contribution Due Day"
-                        android:layout_marginTop="8dp">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_contribution_due_day"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:contentDescription="@string/contribution_due_day_desc" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Loan max term -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_loan_max_term_months"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Loan Max Term (Months)"
+                        android:hint="@string/loan_max_term_months_hint"
                         android:layout_marginTop="8dp">
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_loan_max_term_months"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:contentDescription="@string/loan_max_term_months_desc" />
                     </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 3: Meeting Details -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Navigation Buttons for Step 2 -->
+            <LinearLayout
+                android:id="@+id/ll_navigation_step_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
+                android:paddingTop="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back_step_2"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/back"
+                    app:icon="@drawable/ic_arrow_back"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="@color/gray_light"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_next_step_2"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/next"
+                    app:icon="@drawable/ic_arrow_forward"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="@color/deep_blue"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- STEP 3: Meeting Details -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_step_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="6dp"
-                android:layout_marginBottom="80dp">
+                android:layout_marginBottom="16dp">
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="16dp"
+                    android:id="@+id/step3_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
-                        android:text="Meeting Details"
+                        android:id="@+id/tv_step3_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/meeting_details"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/deep_blue"
                         android:layout_marginBottom="8dp" />
 
+                    <!-- Meeting frequency -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_meeting_frequency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Meeting Frequency">
+                        android:hint="@string/meeting_frequency_hint"
+                        android:layout_marginTop="8dp">
 
                         <AutoCompleteTextView
                             android:id="@+id/spinner_meeting_frequency"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="none" />
+                            android:hint="@string/meeting_frequency"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- Meeting day -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_meeting_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         style="@style/Widget.App.TextInputLayout"
-                        android:hint="Meeting Day"
+                        android:hint="@string/meeting_day_hint"
                         android:layout_marginTop="8dp">
 
                         <AutoCompleteTextView
                             android:id="@+id/spinner_meeting_day"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="none" />
+                            android:hint="@string/meeting_day"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- (Optional) Additional meeting notes -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_meeting_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.App.TextInputLayout"
+                        android:hint="@string/meeting_notes_hint"
+                        android:layout_marginTop="8dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_meeting_notes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:minLines="2" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <!-- Navigation Buttons for Step 3 -->
+            <LinearLayout
+                android:id="@+id/ll_navigation_step_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
+                android:paddingTop="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back_step_3"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/back"
+                    app:icon="@drawable/ic_arrow_back"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="@color/gray_light"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="0dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_next_step_3"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="@string/next"
+                    app:icon="@drawable/ic_arrow_forward"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="@color/deep_blue"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- STEP 4: Review + Create -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_step_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/step4_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_step4_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/review_create"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/deep_blue"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- SUMMARY: replicate key fields for review -->
+                    <TextView
+                        android:id="@+id/tv_summary_chama_name_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chama_name_hint"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_summary_chama_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/tv_summary_contribution_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/monthly_contribution_amount_hint"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_summary_contribution"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/tv_summary_meeting_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/meeting_details"
+                        android:textStyle="bold"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_summary_meeting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Create button sits inside the card for emphasis -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_create_chama_final"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/create_chama"
+                        app:icon="@drawable/ic_add"
+                        app:backgroundTint="@color/deep_blue"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Final back button (in case user wants to go back from review) -->
+            <LinearLayout
+                android:id="@+id/ll_navigation_step_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp"
+                android:paddingTop="8dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_back_step_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="@string/back"
+                    app:icon="@drawable/ic_arrow_back"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="@color/gray_light"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <!-- Bottom padding so last card isn't covered by navigation/gesture bars -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Floating Create Button -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btn_create_chama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Chama"
-        app:icon="@drawable/ic_add"
-        app:backgroundTint="@color/deep_blue"
-        android:textColor="@color/white"
-        app:layout_anchorGravity="bottom|center"
-        app:layout_anchor="@id/content_scroll_view"
-        android:layout_marginBottom="16dp"/>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        style="?android:attr/progressBarStyleLarge" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

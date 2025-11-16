@@ -60,6 +60,9 @@
                 android:id="@+id/action_homeFragment_to_updatesFragment"
                 app:destination="@id/updatesFragment" />
             <action
+                android:id="@+id/action_homeFragment_to_investFragment"
+                app:destination="@id/investFragment" />
+            <action
                 android:id="@+id/action_homeFragment_to_joinChamaFragment"
                 app:destination="@id/joinChamaFragment" />
         </fragment>
@@ -171,6 +174,11 @@
                 app:destination="@id/chamaDetailsFragment"
                 app:popUpTo="@id/homeFragment" />
         </fragment>
+        <fragment
+            android:id="@+id/investFragment"
+            android:name="com.example.chamapp.ui.invest.InvestFragment"
+            android:label="InvestFragment"
+            tools:layout="@layout/fragment_invest" />
     </navigation>
 
     <action
@@ -185,4 +193,3 @@
         app:popUpTo="@id/main_app_nav"
         app:popUpToInclusive="true" />
 </navigation>
-

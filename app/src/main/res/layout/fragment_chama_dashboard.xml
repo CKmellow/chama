@@ -219,19 +219,6 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_view_all_members"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="4dp"
-                    android:gravity="center_vertical"
-                    android:text="View All"
-                    android:textColor="@color/accent_blue"
-                    android:textSize="16sp"
-                    app:drawableEndCompat="@drawable/ic_arrow_forward"
-                    app:drawableTint="@color/accent_blue" />
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -243,19 +230,6 @@
                 tools:itemCount="3" />
 
             <!-- Generate Invitation Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_generate_invitation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
-                android:padding="16dp"
-                android:text="Generate Invitation Code"
-                app:cornerRadius="12dp"
-                android:textStyle="bold"
-                app:icon="@drawable/ic_add"
-                app:backgroundTint="@color/deep_blue"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
