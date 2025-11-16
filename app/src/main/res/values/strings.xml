@@ -78,6 +78,14 @@
     <string name="dialog_prompt">Prompt</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="not_authorized_to_view_total">You are not authorized to view the total balance.</string>
+    <string name="member_details_header">Member Details</string>
+    <string name="member_name_label">Name:</string>
+    <string name="member_role_label">Role:</string>
+    <string name="member_email_label">Email:</string>
+    <string name="member_phone_label">Phone:</string>
+    <string name="member_joined_label">Joined:</string>
+    <string name="member_status_label">Status</string>
+    <string name="close">Close</string>
     <!-- Removed duplicate string-arrays: chama_types_array, contribution_schedules_array, meeting_frequency_array, meeting_day_array -->
     <!-- Add any other missing strings here -->
 </resources>

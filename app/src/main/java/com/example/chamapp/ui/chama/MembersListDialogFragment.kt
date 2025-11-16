@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chamapp.api.ChamaMemberRelation
 import com.example.chamapp.databinding.DialogMembersListBinding
 
-class MembersListDialogFragment : DialogFragment() {
+class MembersListDialogFragment(private val onMemberClick: (ChamaMemberRelation) -> Unit) : DialogFragment() {
 
     private var _binding: DialogMembersListBinding? = null
     private val binding get() = _binding!!
@@ -42,7 +42,7 @@ class MembersListDialogFragment : DialogFragment() {
             binding.tvNoMembers.visibility = View.GONE
             binding.rvMembers.visibility = View.VISIBLE
             binding.rvMembers.layoutManager = LinearLayoutManager(context)
-            binding.rvMembers.adapter = MembersAdapter(members!!)
+            binding.rvMembers.adapter = MembersAdapter(members!!, onMemberClick)
         }
     }
 
@@ -54,8 +54,8 @@ class MembersListDialogFragment : DialogFragment() {
     companion object {
         private const val ARG_MEMBERS = "members"
 
-        fun newInstance(members: List<ChamaMemberRelation>): MembersListDialogFragment {
-            val fragment = MembersListDialogFragment()
+        fun newInstance(members: List<ChamaMemberRelation>, onMemberClick: (ChamaMemberRelation) -> Unit): MembersListDialogFragment {
+            val fragment = MembersListDialogFragment(onMemberClick)
             val args = Bundle()
             args.putParcelableArrayList(ARG_MEMBERS, ArrayList<android.os.Parcelable>(members as List<android.os.Parcelable>))
             fragment.arguments = args

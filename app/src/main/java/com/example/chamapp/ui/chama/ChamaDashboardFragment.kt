@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chamapp.R
 import com.example.chamapp.api.DepositRequest
@@ -20,7 +20,6 @@ class ChamaDashboardFragment : Fragment() {
     private var _binding: FragmentChamaDashboardBinding? = null
     private val binding get() = _binding!!
 
-    private var membersList: List<String> = emptyList()
     private lateinit var membersAdapter: MembersAdapter
 
     override fun onCreateView(
@@ -65,15 +64,11 @@ class ChamaDashboardFragment : Fragment() {
                 .show()
         }
 
-        // My Contribution Records button logic
-        binding.cardRecordContribution.setOnClickListener {
-            fetchUserContributions(chamaId)
-        }
-
-
         // RecyclerView setup
         binding.rvChamaMembers.layoutManager = LinearLayoutManager(requireContext())
-        membersAdapter = MembersAdapter(emptyList())
+        membersAdapter = MembersAdapter(emptyList()) { member ->
+            showMemberDetailsDialog(member)
+        }
         binding.rvChamaMembers.adapter = membersAdapter
 
         // Fetch total contributions on load
@@ -104,22 +99,14 @@ class ChamaDashboardFragment : Fragment() {
                 val response = RetrofitClient.instance.getChamaTotalContributions(chamaId)
                 if (response.isSuccessful && response.body() != null) {
                     val total = response.body()!!.total_amount ?: 0.0
-                    val count = response.body()!!.total_transactions ?: 0
                     binding.tvChamaBalance.text = getString(R.string.chama_balance_format, total)
-//                    binding.tvTotalTransactions.text = "Transactions: $count"
                 } else {
-                    binding.tvChamaBalance.text = "Error"
+                    binding.tvChamaBalance.text = getString(R.string.error)
                 }
             } catch (e: Exception) {
-                binding.tvChamaBalance.text = "Error: ${e.message}"
+                binding.tvChamaBalance.text = getString(R.string.error_with_message, e.message ?: "")
             }
         }
-    }
-
-    private fun fetchUserContributions(chamaId: String) {
-        // Navigate to MyContributionsFragment, pass chamaId
-        val action = ChamaDashboardFragmentDirections.actionChamaDashboardFragmentToMyContributionsFragment(chamaId)
-        findNavController().navigate(action)
     }
 
     private fun fetchChamaMembers(chamaId: String) {
@@ -128,7 +115,9 @@ class ChamaDashboardFragment : Fragment() {
                 val response = RetrofitClient.instance.getChamaMembers(chamaId)
                 if (response.isSuccessful && response.body()?.members != null) {
                     val members = response.body()!!.members!!
-                    membersAdapter = MembersAdapter(members)
+                    membersAdapter = MembersAdapter(members) { member ->
+                        showMemberDetailsDialog(member)
+                    }
                     binding.rvChamaMembers.adapter = membersAdapter
                     binding.rvChamaMembers.visibility = View.VISIBLE
                 } else {
@@ -138,6 +127,21 @@ class ChamaDashboardFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error loading members: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun showMemberDetailsDialog(member: com.example.chamapp.api.ChamaMemberRelation) {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_member_details, null)
+        dialogView.findViewById<TextView>(R.id.tv_member_name).text = member.name ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_role).text = member.role ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_email).text = member.email ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_phone).text = member.phoneNumber?.toString() ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_joined).text = member.joinedAt ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_status).text = member.status ?: ""
+        AlertDialog.Builder(requireContext())
+            .setTitle("Member Details")
+            .setView(dialogView)
+            .setPositiveButton("Close") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     override fun onDestroyView() {

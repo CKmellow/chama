@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
 import android.app.AlertDialog
+import com.example.chamapp.api.ChamaMemberRelation
 
 class ChamaDetailsFragment : Fragment() {
 
@@ -101,7 +102,9 @@ class ChamaDetailsFragment : Fragment() {
         }
 
         binding.rvChamaMembers.layoutManager = LinearLayoutManager(requireContext())
-        membersAdapter = MembersAdapter(emptyList())
+        membersAdapter = MembersAdapter(emptyList()) { member ->
+            showMemberDetails(member)
+        }
         binding.rvChamaMembers.adapter = membersAdapter
     }
 
@@ -161,7 +164,9 @@ class ChamaDetailsFragment : Fragment() {
                 val response = RetrofitClient.instance.getChamaMembers(chamaId)
                 if (response.isSuccessful && response.body()?.members != null) {
                     val members = response.body()!!.members!!
-                    membersAdapter = MembersAdapter(members)
+                    membersAdapter = MembersAdapter(members) { member ->
+                        showMemberDetails(member)
+                    }
                     binding.rvChamaMembers.adapter = membersAdapter
                     binding.rvChamaMembers.visibility = View.VISIBLE
                 } else {
@@ -171,6 +176,15 @@ class ChamaDetailsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error loading members: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun showMemberDetails(member: ChamaMemberRelation) {
+        // Display member details in a dialog
+        AlertDialog.Builder(requireContext())
+            .setTitle(member.name ?: "Member Details")
+            .setMessage("Role: ${member.role}\nEmail: ${member.email}\nPhone: ${member.phoneNumber}\nJoined: ${member.joinedAt}")
+            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     override fun onDestroyView() {
