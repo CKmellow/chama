@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
+import android.app.AlertDialog
 
 class ChamaDetailsFragment : Fragment() {
 
@@ -41,8 +42,23 @@ class ChamaDetailsFragment : Fragment() {
         }
         // Deposit button logic
         binding.llDeposit.setOnClickListener {
-            val depositAmount = 100.0 // Example, replace with actual input
-            initiateStkPush(chamaId, depositAmount)
+            val inputView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_input_amount, null)
+            val editText = inputView.findViewById<android.widget.EditText>(R.id.et_amount)
+            AlertDialog.Builder(requireContext())
+                .setTitle("Enter deposit amount")
+                .setView(inputView)
+                .setPositiveButton("Prompt") { dialog, _ ->
+                    val amountStr = editText.text.toString()
+                    val depositAmount = amountStr.toDoubleOrNull()
+                    if (depositAmount != null && depositAmount > 0) {
+                        initiateStkPush(chamaId, depositAmount)
+                    } else {
+                        Toast.makeText(requireContext(), "Enter a valid amount", Toast.LENGTH_SHORT).show()
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+                .show()
         }
         // My Contribution Records button logic
         binding.cardRecordContribution.setOnClickListener {
