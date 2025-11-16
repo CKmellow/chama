@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.navigation.fragment.findNavController
 import com.example.chamapp.R
 import android.app.AlertDialog
-import com.example.chamapp.api.ChamaMemberRelation
+import android.widget.TextView
 
 class ChamaDetailsFragment : Fragment() {
 
@@ -63,49 +63,24 @@ class ChamaDetailsFragment : Fragment() {
         }
         // My Contribution Records button logic
         binding.cardRecordContribution.setOnClickListener {
-            // Manual navigation fallback
             val bundle = Bundle().apply { putString("chamaId", chamaId) }
             findNavController().navigate(
                 com.example.chamapp.R.id.action_chamaDetailsFragment_to_myContributionsFragment,
                 bundle
             )
         }
-
-        // Fetch total contributions on load
         fetchTotalContributions(chamaId)
         binding.tvChamaName.text = getString(R.string.chama_id_debug, chamaId ?: "-")
-        Toast.makeText(requireContext(), "ChamaDetailsFragment loaded", Toast.LENGTH_SHORT).show()
         if (chamaId == null) {
             binding.tvChamaName.text = getString(R.string.chama_not_found)
             return
         }
-
-        viewModel.fetchChamaDetails(chamaId)
-        android.util.Log.d("ChamaDetailsFragment", "Called fetchChamaDetails($chamaId)")
-
-        viewModel.chamaDetails.observe(viewLifecycleOwner) { chama ->
-            if (chama != null) {
-                binding.tvChamaName.text = chama.chama_name
-                // Use available views only
-                // binding.tvUserRole.text = "Your Role: ${chama.role ?: "Member"}" // If you have role info
-                // binding.tvChamaBalance.text = "KES ${chama.total_balance ?: "-"}"
-                // You can add more assignments here if you have matching views
-                android.util.Log.d("ChamaDetailsFragment", "chama loaded: $chama")
-            }
-        }
-
-        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
-            if (errorMsg != null) {
-                binding.tvChamaName.text = errorMsg
-                android.util.Log.d("ChamaDetailsFragment", "Error loading chama: $errorMsg")
-            }
-        }
-
         binding.rvChamaMembers.layoutManager = LinearLayoutManager(requireContext())
         membersAdapter = MembersAdapter(emptyList()) { member ->
-            showMemberDetails(member)
+            showMemberDetailsDialog(member)
         }
         binding.rvChamaMembers.adapter = membersAdapter
+        fetchChamaMembers(chamaId)
     }
 
     private fun initiateStkPush(chamaId: String?, amount: Double) {
@@ -157,15 +132,14 @@ class ChamaDetailsFragment : Fragment() {
         findNavController().navigate(R.id.myContributionsFragment, bundle)
     }
 
-    private fun fetchChamaMembers(chamaId: String?) {
-        if (chamaId == null) return
+    private fun fetchChamaMembers(chamaId: String) {
         lifecycleScope.launch {
             try {
                 val response = RetrofitClient.instance.getChamaMembers(chamaId)
                 if (response.isSuccessful && response.body()?.members != null) {
                     val members = response.body()!!.members!!
                     membersAdapter = MembersAdapter(members) { member ->
-                        showMemberDetails(member)
+                        showMemberDetailsDialog(member)
                     }
                     binding.rvChamaMembers.adapter = membersAdapter
                     binding.rvChamaMembers.visibility = View.VISIBLE
@@ -178,12 +152,18 @@ class ChamaDetailsFragment : Fragment() {
         }
     }
 
-    private fun showMemberDetails(member: ChamaMemberRelation) {
-        // Display member details in a dialog
+    private fun showMemberDetailsDialog(member: com.example.chamapp.api.ChamaMemberRelation) {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_member_details, null)
+        dialogView.findViewById<TextView>(R.id.tv_member_name).text = member.name ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_role).text = member.role ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_email).text = member.email ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_phone).text = member.phoneNumber?.toString() ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_joined).text = member.joinedAt ?: ""
+        dialogView.findViewById<TextView>(R.id.tv_member_status).text = member.status ?: ""
         AlertDialog.Builder(requireContext())
-            .setTitle(member.name ?: "Member Details")
-            .setMessage("Role: ${member.role}\nEmail: ${member.email}\nPhone: ${member.phoneNumber}\nJoined: ${member.joinedAt}")
-            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .setTitle("Member Details")
+            .setView(dialogView)
+            .setPositiveButton("Close") { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
