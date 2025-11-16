@@ -167,7 +167,7 @@
         android:name="com.example.chamapp.ui.invest.InvestFragment"
         tools:layout="@layout/fragment_invest" />
 
-    <fragment
+    <dialog
         android:id="@+id/profileFragment"
         android:name="com.example.chamapp.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile" />

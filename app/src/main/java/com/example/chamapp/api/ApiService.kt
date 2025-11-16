@@ -23,8 +23,6 @@ data class UpdateMemberDetailsRequest(
     val contribution_amount: Double?,
     val role: String?
 )
-// DATA CLASSES
-// =====================
 
 // --- AUTH REQUESTS & RESPONSES ---
 data class SignupRequest(
@@ -54,6 +52,17 @@ data class UserData(
     val last_name: String?,
     val phone_number: String?,
     val role: String?
+)
+
+data class ProfileResponse(
+    val user: UserData
+)
+
+data class UpdateProfileRequest(
+    val first_name: String?,
+    val last_name: String?,
+    val phone_number: String?,
+    val password: String?
 )
 
 // --- CHAMA DATA CLASSES ---
@@ -145,6 +154,13 @@ interface ApiService {
     // --- USERS ---
     @GET("users/{id}")
     suspend fun getUser(@Path("id") userId: String): Response<UserData>
+
+    @GET("auth/me")
+    suspend fun getProfile(): Response<ProfileResponse>
+
+    @PATCH("auth/me")
+    suspend fun updateProfile(@Body request: UpdateProfileRequest): Response<ProfileResponse>
+
 
     // --- AUTH ---
     @POST("auth/signup")
