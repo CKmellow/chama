@@ -100,6 +100,11 @@
         android:name="com.example.chamapp.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
+            android:id="@+id/action_home_logout"
+            app:destination="@id/splashFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
             android:id="@+id/action_homeFragment_to_createChamaFragment"
             app:destination="@id/createChamaFragment" />
         <action
@@ -114,7 +119,58 @@
         <action
             android:id="@+id/action_homeFragment_self"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mySavingsFragment"
+            app:destination="@id/mySavingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_myChamasFragment"
+            app:destination="@id/myChamasFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_updatesFragment"
+            app:destination="@id/updatesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_investFragment"
+            app:destination="@id/investFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.chamapp.ui.notifications.NotificationsFragment"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/mySavingsFragment"
+        android:name="com.example.chamapp.ui.savings.MySavingsFragment"
+        tools:layout="@layout/fragment_my_savings" />
+
+    <fragment
+        android:id="@+id/analyticsFragment"
+        android:name="com.example.chamapp.ui.analytics.AnalyticsFragment"
+        tools:layout="@layout/fragment_analytics" />
+
+    <fragment
+        android:id="@+id/updatesFragment"
+        android:name="com.example.chamapp.ui.updates.UpdatesFragment"
+        tools:layout="@layout/fragment_updates" />
+
+    <fragment
+        android:id="@+id/investFragment"
+        android:name="com.example.chamapp.ui.invest.InvestFragment"
+        tools:layout="@layout/fragment_invest" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.chamapp.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
 
     <!-- My Chamas Fragment -->
     <fragment
@@ -126,7 +182,7 @@
     <fragment
         android:id="@+id/createChamaFragment"
         android:name="com.example.chamapp.ui.chama.CreateChamaFragment"
-        tools:layout="@layout/fragment_create_chama" >
+        tools:layout="@layout/fragment_create_chama">
         <action
             android:id="@+id/action_createChamaFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -149,7 +205,7 @@
     <fragment
         android:id="@+id/chamaDetailsFragment"
         android:name="com.example.chamapp.ui.chama.ChamaDetailsFragment"
-        tools:layout="@layout/fragment_chama_details" >
+        tools:layout="@layout/fragment_chama_details">
         <action
             android:id="@+id/action_chamaDetailsFragment_to_membersListFragment"
             app:destination="@id/membersListFragment" />
@@ -159,7 +215,7 @@
     <fragment
         android:id="@+id/membersListFragment"
         android:name="com.example.chamapp.ui.chama.MembersListFragment"
-        tools:layout="@layout/fragment_members_list" >
+        tools:layout="@layout/fragment_members_list">
         <action
             android:id="@+id/action_membersListFragment_to_memberProfileFragment"
             app:destination="@id/memberProfileFragment" />
@@ -175,7 +231,7 @@
     <fragment
         android:id="@+id/chamaDashboardFragment"
         android:name="com.example.chamapp.ui.chama.ChamaDashboardFragment"
-        tools:layout="@layout/fragment_chama_dashboard" >
+        tools:layout="@layout/fragment_chama_dashboard">
         <argument
             android:name="chamaName"
             app:argType="string" />

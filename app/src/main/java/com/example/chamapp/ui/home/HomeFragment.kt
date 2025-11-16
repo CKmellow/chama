@@ -14,6 +14,7 @@ import com.example.chamapp.R
 import com.example.chamapp.data.Chama
 import com.example.chamapp.databinding.FragmentHomeBinding
 import com.example.chamapp.util.SessionManager
+import androidx.navigation.NavOptions
 
 class HomeFragment : Fragment() {
 
@@ -95,7 +96,14 @@ class HomeFragment : Fragment() {
                     true
                 }
                 R.id.nav_logout -> {
-                    // Implement logout logic if needed
+                    // Clear user session
+                    sessionManager.clearSession()
+
+                    // Navigate to splash screen and clear the entire back stack
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_graph, true)
+                        .build()
+                    findNavController().navigate(R.id.splashFragment, null, navOptions)
                     true
                 }
                 else -> false
