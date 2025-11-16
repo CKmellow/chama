@@ -223,8 +223,9 @@ interface ApiService {
 // RETROFIT CLIENT
 // =====================
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.2.2:4000/api/"
+//    private const val BASE_URL = "http://10.0.2.2:4000/api/"
 //private const val BASE_URL = "http://192.168.100.115:4000/api/"
+private const val BASE_URL = "https://chama-backend-oh3f.onrender.com/api/"
 
 
     private val sessionManager by lazy { SessionManager(App.appContext) }
