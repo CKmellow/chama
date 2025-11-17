@@ -50,6 +50,10 @@ class SplashFragment : Fragment() {
             binding.logoCard.startAnimation(bounceAnimation)
         }, 400)
 
+        // TEMP: Clear token for testing login/signup navigation
+        val prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        prefs.edit().remove("access_token").apply()
+
         // Set an animation listener to navigate when the animation ends
         bounceAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {}
@@ -57,10 +61,8 @@ class SplashFragment : Fragment() {
             override fun onAnimationEnd(animation: Animation?) {
                 // Wait for the splash duration before navigating
                 binding.logoCard.postDelayed({
-                    val prefs = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                     val token = prefs.getString("access_token", null)
-
-                    if (token != null) {
+                    if (!token.isNullOrBlank()) {
                         findNavController().navigate(R.id.action_splashFragment_to_main_app_nav)
                     } else {
                         findNavController().navigate(R.id.action_splashFragment_to_auth_nav)

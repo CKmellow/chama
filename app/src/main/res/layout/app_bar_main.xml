@@ -9,19 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Chamapp.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:title="@string/chamalink"
-            app:popupTheme="@style/Theme.Chamapp.PopupOverlay"
-            app:navigationIcon="@drawable/ic_menu"
-            />
-
-    </com.google.android.material.appbar.AppBarLayout>
+        android:theme="@style/Theme.Chamapp.AppBarOverlay"/>
 
     <include layout="@layout/content_main" />
 

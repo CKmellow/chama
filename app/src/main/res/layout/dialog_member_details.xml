@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_bg_rounded"
+    android:padding="24dp"
+    android:elevation="8dp">
+
+    <TextView
+        android:id="@+id/tv_member_details_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/member_details_header"
+        android:textColor="@color/deep_blue"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tv_member_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/member_name_label"
+        android:textColor="@color/deep_blue"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tv_member_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/member_role_label"
+        android:textColor="@color/gray_dark"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tv_member_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/member_email_label"
+        android:textColor="@color/gray_dark"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tv_member_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/member_phone_label"
+        android:textColor="@color/gray_dark"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tv_member_joined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/member_joined_label"
+        android:textColor="@color/gray_dark"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tv_member_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/member_status_label"
+        android:textColor="@color/gray_dark"
+        android:textSize="16sp"
+        android:paddingBottom="16dp" />
+
+</LinearLayout>

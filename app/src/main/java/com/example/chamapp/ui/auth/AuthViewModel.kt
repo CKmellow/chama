@@ -1,7 +1,6 @@
 package com.example.chamapp.ui.auth
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,91 +9,63 @@ import com.example.chamapp.api.AuthResponse
 import com.example.chamapp.api.LoginRequest
 import com.example.chamapp.api.RetrofitClient
 import com.example.chamapp.api.SignupRequest
-import com.example.chamapp.util.Event
+import com.example.chamapp.data.AuthResult
 import com.example.chamapp.util.SessionManager
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
-
     private val sessionManager = SessionManager(application)
 
-    private val _loginResult = MutableLiveData<Event<Boolean>>()
-    val loginResult: LiveData<Event<Boolean>> = _loginResult
+    private val _loginResult = MutableLiveData<AuthResult<AuthResponse>>()
+    val loginResult: LiveData<AuthResult<AuthResponse>> = _loginResult
 
-    private val _signupResult = MutableLiveData<Event<Boolean>>()
-    val signupResult: LiveData<Event<Boolean>> = _signupResult
+    private val _registrationResult = MutableLiveData<AuthResult<AuthResponse>>()
+    val registrationResult: LiveData<AuthResult<AuthResponse>> = _registrationResult
 
-    /**
-     * Handles user login via API.
-     */
-    fun loginUser(email: String, password: String) {
-        Log.d("AuthViewModel", "loginUser called with email: $email")
-
-        viewModelScope.launch(Dispatchers.IO) {
+    fun login(email: String, password: String) {
+        _loginResult.value = AuthResult.Loading()
+        viewModelScope.launch {
             try {
-                val response: Response<AuthResponse> = RetrofitClient.instance.login(
-                    LoginRequest(email = email, password = password)
-                )
-
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        val body = response.body()
-                        if (body?.access_token != null) {
-                            Log.d("AuthViewModel", "Login success. Token: ${body.access_token}")
-                            sessionManager.saveAuthToken(body.access_token)
-                            _loginResult.value = Event(true)
-                        } else {
-                            Log.e("AuthViewModel", "Login response missing token.")
-                            _loginResult.value = Event(false)
-                        }
-                    } else {
-                        Log.e("AuthViewModel", "Login failed: ${response.errorBody()?.string()}")
-                        _loginResult.value = Event(false)
-                    }
+                val response = RetrofitClient.instance.login(LoginRequest(email, password))
+                if (response.isSuccessful && response.body() != null) {
+                    _loginResult.value = AuthResult.Success(response.body()!!)
+                    saveUserDetails(response.body()!!)
+                } else {
+                    _loginResult.value = AuthResult.Error("Login failed")
                 }
             } catch (e: Exception) {
-                Log.e("AuthViewModel", "Login error: ${e.message}", e)
-                withContext(Dispatchers.Main) {
-                    _loginResult.value = Event(false)
-                }
+                _loginResult.value = AuthResult.Error(e.message ?: "An unknown error occurred")
             }
         }
     }
 
-    /**
-     * Handles user registration via API.
-     */
     fun registerUser(firstName: String, lastName: String, email: String, phoneNumber: String, password: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        _registrationResult.value = AuthResult.Loading()
+        viewModelScope.launch {
             try {
-                val response: Response<AuthResponse> = RetrofitClient.instance.signup(
-                    SignupRequest(
-                        first_name = firstName,
-                        last_name = lastName,
-                        email = email,
-                        phone_number = phoneNumber,
-                        password = password
-                    )
-                )
-
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        Log.d("AuthViewModel", "Signup successful.")
-                        _signupResult.value = Event(true)
-                    } else {
-                        Log.e("AuthViewModel", "Signup failed: ${response.errorBody()?.string()}")
-                        _signupResult.value = Event(false)
-                    }
+                val response = RetrofitClient.instance.signup(SignupRequest(firstName, lastName, email, phoneNumber, password))
+                if (response.isSuccessful) {
+                    _registrationResult.value = AuthResult.Success(response.body()!!)
+                } else {
+                    _registrationResult.value = AuthResult.Error("Registration failed")
                 }
             } catch (e: Exception) {
-                Log.e("AuthViewModel", "Signup error: ${e.message}", e)
-                withContext(Dispatchers.Main) {
-                    _signupResult.value = Event(false)
-                }
+                _registrationResult.value = AuthResult.Error(e.message ?: "An unknown error occurred")
             }
+        }
+    }
+
+    private fun saveUserDetails(authResponse: AuthResponse) {
+        authResponse.access_token?.let {
+            sessionManager.saveAuthToken(it)
+        }
+        authResponse.user?.let { user ->
+            // Ensure SessionManager has a saveUserDetails method
+            sessionManager.saveUserDetails(
+                user.first_name ?: "",
+                user.last_name ?: "",
+                user.email
+            )
         }
     }
 }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 /**
- * Manages storing and retrieving the user's authentication token.
+ * Manages storing and retrieving the user's session data, including token and name.
  */
 class SessionManager(context: Context) {
 
@@ -13,6 +13,9 @@ class SessionManager(context: Context) {
     companion object {
         private const val PREFS_NAME = "chamapp_prefs"
         private const val AUTH_TOKEN = "auth_token"
+        private const val USER_FIRST_NAME = "user_first_name"
+        private const val USER_LAST_NAME = "user_last_name"
+        private const val USER_ID = "user_id"
     }
 
     /**
@@ -25,6 +28,36 @@ class SessionManager(context: Context) {
     }
 
     /**
+     * Saves the user's first and last names to SharedPreferences.
+     */
+    fun saveUserName(firstName: String?, lastName: String?) {
+        val editor = prefs.edit()
+        editor.putString(USER_FIRST_NAME, firstName)
+        editor.putString(USER_LAST_NAME, lastName)
+        editor.apply()
+    }
+
+    /**
+     * Saves the user's first name, last name, and email to SharedPreferences.
+     */
+    fun saveUserDetails(firstName: String?, lastName: String?, email: String?) {
+        val editor = prefs.edit()
+        editor.putString(USER_FIRST_NAME, firstName)
+        editor.putString(USER_LAST_NAME, lastName)
+        editor.putString("user_email", email)
+        editor.apply()
+    }
+
+    /**
+     * Saves the user's ID to SharedPreferences.
+     */
+    fun saveUserId(userId: String?) {
+        val editor = prefs.edit()
+        editor.putString(USER_ID, userId)
+        editor.apply()
+    }
+
+    /**
      * Retrieves the authentication token from SharedPreferences.
      * Returns null if no token is found.
      */
@@ -33,11 +66,31 @@ class SessionManager(context: Context) {
     }
 
     /**
-     * Clears the authentication token (used for logout).
+     * Retrieves the user's first and last names from SharedPreferences.
+     * Returns a Pair of (firstName, lastName). Values can be null if not found.
      */
-    fun clearAuthToken() {
+    fun getUserName(): Pair<String?, String?> {
+        val firstName = prefs.getString(USER_FIRST_NAME, null)
+        val lastName = prefs.getString(USER_LAST_NAME, null)
+        return Pair(firstName, lastName)
+    }
+
+    /**
+     * Retrieves the user's ID from SharedPreferences.
+     */
+    fun getUserId(): String? {
+        return prefs.getString(USER_ID, null)
+    }
+
+    /**
+     * Clears all session data (token and user names).
+     */
+    fun clearSession() {
         val editor = prefs.edit()
         editor.remove(AUTH_TOKEN)
+        editor.remove(USER_FIRST_NAME)
+        editor.remove(USER_LAST_NAME)
+        editor.remove(USER_ID)
         editor.apply()
     }
 }

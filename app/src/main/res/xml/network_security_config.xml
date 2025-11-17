@@ -3,10 +3,16 @@
     <!-- Allows HTTP traffic only to localhost (emulator) -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">10.0.2.2</domain>
+
     </domain-config>
 
     <!-- Optional: allows HTTP to your LAN IP if using a physical device -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.100</domain> <!-- Replace with your PC LAN IP -->
+        <domain includeSubdomains="true">192.168.100.27</domain>
     </domain-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.100.115</domain>
+    </domain-config>
+
 </network-security-config>
