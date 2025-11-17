@@ -114,6 +114,71 @@
         <action
             android:id="@+id/action_homeFragment_self"
             app:destination="@id/homeFragment" />
+<<<<<<< Updated upstream
+=======
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mySavingsFragment"
+            app:destination="@id/mySavingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_myContributionsFragment"
+            app:destination="@id/myContributionsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_myChamasFragment"
+            app:destination="@id/myChamasFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_updatesFragment"
+            app:destination="@id/updatesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_investFragment"
+            app:destination="@id/investFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.chamapp.ui.notifications.NotificationsFragment"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/mySavingsFragment"
+        android:name="com.example.chamapp.ui.savings.MySavingsFragment"
+        tools:layout="@layout/fragment_my_savings" />
+
+    <fragment
+        android:id="@+id/analyticsFragment"
+        android:name="com.example.chamapp.ui.analytics.AnalyticsFragment"
+        tools:layout="@layout/fragment_analytics" />
+
+    <fragment
+        android:id="@+id/updatesFragment"
+        android:name="com.example.chamapp.ui.updates.UpdatesFragment"
+        tools:layout="@layout/fragment_updates" />
+
+    <fragment
+        android:id="@+id/investFragment"
+        android:name="com.example.chamapp.ui.invest.InvestFragment"
+        tools:layout="@layout/fragment_invest" />
+
+    <!-- My Chamas Fragment -->
+    <fragment
+        android:id="@+id/myChamasFragment"
+        android:name="com.example.chamapp.ui.chama.MyChamasFragment"
+        tools:layout="@layout/fragment_my_chamas">
+        <action
+            android:id="@+id/action_myChamasFragment_to_chamaDashboardFragment"
+            app:destination="@id/chamaDashboardFragment" />
+        <action
+            android:id="@+id/action_myChamasFragment_to_chamaDetailsFragment"
+            app:destination="@id/chamaDetailsFragment" />
+>>>>>>> Stashed changes
     </fragment>
 
     <!-- Create Chama Fragment -->
@@ -183,6 +248,35 @@
         <argument
             android:name="nextMeeting"
             app:argType="string" />
+<<<<<<< Updated upstream
     </fragment>
+=======
+        <action
+            android:id="@+id/action_chamaDashboardFragment_to_myContributionsFragment"
+            app:destination="@id/myContributionsFragment" />
+    </fragment>
+
+    <!-- Invest Fragment -->
+    <fragment
+        android:id="@+id/investFragment"
+        android:name="com.example.chamapp.ui.invest.InvestFragment"
+        tools:layout="@layout/fragment_invest" >
+        <action
+            android:id="@+id/action_investFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+        <!-- My Contributions Fragment -->
+        <fragment
+            android:id="@+id/myContributionsFragment"
+            android:name="com.example.chamapp.ui.chama.MyContributionsFragment"
+            tools:layout="@layout/fragment_my_contributions" >
+            <argument
+                android:name="chamaId"
+                app:argType="string" />
+        </fragment>
+>>>>>>> Stashed changes
 
 </navigation>

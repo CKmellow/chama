@@ -30,6 +30,7 @@ class ChamaDetailsFragment : Fragment() {
         
         // Get chamaId from arguments
         val chamaId = arguments?.getString("chamaId")
+<<<<<<< Updated upstream
         android.util.Log.d("ChamaDetailsFragment", "onViewCreated called with chamaId: $chamaId")
         
         // Find button by ID directly - more reliable than binding sometimes
@@ -39,6 +40,51 @@ class ChamaDetailsFragment : Fragment() {
         
         if (viewAllButton == null) {
             android.util.Log.e("ChamaDetailsFragment", "CRITICAL: Button not found! Cannot set click listener.")
+=======
+        val chamaName = arguments?.getString("chamaName")
+        binding.ivBackArrow.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+        // Deposit button logic
+        binding.llDeposit.setOnClickListener {
+            val inputView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_input_amount, null)
+            val editText = inputView.findViewById<android.widget.EditText>(R.id.etAmount)
+            AlertDialog.Builder(requireContext())
+                .setTitle("Enter deposit amount")
+                .setView(inputView)
+                .setPositiveButton("Prompt") { dialog, _ ->
+                    val amountStr = editText.text.toString()
+                    val depositAmount = amountStr.toDoubleOrNull()
+                    if (depositAmount != null && depositAmount > 0) {
+                        initiateStkPush(chamaId, depositAmount)
+                    } else {
+                        Toast.makeText(requireContext(), "Enter a valid amount", Toast.LENGTH_SHORT).show()
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
+        // My Contribution Records button logic
+        binding.btnRecordContribution.setOnClickListener {
+            Toast.makeText(requireContext(), "btnRecordContribution clicked", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply { putString("chamaId", chamaId) }
+            findNavController().navigate(
+                com.example.chamapp.R.id.action_chamaDetailsFragment_to_myContributionsFragment,
+                bundle
+            )
+        }
+        // Analytics navigation logic
+        binding.tvMembersHeader.setOnClickListener {
+            val chamaId = arguments?.getString("chamaId")
+            val bundle = Bundle().apply { putString("chamaId", chamaId) }
+            findNavController().navigate(R.id.analyticsFragment, bundle)
+        }
+        fetchTotalContributions(chamaId)
+        binding.tvChamaName.text = chamaName ?: getString(R.string.chama_not_found)
+        if (chamaId == null) {
+            binding.tvChamaName.text = getString(R.string.chama_not_found)
+>>>>>>> Stashed changes
             return
         }
         

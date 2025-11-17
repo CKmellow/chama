@@ -8,6 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+<<<<<<< Updated upstream
+=======
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chamapp.R
+import com.example.chamapp.api.DepositRequest
+import com.example.chamapp.api.RetrofitClient
+import com.example.chamapp.databinding.FragmentChamaDashboardBinding
+>>>>>>> Stashed changes
 import kotlinx.coroutines.launch
 import com.example.chamapp.R
 import com.example.chamapp.databinding.FragmentChamaDashboardBinding
@@ -86,7 +95,47 @@ class ChamaDashboardFragment : Fragment() {
                     android.widget.Toast.makeText(requireContext(), "Error: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
                     btnGenerateInviteCode.text = "Generate Invite Code"
                 }
+<<<<<<< Updated upstream
                 btnGenerateInviteCode.isEnabled = true
+=======
+                .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
+
+        // RecyclerView setup
+        binding.rvChamaMembers.layoutManager = LinearLayoutManager(requireContext())
+        membersAdapter = MembersAdapter(emptyList()) { member ->
+            showMemberDetailsDialog(member)
+        }
+        binding.rvChamaMembers.adapter = membersAdapter
+
+        // Fetch total contributions on load
+        fetchTotalContributions(chamaId)
+
+        // Fetch chama members on load
+        fetchChamaMembers(chamaId)
+
+        // Navigation to AnalyticsFragment
+        binding.llAnalytics.setOnClickListener {
+            val args = ChamaDashboardFragmentArgs.fromBundle(requireArguments())
+            val chamaId = args.chamaId
+            val bundle = Bundle().apply { putString("chamaId", chamaId) }
+            findNavController().navigate(R.id.action_chamaDashboardFragment_to_analyticsFragment, bundle)
+        }
+    }
+
+    private fun initiateStkPush(chamaId: String, amount: Double) {
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.instance.depositToChama(DepositRequest(chamaId, amount))
+                if (response.isSuccessful && response.body()?.message != null) {
+                    Toast.makeText(requireContext(), "Deposit initiated: ${response.body()?.message}", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), "Deposit failed: ${response.body()?.error ?: response.message()}", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Deposit error: ${e.message}", Toast.LENGTH_LONG).show()
+>>>>>>> Stashed changes
             }
         }
     }

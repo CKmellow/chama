@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Root layout with rounded corners and white background -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="24dp"
+    android:layout_margin="16dp"
+    android:elevation="8dp"
+    android:clipToOutline="true"
+    android:backgroundTint="@color/white"
+    android:gravity="center_horizontal">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_enter_amount"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/deep_blue"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Amount input -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/dialog_amount_hint"
+        style="@style/Widget.App.TextInputLayout"
+        android:layout_marginBottom="24dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@color/deep_blue"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>

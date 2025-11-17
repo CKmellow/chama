@@ -69,9 +69,6 @@
                 android:id="@+id/action_homeFragment_to_mySavingsFragment"
                 app:destination="@id/mySavingsFragment" />
             <action
-                android:id="@+id/action_homeFragment_to_analyticsFragment"
-                app:destination="@id/analyticsFragment" />
-            <action
                 android:id="@+id/action_homeFragment_to_myChamasFragment"
                 app:destination="@id/myChamasFragment" />
             <action
@@ -104,6 +101,9 @@
             android:name="com.example.chamapp.ui.chama.ChamaDashboardFragment"
             android:label="ChamaDashboardFragment"
             tools:layout="@layout/fragment_chama_dashboard">
+                    <argument
+                        android:name="chamaId"
+                        app:argType="string" />
                 <argument
                     android:name="chamaName"
                     app:argType="string" />
@@ -128,6 +128,9 @@
             <action
                 android:id="@+id/action_chamaDashboardFragment_to_allMembersFragment"
                 app:destination="@id/allMembersFragment" />
+                <action
+                    android:id="@+id/action_chamaDashboardFragment_to_analyticsFragment"
+                    app:destination="@id/analyticsFragment" />
         </fragment>
         <fragment
             android:id="@+id/chamaDetailsFragment"
@@ -158,6 +161,12 @@
             android:name="com.example.chamapp.ui.chama.MyChamasFragment"
             android:label="MyChamasFragment"
             tools:layout="@layout/fragment_my_chamas" />
+                <action
+                    android:id="@+id/action_myChamasFragment_to_chamaDashboardFragment"
+                    app:destination="@id/chamaDashboardFragment" />
+                <action
+                    android:id="@+id/action_myChamasFragment_to_chamaDetailsFragment"
+                    app:destination="@id/chamaDetailsFragment" />
         <fragment
             android:id="@+id/profileFragment"
             android:name="com.example.chamapp.ui.profile.ProfileFragment"

@@ -11,12 +11,52 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+<<<<<<< Updated upstream
+=======
+        <TextView
+            android:id="@+id/tv_member_contribution"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/member_contribution"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_role" />
+
+        <TextView
+            android:id="@+id/tv_member_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/member_status"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_contribution" />
+
+        <TextView
+            android:id="@+id/tv_member_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/member_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_status" />
+
+        <TextView
+            android:id="@+id/tv_member_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/member_phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_email" />
+
+>>>>>>> Stashed changes
 
         <TextView
             android:id="@+id/tv_member_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+<<<<<<< Updated upstream
             android:text="Member Name"
+=======
+            android:layout_marginStart="16dp"
+            android:text="@string/member_name"
+>>>>>>> Stashed changes
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,12 +67,19 @@
             android:id="@+id/tv_member_role"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< Updated upstream
             android:text="Member Role"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_member_name"
             app:layout_constraintEnd_toStartOf="@+id/iv_member_menu" />
 
+=======
+            android:text="@string/member_role"
+            app:layout_constraintEnd_toStartOf="@+id/iv_contribution_status"
+            app:layout_constraintStart_toStartOf="@+id/tv_member_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_member_name" />
+>>>>>>> Stashed changes
 
         <ImageView
             android:id="@+id/iv_member_menu"
@@ -42,9 +89,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+<<<<<<< Updated upstream
             android:contentDescription="More options" />
 
 
+=======
+            app:tint="@android:color/holo_green_dark"
+            android:contentDescription="@string/contribution_status_icon_desc" />
+>>>>>>> Stashed changes
 
         <LinearLayout
             android:id="@+id/admin_controls"
@@ -61,21 +113,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="History" />
+                android:text="@string/member_history" />
 
             <Button
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Change Role" />
+                android:text="@string/member_change_role" />
 
             <Button
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Remove" />
+                android:text="@string/member_remove" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

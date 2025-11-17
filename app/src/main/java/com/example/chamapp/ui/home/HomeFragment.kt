@@ -52,11 +52,12 @@ class HomeFragment : Fragment() {
         imgNotificationBell.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
         }
+        val bundle = Bundle().apply { putString("chamaId", "default") }
         cardSavings.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_mySavingsFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_myContributionsFragment, bundle)
         }
         cardAnalytics.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_analyticsFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_myContributionsFragment, bundle)
         }
         cardChamas.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_myChamasFragment)

@@ -260,6 +260,7 @@
                 tools:listitem="@layout/item_chama_member"
                 tools:itemCount="3" />
 
+
             <!-- Generate Invitation Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_generate_invitation"
